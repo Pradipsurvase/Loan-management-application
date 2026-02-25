@@ -1,4 +1,4 @@
-package com.example.educationloan.security;
+package com.example.educationloan.service;
 
 import com.example.educationloan.entity.Role;
 import com.example.educationloan.entity.User;

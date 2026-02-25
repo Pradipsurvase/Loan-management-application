@@ -84,7 +84,7 @@ APPLICATION FAILED TO START
 
 Description:
 
-Parameter 2 of constructor in com.example.educationloan.security.UserService required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
+Parameter 2 of constructor in com.example.educationloan.service.UserService required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
 
 
 Action:
