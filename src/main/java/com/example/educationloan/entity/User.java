@@ -1,6 +1,7 @@
 package com.example.educationloan.entity;
 
 
+
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.Set;
         indexes = {
                 @Index(name = "idx_email", columnList = "email"),
                 @Index(name = "idx_username", columnList = "username"),
-                @Index(name = "idx_is_active", columnList = "isActive")
+                @Index(name = "idx_is_active", columnList = "is_active")
         }
 )
 @Getter
@@ -31,14 +32,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name="",nullable = false, length = 50)
     private String username;
 
     @Column(nullable = false, length = 100)
     private String email;
 
     @Column(nullable = false, length = 255)
-    private String password; // BCrypt encrypted
+    private String password;
 
     @Column(nullable = false, length = 100)
     private String firstName;
@@ -64,10 +65,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"),
             indexes = {
-                    @Index(name = "idx_user_roles_user_id", columnList = "user_id"),
-                    @Index(name = "idx_user_roles_role_id", columnList = "role_id")
-            })
-     Set<Role> roles = new HashSet<>();
+                    @Index(name = "idx_user_id", columnList = "user_id"),
+                    @Index(name = "idx_role_id", columnList = "role_id")
+            }
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {

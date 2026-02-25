@@ -1,6 +1,7 @@
 package com.example.educationloan.entity;
 
 
+
 import com.example.educationloan.enumconstant.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,7 +30,7 @@ public class Role {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private RoleEnum name;
 
     @Column(length = 500)
