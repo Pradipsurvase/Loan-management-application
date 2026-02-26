@@ -18,8 +18,7 @@ import java.util.Set;
                 @Index(name = "idx_name", columnList = "name")
         }
 )
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

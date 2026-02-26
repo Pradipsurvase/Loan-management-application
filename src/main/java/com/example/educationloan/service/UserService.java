@@ -10,9 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -24,6 +23,33 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /*
+     * Get user by ID
+     */
+    @Transactional(readOnly = true)
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
+
+    /*
+    * get all users
+    * */
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found with id: " + id);
+        }else{
+            userRepository.deleteById(id);
+            log.info("User with id {} deleted successfully", id);
+        }
+
+    }
+
 
     /*
      *get user by username
@@ -33,6 +59,9 @@ public class UserService {
         return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found with username: " + username));
     }
 
+
+
+
     /*
      * Get user by email
      */
@@ -41,13 +70,6 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with email: " + email));
     }
 
-    /*
-     * Get user by ID
-     */
-    @Transactional(readOnly = true)
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
-    }
 
     /*
      * assign role to user
@@ -181,7 +203,7 @@ public User createUser(String username, String email, String password, String fi
 
 /*
 * filter users by role and active status
-* */
+**/
     @Transactional(readOnly = true)
  public List<User> filterUsersByRoleAndStatus(RoleEnum roleName, Boolean isActive) {
         return userRepository.findByRoleAndStatus(roleName, isActive);
@@ -195,12 +217,48 @@ public List<User> filterUsersByRoleAndStatusCursor(RoleEnum roleName,Boolean isA
            return userRepository.findByRoleAndStatusAfterCursor(roleName, isActive, cursorId, pageable);
     }
     */
+    @Transactional
+    public User updateUser(Long id, String username, String email, String password, String firstName, String lastName) {
+        User user = getUserById(id);
+
+        Optional.ofNullable(username).filter(u -> !u.isBlank()).ifPresent(uname -> {
+                    boolean usernameTaken = userRepository.existsByUsername(uname) && !user.getUsername().equals(uname);
+                    if (usernameTaken) {
+                        throw new RuntimeException("Username already exists: " + uname);
+                    }
+                    user.setUsername(uname);
+                });
+
+        Optional.ofNullable(email).filter(e -> !e.isBlank()).ifPresent(e -> {
+                    boolean emailTaken = userRepository.existsByEmail(e) && !user.getEmail().equals(e);
+                    if (emailTaken) {
+                        throw new RuntimeException("Email already exists: " + e);
+                    }
+                    user.setEmail(e);
+                });
+
+        Optional.ofNullable(password).filter(p -> !p.isBlank()).map(passwordEncoder::encode).ifPresent(user::setPassword);
+
+        Optional.ofNullable(firstName).filter(fn -> !fn.isBlank()).ifPresent(user::setFirstName);
+
+        Optional.ofNullable(lastName).filter(ln -> !ln.isBlank()).ifPresent(user::setLastName);
+
+        userRepository.save(user);
+        log.info("User {} updated successfully", user.getUsername());
+        return user;
+    }
 
 
+    public User patchUser(Long id, String username, String email, String password, String firstName, String lastName) {
+        User existingUser = getUserById(id); // throws exception if not found
 
-
-
-
+        Optional.ofNullable(username).ifPresent(existingUser::setUsername);
+        Optional.ofNullable(email).ifPresent(existingUser::setEmail);
+        Optional.ofNullable(password).ifPresent(existingUser::setPassword);
+        Optional.ofNullable(firstName).ifPresent(existingUser::setFirstName);
+        Optional.ofNullable(lastName).ifPresent(existingUser::setLastName);
+        return userRepository.save(existingUser);
+    }
 
 
 }
