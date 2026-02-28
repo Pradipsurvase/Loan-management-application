@@ -3,6 +3,8 @@ package com.example.educationloan.service;
 import com.example.educationloan.entity.Role;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.enumconstant.RoleEnum;
+import com.example.educationloan.exception.DuplicateResourceException;
+import com.example.educationloan.exception.ResourceNotFoundException;
 import com.example.educationloan.repository.RoleRepository;
 import com.example.educationloan.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +32,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     /*
@@ -42,7 +46,7 @@ public class UserService {
 
     public void deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
-            throw new RuntimeException("User not found with id: " + id);
+            throw new ResourceNotFoundException("User not found with id: " + id);
         }else{
             userRepository.deleteById(id);
             log.info("User with id {} deleted successfully", id);
@@ -56,7 +60,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found with username: " + username));
+        return userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
     }
 
 
@@ -67,7 +71,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
     }
 
 
@@ -93,7 +97,7 @@ public class UserService {
     @Transactional
     public void removeRoleFromUSer(Long Id,RoleEnum roleName){
         User user=getUserById(Id);
-        Role role=roleRepository.findByName(roleName).orElseThrow(()->new RuntimeException("Role not found with name: "+roleName));
+        Role role=roleRepository.findByName(roleName).orElseThrow(()->new ResourceNotFoundException("Role not found with name: "+roleName));
         if(user.getRoles().contains(role)){
             user.getRoles().remove(role);
             role.getUsers().remove(user);
@@ -115,7 +119,7 @@ public class UserService {
        Role role=roleRepository.findByName(RoleEnum.ADMIN).orElseThrow(()->new RuntimeException("Role not found with name: "+RoleEnum.ADMIN));
        return user.getRoles().contains(role);
       */
-        return user.getRoles().stream().anyMatch(role->role.getName()==RoleEnum.ADMIN);
+        return user.getRoles().stream().anyMatch(role->role.getName().equals(RoleEnum.ADMIN));
     }
 
     /*
@@ -182,21 +186,25 @@ public class UserService {
     @Transactional
 public User createUser(String username, String email, String password, String firstName, String lastName) {
     if (userRepository.existsByUsername(username)) {
-        throw new RuntimeException("Username is already exist: " + username);
+        throw new DuplicateResourceException("Username is already exists: " + username);
     }
     if (userRepository.existsByEmail(email)) {
-        throw new RuntimeException("Email is already in use: " + email);
+        throw new DuplicateResourceException("Email already exists: " + email);
     }
+    Role defaultRole = roleRepository.findByName(RoleEnum.USER).orElseThrow(() -> new ResourceNotFoundException("Default role not found: " + RoleEnum.USER));
     User user = User.builder()
             .username(username)
             .email(email)
             .password(passwordEncoder.encode(password))
             .firstName(firstName)
             .lastName(lastName)
+            .createdAt(LocalDateTime.now())
             .isActive(true)
             .isEmailVerified(false)
             .build();
-    userRepository.save(user);
+        user.getRoles().add(defaultRole);
+        userRepository.save(user);
+
     log.info("User {} with email {} created successfully", username, email);
     return user;
 }
@@ -209,14 +217,6 @@ public User createUser(String username, String email, String password, String fi
         return userRepository.findByRoleAndStatus(roleName, isActive);
     }
 
-
-    /*
-    * @Transactional(readOnly = true)
-public List<User> filterUsersByRoleAndStatusCursor(RoleEnum roleName,Boolean isActive,Long cursorId,int pageSize) {
-           Pageable pageable = PageRequest.of(0, pageSize, Sort.by("id").ascending());
-           return userRepository.findByRoleAndStatusAfterCursor(roleName, isActive, cursorId, pageable);
-    }
-    */
     @Transactional
     public User updateUser(Long id, String username, String email, String password, String firstName, String lastName) {
         User user = getUserById(id);
@@ -238,27 +238,29 @@ public List<User> filterUsersByRoleAndStatusCursor(RoleEnum roleName,Boolean isA
                 });
 
         Optional.ofNullable(password).filter(p -> !p.isBlank()).map(passwordEncoder::encode).ifPresent(user::setPassword);
-
         Optional.ofNullable(firstName).filter(fn -> !fn.isBlank()).ifPresent(user::setFirstName);
-
         Optional.ofNullable(lastName).filter(ln -> !ln.isBlank()).ifPresent(user::setLastName);
-
         userRepository.save(user);
         log.info("User {} updated successfully", user.getUsername());
         return user;
     }
 
-
     public User patchUser(Long id, String username, String email, String password, String firstName, String lastName) {
-        User existingUser = getUserById(id); // throws exception if not found
-
+        User existingUser = getUserById(id);
         Optional.ofNullable(username).ifPresent(existingUser::setUsername);
         Optional.ofNullable(email).ifPresent(existingUser::setEmail);
-        Optional.ofNullable(password).ifPresent(existingUser::setPassword);
+        Optional.ofNullable(password).filter(p -> !p.isBlank()).map(passwordEncoder::encode).ifPresent(existingUser::setPassword);
         Optional.ofNullable(firstName).ifPresent(existingUser::setFirstName);
         Optional.ofNullable(lastName).ifPresent(existingUser::setLastName);
         return userRepository.save(existingUser);
     }
 
+        /*
+    * @Transactional(readOnly = true)
+public List<User> filterUsersByRoleAndStatusCursor(RoleEnum roleName,Boolean isActive,Long cursorId,int pageSize) {
+           Pageable pageable = PageRequest.of(0, pageSize, Sort.by("id").ascending());
+           return userRepository.findByRoleAndStatusAfterCursor(roleName, isActive, cursorId, pageable);
+    }
+    */
 
 }

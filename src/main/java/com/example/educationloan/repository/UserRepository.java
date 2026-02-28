@@ -1,6 +1,6 @@
 package com.example.educationloan.repository;
 
-import com.example.educationloan.entity.Role;
+
 import com.example.educationloan.entity.User;
 import com.example.educationloan.enumconstant.RoleEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,10 +27,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = :roleName AND u.isActive = :isActive")
     List<User> findByRoleAndStatus(@Param("roleName") RoleEnum roleName, @Param("isActive") Boolean isActive);
 
-    List<User> findBy_UserRoleName(RoleEnum roleName);
+    List<User> findByRoles_Name(String roleName);
+
 
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = :roleName")
-    List<User> findBy_SpecificRoleName(@Param("roleName") RoleEnum roleName);
+    List<User> findBySpecificRoleName(@Param("roleName") RoleEnum roleName);
 
 
 

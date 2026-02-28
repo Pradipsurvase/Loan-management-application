@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class UserController {
     private final UserService userService;
 
-
-
     //controller to create user-----------------------------------------------------------------------------------------
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<UserDTO>> createUser1(@RequestBody User user) {
-        User createdUser = userService.createUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
+        User createdUser = userService.createUser(
+                user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(),
+                user.getLastName());
 
         UserDTO response = UserDTO.builder()
                 .id(createdUser.getId())
@@ -31,6 +31,7 @@ public class UserController {
                 .firstName(createdUser.getFirstName())
                 .lastName(createdUser.getLastName())
                 .isActive(createdUser.getIsActive())
+                .createdAt(createdUser.getCreatedAt())
                 .isEmailVerified(createdUser.getIsEmailVerified())
                 .build();
 
@@ -119,9 +120,6 @@ public class UserController {
                 .build();
         return ResponseEntity.ok(new ApiResponse<>(true, "User patched successfully", response));
     }
-
-
-
 }
 
 
