@@ -44,16 +44,12 @@ public class RoleController {
     * */
     @PutMapping("/updateUserRole/{userId}/{newRoleName}")
     public ResponseEntity<ApiResponse<UserDTO>> updateUserRole(@PathVariable Long userId, @PathVariable RoleEnum newRoleName) {
-        Optional<User> userOptional=userService.getUserById1(userId);
+        //update the user's role and get the updated user
         User updatedUserRole=roleService.updateUserRole(userId, newRoleName);
-        User user = userOptional.get();
-        UserDTO userDTO = new UserDTO().toUserDTO(user);
+        //convert the updated user to UserDTO
+        UserDTO userDTO = new UserDTO().toUserDTO(updatedUserRole);
         return ResponseEntity.ok(new ApiResponse<>(true,"User role updated successfully for user with id:"+ userId,userDTO));
     }
-
-
-
-
 
 
     /*
