@@ -39,6 +39,21 @@ public class RoleController {
         }
     }
 
+    /*
+    2.update the role assign to the specific user--------------------------------------------------------
+    * */
+    @PutMapping("/updateUserRole/{userId}/{newRoleName}")
+    public ResponseEntity<ApiResponse<UserDTO>> updateUserRole(@PathVariable Long userId, @PathVariable RoleEnum newRoleName) {
+        Optional<User> userOptional=userService.getUserById1(userId);
+        User updatedUserRole=roleService.updateUserRole(userId, newRoleName);
+        User user = userOptional.get();
+        UserDTO userDTO = new UserDTO().toUserDTO(user);
+        return ResponseEntity.ok(new ApiResponse<>(true,"User role updated successfully for user with id:"+ userId,userDTO));
+    }
+
+
+
+
 
 
     /*
@@ -84,12 +99,7 @@ public class RoleController {
         return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with role: "+roleName,roleService.getUsersByRoleName(roleName)));
     }
 
-    /*update the role of the specific user id*/
-    @PutMapping("/updateUserRole/{userId}/{newRoleName}")
-    public ResponseEntity<ApiResponse<Role>> updateUserRole(@PathVariable Long userId, @PathVariable RoleEnum newRoleName) {
-        Role updatedRole=roleService.updateUserRole(userId, newRoleName);
-        return ResponseEntity.ok(new ApiResponse<>(true,"User role updated successfully for user with id:"+ userId,updatedRole));
-    }
+
     //-----------------------------------------------------------------------------------------------------------------------------
     // Create or get a role by name
     @PostMapping("/create")

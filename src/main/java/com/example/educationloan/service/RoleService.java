@@ -120,25 +120,35 @@ public class RoleService {
 
     /*update role of the specific user*/
     @Transactional
-    public Role updateUserRole(Long userId, RoleEnum newRoleName) {
-        Role role=roleRepository.findById(userId).orElseThrow(()->new RuntimeException("Role not found with id: "+userId));
-        //if a name is provided for the new role, check if it already exists and is not the same role being updated
-        if(newRoleName!=null){
-            roleRepository.findByName(newRoleName).ifPresent(existingRole -> {
-                if (!existingRole.getRoleId().equals(userId)) {
-                    throw new RuntimeException("Role name already exists: " + newRoleName);
-                }
-            });
-               role.setName(newRoleName);
-        }
-        //save the updated role to the database
-        Role updatedRole=roleRepository.save(role);
-        log.info("Updated role for user with id {}: new role name {}", userId, updatedRole.getName());
-        return updatedRole;
+    public User updateUserRole(Long userId, RoleEnum newRoleName) {
+
+        //fetch the user by id
+        User user=userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("User not found with id: "+userId));
+
+        //fetch thr role by its enum name
+        Role role=roleRepository.findByName(newRoleName).orElseThrow(()->new ResourceNotFoundException("Role not found with name: "+newRoleName));
+
+        //clear existing roles and assign the new role
+        user.getRoles().clear();
+        user.getRoles().add(role);
+        return userRepository.save(user);
+
     }
 
     public List<Role> getRolesByUserId1(Long userId) {
         return roleRepository.findRolesByUserId(userId);
     }
+
+    /*update role assign to the specific user*/
+    public User updateUserRole1(Long userId, RoleEnum newRoleName) {
+        User user = userService.getUserById(userId);
+        Role newRole = roleRepository.findByName(newRoleName).orElseThrow(() -> new RuntimeException("Role not found with name: " + newRoleName));
+        user.getRoles().clear(); // Clear existing roles
+        user.getRoles().add(newRole); // Assign the new role
+        User updatedUser = userRepository.save(user);
+        log.info("Updated role for user with id {}: new role name {}", userId, newRoleName);
+        return updatedUser;
+    }
+
 }
 
