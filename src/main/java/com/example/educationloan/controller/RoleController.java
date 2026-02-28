@@ -1,47 +1,62 @@
 package com.example.educationloan.controller;
 
+import com.example.educationloan.dto.UserDTO;
 import com.example.educationloan.entity.Role;
+import com.example.educationloan.entity.User;
 import com.example.educationloan.enumconstant.RoleEnum;
 import com.example.educationloan.response.ApiResponse;
 import com.example.educationloan.service.RoleService;
+import com.example.educationloan.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/roles")
 @RequiredArgsConstructor
 public class RoleController {
     private final RoleService roleService;
+    private final UserService userService;
 
     /*
-    * get role by name--------------------------------------------------------------------------------------
-    * */
+    1.Get all roles assigned to a specific user-----------------------------------------------------------------------------------
+    */
+    @GetMapping("/byUserId/{userId}")
+    public ResponseEntity<ApiResponse<?>> getRolesByUserId(@PathVariable Long userId) {
+       Optional<User> userOptional=userService.getUserById1(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserDTO userDTO = new UserDTO().toUserDTO(user);
+            List<Role> roles = roleService.getRolesByUserId(userId);
+            user.setRoles(roles);
+            return ResponseEntity.ok(new ApiResponse<>(true, "Roles for user with id " + userId + " fetched successfully",userDTO ));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false, "User with id " + userId + " not found", null));
+        }
+    }
+
+
+
+    /*
+     * get role by name--------------------------------------------------------------------------------------
+     * */
     @GetMapping("/{roleName}")
     public ResponseEntity<ApiResponse<Role>> getRoleByName(@PathVariable RoleEnum role) {
         return roleService.getByRoleName(role).map(roleObj->ResponseEntity.ok(new ApiResponse<>(true,"User Role Found",roleObj))).
-                              orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false,"User Role Not Found",null)));
+                orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false,"User Role Not Found",null)));
     }
 
     /*
-    *Get all roles
-    * */
+     *Get all roles------------------------------------------------------------------------------------------------
+     * */
     @GetMapping("/getRoles")
     public ResponseEntity<ApiResponse<?>> getAllRoles() {
         List<Role> role=roleService.getAllRoles();
         return ResponseEntity.ok(new ApiResponse<>(true,"All roles fetched successfully",role));
-    }
-
-    /*
-    *Get all roles assigned to a specific user
-    * */
-    @GetMapping("/byUserId/{userId}")
-    public ResponseEntity<ApiResponse<?>> getRolesByUserId(@PathVariable Long userId) {
-        List<Role> roles = roleService.getRolesByUserId(userId);
-        return ResponseEntity.ok(new ApiResponse<>(true,"Roles for user with id " + userId + " fetched successfully",roles));
     }
 
     /*create a new role if not exist or get existing role*/

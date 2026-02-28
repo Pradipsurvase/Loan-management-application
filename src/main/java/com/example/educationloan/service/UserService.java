@@ -263,4 +263,13 @@ public List<User> filterUsersByRoleAndStatusCursor(RoleEnum roleName,Boolean isA
     }
     */
 
+    public Optional<User> getUserById1(Long userId) {
+        return userRepository.findById(userId);
+    }
+
+    public List<Role> getRolesByUserId(Long userId) {
+        return roleRepository.findRolesByUserId(userId);
+    }
+
+
 }

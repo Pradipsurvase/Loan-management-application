@@ -62,7 +62,7 @@ public class RoleService {
                   //  .description("Default description for " + name)
                     .build();
             Role savedRole = roleRepository.save(newRole);
-            log.info("Created new role with name {} and id {}", savedRole.getName(), savedRole.getId());
+            log.info("Created new role with name {} and id {}", savedRole.getName(), savedRole.getRoleId());
             return savedRole;
         });
     }
@@ -92,13 +92,13 @@ public class RoleService {
         Role role = roleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + id));
          if(name!=null){
              roleRepository.findByName(name).ifPresent(existingRole -> {
-                 if (!existingRole.getId().equals(id)) {
+                 if (!existingRole.getRoleId().equals(id)) {
                      throw new DuplicateResourceException("Role name already exists: " + name);
                  }
              });
              role.setName(name);
          }
-         role.setName(name);
+
          return roleRepository.save(role);
     }
 
@@ -125,7 +125,7 @@ public class RoleService {
         //if a name is provided for the new role, check if it already exists and is not the same role being updated
         if(newRoleName!=null){
             roleRepository.findByName(newRoleName).ifPresent(existingRole -> {
-                if (!existingRole.getId().equals(userId)) {
+                if (!existingRole.getRoleId().equals(userId)) {
                     throw new RuntimeException("Role name already exists: " + newRoleName);
                 }
             });
@@ -135,6 +135,10 @@ public class RoleService {
         Role updatedRole=roleRepository.save(role);
         log.info("Updated role for user with id {}: new role name {}", userId, updatedRole.getName());
         return updatedRole;
+    }
+
+    public List<Role> getRolesByUserId1(Long userId) {
+        return roleRepository.findRolesByUserId(userId);
     }
 }
 

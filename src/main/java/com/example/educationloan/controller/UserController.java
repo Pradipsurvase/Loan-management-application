@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class UserController {
     private final UserService userService;
 
-    //controller to create user-----------------------------------------------------------------------------------------
+    /*
+    1.controller to create user-----------------------------------------------------------------------------------------
+    */
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<UserDTO>> createUser1(@RequestBody User user) {
-        User createdUser = userService.createUser(
-                user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(),
-                user.getLastName());
+        User createdUser = userService.createUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
 
         UserDTO response = UserDTO.builder()
                 .id(createdUser.getId())
@@ -34,11 +34,12 @@ public class UserController {
                 .createdAt(createdUser.getCreatedAt())
                 .isEmailVerified(createdUser.getIsEmailVerified())
                 .build();
-
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(true,"User created successfully",response));
     }
 
-//read the  user by id--------------------------------------------------------------------------------------------------
+/*
+*read the  user by id--------------------------------------------------------------------------------------------------
+ */
     @GetMapping("/get/{id}")
     public ResponseEntity<ApiResponse<UserDTO>> getUser(@PathVariable Long id) {
         User user = userService.getUserById(id);
@@ -55,7 +56,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(true,"User Read successfully",response));
     }
 
-    // Get all users----------------------------------------------------------------------------------------------------
+    /*
+    *Get all users----------------------------------------------------------------------------------------------------
+     */
     @GetMapping("/getAll")
     public ResponseEntity<ApiResponse<List<UserDTO>>> getAllUsers() {
         List<User> users = userService.getAllUsers();

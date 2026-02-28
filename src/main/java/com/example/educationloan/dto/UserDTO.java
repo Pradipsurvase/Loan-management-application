@@ -22,7 +22,7 @@ public class UserDTO {
     private LocalDateTime updatedAt;
     private Set<RoleDTO> roles;
 
-    public UserDTO toDTO(User user) {
+    public UserDTO toUserDTO(User user) {
         return UserDTO.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -34,7 +34,7 @@ public class UserDTO {
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .roles(user.getRoles().stream()
-                        .map(role -> new RoleDTO(role.getId(), role.getName()))
+                        .map(role -> new RoleDTO(role.getRoleId(), role.getName()))
                         .collect(Collectors.toSet()))
                 .build();
     }
