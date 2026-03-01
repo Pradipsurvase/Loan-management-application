@@ -2,6 +2,8 @@ package com.example.educationloan.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(
         name = "user_roles",
@@ -23,15 +25,28 @@ public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
-    @EqualsAndHashCode.Include
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_role_user"))
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @EqualsAndHashCode.Include
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_role_role"))
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
+
+    @Column(nullable = false)
+    private String assignedBy;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime assignedAt;
+
+    // convenience constructor
+    public UserRole(User user, Role role, String assignedBy) {
+        this.user = user;
+        this.role = role;
+        this.assignedBy = assignedBy;
+        this.assignedAt = LocalDateTime.now();
+    }
 }

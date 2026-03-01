@@ -1,7 +1,5 @@
 package com.example.educationloan.entity;
 
-
-
 import com.example.educationloan.enumconstant.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -33,13 +31,11 @@ public class Role {
     private Long roleId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="role_name",nullable = false, length = 50, unique = true)
+    @Column(name = "role_name", nullable = false, length = 50, unique = true)
     private RoleEnum name;
 
-
     @Builder.Default
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-   // @JsonBackReference
-    @JsonIgnore              // prevents recursion
-    private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore   // prevents recursion in serialization
+    private Set<UserRole> userRoles = new HashSet<>();
 }

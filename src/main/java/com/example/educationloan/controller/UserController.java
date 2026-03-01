@@ -2,6 +2,7 @@ package com.example.educationloan.controller;
 
 import com.example.educationloan.dto.UserDTO;
 import com.example.educationloan.entity.User;
+import com.example.educationloan.enumconstant.RoleEnum;
 import com.example.educationloan.response.ApiResponse;
 import com.example.educationloan.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.example.educationloan.dto.UserDTO.toUserDTO;
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,41 +26,30 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<UserDTO>> createUser1(@RequestBody User user) {
         User createdUser = userService.createUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
-
-        UserDTO response = UserDTO.builder()
-                .id(createdUser.getId())
-                .username(createdUser.getUsername())
-                .email(createdUser.getEmail())
-                .firstName(createdUser.getFirstName())
-                .lastName(createdUser.getLastName())
-                .isActive(createdUser.getIsActive())
-                .createdAt(createdUser.getCreatedAt())
-                .isEmailVerified(createdUser.getIsEmailVerified())
-                .build();
+        UserDTO response = toUserDTO(createdUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(true,"User created successfully",response));
     }
 
 /*
-*read the  user by id--------------------------------------------------------------------------------------------------
+2.read the  user by id---------------------------------------------------------------------------------------------------
  */
     @GetMapping("/get/{id}")
     public ResponseEntity<ApiResponse<UserDTO>> getUser(@PathVariable Long id) {
         User user = userService.getUserById(id);
-
-        UserDTO response = UserDTO.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .isActive(user.getIsActive())
-                .isEmailVerified(user.getIsEmailVerified())
-                .build();
+        UserDTO response = toUserDTO(user);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(true,"User Read successfully",response));
     }
 
+    /* 3.assign multiple roles to the existing user if same role is not exist--------------------------------------------------------------------------------------
+     */
+    @PostMapping("assign/{userId}/roles")
+    public ResponseEntity<ApiResponse<UserDTO>> assignRoles(@PathVariable Long userId, @RequestBody List<RoleEnum> roleNames) {
+        User updatedUser = userService.assignRolesUser1(userId, roleNames);
+        UserDTO response = toUserDTO(updatedUser);
+        return ResponseEntity.ok(new ApiResponse<>(true,"Roles assigned to user successfully",response));
+    }
     /*
-    *Get all users----------------------------------------------------------------------------------------------------
+    *Get all users------------------------------------------------------------------------------------------------------
      */
     @GetMapping("/getAll")
     public ResponseEntity<ApiResponse<List<UserDTO>>> getAllUsers() {
@@ -74,7 +66,6 @@ public class UserController {
                         .isEmailVerified(user.getIsEmailVerified())
                         .build())
                 .collect(Collectors.toList());
-
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(true,"All User Read Successfully",response));
     }
 
@@ -107,7 +98,7 @@ public class UserController {
         return ResponseEntity.ok(new ApiResponse<>(true,"User deleted successfully",id));
     }
 
-    // PATCH - Partial Update ---------------------------------------------------------------------------------------------
+    // PATCH - Partial Update ------------------------------------------------------------------------------------------
     @PatchMapping("/patch/{id}")
     public ResponseEntity<ApiResponse<UserDTO>> patchUser(@PathVariable Long id, @RequestBody User user) {
         User patchedUser = userService.patchUser(id, user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());

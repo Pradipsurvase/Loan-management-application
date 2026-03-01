@@ -1,18 +1,25 @@
 package com.example.educationloan.repository;
 
-
-import com.example.educationloan.entity.Role;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 
-    List<UserRole> findByUser(User user);
-    List<UserRole> findByRole(Role role);
-    boolean existsByUserAndRole(User user, Role role);
+    // Fetch all UserRole mappings for a given user
+    List<UserRole> findByUser_Id(Long userId);
+
+    // Fetch all UserRole mappings for a given role
+    List<UserRole> findByRole_RoleId(Long roleId);
+
+    //Fetch User with all roles eagerly — fixes LazyInitializationException
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.userRoles ur LEFT JOIN FETCH ur.role WHERE u.id = :id")
+    Optional<User> findByIdWithRoles(@Param("id") Long id);
 }

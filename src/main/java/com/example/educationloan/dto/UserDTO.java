@@ -1,14 +1,14 @@
 package com.example.educationloan.dto;
-
 import com.example.educationloan.entity.User;
-import lombok.*;
+import com.example.educationloan.entity.UserRole;
+import lombok.Builder;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class UserDTO {
     private Long id;
@@ -20,9 +20,9 @@ public class UserDTO {
     private Boolean isEmailVerified;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Set<RoleDTO> roles;
+    private Set<RoleDTO> roles; // ✅ Roles stored as a Set
 
-    public UserDTO toUserDTO(User user) {
+    public static UserDTO toUserDTO(User user) {
         return UserDTO.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -33,12 +33,10 @@ public class UserDTO {
                 .isEmailVerified(user.getIsEmailVerified())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
-                .roles(user.getRoles().stream()
+                .roles(user.getUserRoles().stream()
+                        .map(UserRole::getRole) // ✅ Extract Role from UserRole
                         .map(role -> new RoleDTO(role.getRoleId(), role.getName()))
-                        .collect(Collectors.toSet()))
+                        .collect(Collectors.toSet())) // ✅ Collect into Set
                 .build();
     }
-
-
-
 }

@@ -1,14 +1,13 @@
 package com.example.educationloan.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -51,30 +50,26 @@ public class User {
     @Column(nullable = false, length = 100)
     private String lastName;
 
-    @Column(name = "is_active", nullable = false)
+
     private Boolean isActive = true;
 
     @Column(name = "is_email_verified", nullable = false)
     private Boolean isEmailVerified = false;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-
     @Builder.Default
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-            )
-
     @JsonManagedReference
-    private List<Role> roles = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<UserRole> userRoles = new HashSet<>();
 
+    // helper method to assign a role with metadata
+    public void addRole(Role role, String assignedBy) {
+        UserRole userRole = new UserRole(this, role, assignedBy);
+        this.userRoles.add(userRole);
+    }
 }
