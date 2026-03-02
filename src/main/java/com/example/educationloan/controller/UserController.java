@@ -1,5 +1,6 @@
 package com.example.educationloan.controller;
 
+import com.example.educationloan.dto.UpdateUserDTO;
 import com.example.educationloan.dto.UserDTO;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.enumconstant.RoleEnum;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.educationloan.dto.UpdateUserDTO.toUpdateUserDTO;
 import static com.example.educationloan.dto.UserDTO.toUserDTO;
 
 @RestController
@@ -72,17 +74,10 @@ public class UserController {
 
     // UPDATE-----------------------------------------------------------------------------------------------------------
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse<UserDTO>> updateUser(@PathVariable Long id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
-        UserDTO response = UserDTO.builder()
-                .id(updatedUser.getId())
-                .username(updatedUser.getUsername())
-                .email(updatedUser.getEmail())
-                .firstName(updatedUser.getFirstName())
-                .lastName(updatedUser.getLastName())
-                .isActive(updatedUser.getIsActive())
-                .isEmailVerified(updatedUser.getIsEmailVerified())
-                .build();
+    public ResponseEntity<ApiResponse<UpdateUserDTO>> updateUser(@PathVariable Long id, @RequestBody UpdateUserDTO user) {
+        User updatedUser = userService.updateUser(id, null, user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
+        UpdateUserDTO response = toUpdateUserDTO(updatedUser);
+
         return ResponseEntity.ok(new ApiResponse<>(true,"User Updated Successfully ",response));
     }
 

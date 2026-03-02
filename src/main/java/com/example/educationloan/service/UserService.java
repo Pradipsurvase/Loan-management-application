@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -27,12 +28,11 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    //auto generate unique username,regenerate if already exists in database
+    private final Random random = new Random();
     private String generateUsername(String firstName, String lastName) {
         String username;
         do {
-            int randomNumber = (int) (Math.random() * 900000) + 100000;
+            int randomNumber = random.nextInt(9000) + 1000;
             username = (firstName + "_" + lastName + "_" + randomNumber).toLowerCase();
         } while (userRepository.existsByUsername(username));
         return username;

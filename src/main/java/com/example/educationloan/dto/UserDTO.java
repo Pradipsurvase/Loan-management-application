@@ -22,7 +22,7 @@ public class UserDTO {
     private Boolean isEmailVerified;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Set<RoleDTO> roles; // ✅ Roles stored as a Set
+    private Set<RoleDTO> roles;
 
     public static UserDTO toUserDTO(User user) {
         return UserDTO.builder()

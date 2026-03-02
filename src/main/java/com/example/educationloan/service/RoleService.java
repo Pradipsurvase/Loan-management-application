@@ -11,12 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.educationloan.enumconstant.RoleEnum.EMPLOYEE;
-import static com.example.educationloan.enumconstant.RoleEnum.USER;
 
 @Service
 @Slf4j
@@ -27,6 +24,7 @@ public class RoleService {
     private final RoleRepository roleRepository;
     private final UserService userService;
     private final UserRepository userRepository;
+
 
     // Get role by name-------------------------------------------------------------
 
@@ -56,8 +54,8 @@ public class RoleService {
     public Role createOrGetRole(RoleEnum name) {
         return roleRepository.findByName(name).orElseGet(() -> {
             Role newRole = Role.builder()
-                    .name(name)
-                    .build();
+                               .name(name)
+                               .build();
             Role savedRole = roleRepository.save(newRole);
             log.info("Created new role with name {} and id {}", savedRole.getName(), savedRole.getRoleId());
             return savedRole;
@@ -73,7 +71,7 @@ public class RoleService {
         Role role=roleRepository.findByName(roleName).orElseThrow(() -> new ResourceNotFoundException("Role not found with name:" + roleName));
      // find user or throw
       User user=userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("User not found with this id:"+userId));
-      //if user has at most 1 i.e only one role don't remove, instead use update api
+      //if user has at most 1 i.e= only one role don't remove, instead use update api
       if(user.getUserRoles().size()==1){
           throw new LastRoleException("Cannot remove the last role '" + roleName + "' from user with id: " + userId + ". User must have at least one role assigned.");
       }
@@ -92,30 +90,12 @@ public class RoleService {
      return  user1;
     }
 
-    //Update role details-----------------------------------------------------------
 
-    @Transactional
-    public Role updateRole(Long id, RoleEnum name) {
-        Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + id));
 
-        if (name != null) {
-            roleRepository.findByName(name).ifPresent(existingRole -> {
-                if (!existingRole.getRoleId().equals(id)) {
-                    throw new DuplicateResourceException("Role name already exists: " + name);
-                }
-            });
-            role.setName(name);
-        }
-
-        return roleRepository.save(role);
-    }
-
-    //Fetch all users who have the USER role(custom Query created to fetch the user with USER role-----------
-
+    //Fetch all user who has role provided in the url path----------------------------------
     @Transactional(readOnly = true)
-    public List<User> getUserWithUserRole() {
-        return userRepository.findByRoleName(USER);
+    public List<User> getUserWithRole(String roleName) {
+        return userRepository.findByRoleName(RoleEnum.valueOf(roleName.toUpperCase()));
     }
 
     //Fetch all users with a specific role--------------------------------------------------------
@@ -159,12 +139,15 @@ public class RoleService {
     }
 
 
+
+
+    /*
+
     public List<Role> getRolesByUserId1(Long userId) {
         return roleRepository.findRolesByUserId(userId);
     }
 
     //Update role assigned to a specific user (alternate version)--------------------------------------
-
     @Transactional
     public User updateUserRole1(Long userId, RoleEnum newRoleName) {
         User user = userService.getUserById(userId);
@@ -179,4 +162,27 @@ public class RoleService {
         log.info("Updated role for user with id {}: new role name {}", userId, newRoleName);
         return updatedUser;
     }
+
+    //Update role details---------------------------------------------------------------------------------------
+    @Transactional
+    public Role updateRole(Long id, RoleEnum name) {
+        Role role = roleRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + id));
+        if (name != null) {
+            roleRepository.findByName(name).ifPresent(existingRole -> {
+                if (!existingRole.getRoleId().equals(id)) {
+                    throw new DuplicateResourceException("Role name already exists: " + name);
+                }
+            });
+            role.setName(name);
+        }
+        return roleRepository.save(role);
+    }
+*/
+
+
+
+
+
+
 }

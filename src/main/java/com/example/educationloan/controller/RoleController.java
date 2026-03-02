@@ -26,7 +26,7 @@ public class RoleController {
     private final UserService userService;
     private final UserRoleService userRoleService;
 
-    //1.Get all roles assigned to a specific user-----------------------------------------------------------------------
+    //1.Get all data and roles assigned to a specific user-----------------------------------------------------------
     @GetMapping("/byUserId/{userId}")
     public ResponseEntity<ApiResponse<?>> getRolesByUserId(@PathVariable Long userId) {
         Optional<User> userOptional = userService.getUserById1(userId);
@@ -45,7 +45,28 @@ public class RoleController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false, "User with id " + userId + " not found", null));
         }
     }
-    // 2.add or assign  new role to the existing user,if same role is not exist-----------------------------------------
+
+    //2.get all data and roles assigned to all user data at once-------------------------------------
+    @GetMapping("/getAllData")
+    public ResponseEntity<ApiResponse<List<UserDTO>>> getAllUsersWithRoles() {
+        List<User> users = userService.getAllUsers();
+        List<UserDTO> userDTOs = users.stream().map(user -> {
+            UserDTO userDTO = toUserDTO(user);
+            // Fetch roles for each user
+            List<UserRole> userRoles = userRoleService.getUserRolesByUserId(user.getId());
+            // Map to RoleDTO and attach to UserDTO
+            List<RoleDTO> roleDTOs = userRoles.stream()
+                    .map(UserRole::getRole)
+                    .map(role -> new RoleDTO(role.getRoleId(), role.getName()))
+                    .toList();
+            userDTO.setRoles(new HashSet<>(roleDTOs));
+            return userDTO;
+        }).toList();
+        return ResponseEntity.ok(new ApiResponse<>(true, "All users with roles fetched successfully", userDTOs));
+    }
+
+
+    // 3.add or assign  new role to the existing user,if same role is not exist-----------------------------------------
     @PostMapping("/assignRole/{userId}/{roleName}")
     public ResponseEntity<ApiResponse<UserDTO>> assignRoleUser(@PathVariable Long userId, @PathVariable RoleEnum roleName) {
         User updatedUserRole=userService.assignRoleToUser(userId, roleName);
@@ -53,7 +74,7 @@ public class RoleController {
         return ResponseEntity.ok(new ApiResponse<>(true,"Role "+ roleName+" assigned to user with id "+userId+" successfully",userDTO));
     }
 
-    //3.update the role assign to the specific user---------------------------------------------------------------------
+    //4.update the role assign to the specific user---------------------------------------------------------------------
     @PutMapping("/updateUserRole/{userId}/{oldRole}/{newRole}")
     public ResponseEntity<ApiResponse<UserDTO>> updateUserRole(@PathVariable Long userId, @PathVariable RoleEnum oldRole,@PathVariable RoleEnum newRole) {
         User updatedUserRole=roleService.updateUserRole(userId, oldRole,newRole);
@@ -61,7 +82,7 @@ public class RoleController {
         return ResponseEntity.ok(new ApiResponse<>(true,"User role updated successfully for user with id:"+ userId,userDTO));
     }
 
-    //4.remove role from a specific user--------------------------------------------------------------------------------
+    //5.remove role from a specific user--------------------------------------------------------------------------------
     @DeleteMapping("/removeRole/{userId}/{roleName}")
     public ResponseEntity<ApiResponse<UserDTO>> removeRoleFromUser(@PathVariable Long userId, @PathVariable RoleEnum roleName) {
             User updatedUser=roleService.removeRoleFromUser(userId, roleName);
@@ -69,33 +90,38 @@ public class RoleController {
             return ResponseEntity.ok(new ApiResponse<>(true,"Role " + roleName + " removed from user with id " + userId,userDTO));
     }
 
-
-    //5.get role by name------------------------------------------------------------------------------------------------
-
+    //6.get role id and name by roleName------------------------------------------------------------------------------------------------
     @GetMapping("/{roleName}")
-    public ResponseEntity<ApiResponse<Role>> getRoleByName(@PathVariable RoleEnum role) {
-        return roleService.getByRoleName(role).map(roleObj->ResponseEntity.ok(new ApiResponse<>(true,"User Role Found",roleObj))).
+    public ResponseEntity<ApiResponse<Role>> getRoleByName(@PathVariable RoleEnum roleName) {
+        return roleService.getByRoleName(roleName).map(roleObj->ResponseEntity.ok(new ApiResponse<>(true,"User Role Found",roleObj))).
                 orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false,"User Role Not Found",null)));
     }
 
-
-    //Get all roles----------------------------------------------------------------------------------------------------
-    @GetMapping("/getRoles")
+    //7.Get all roles and its id at once--------------------------------------------------------------------------------
+    @GetMapping("/getAllRoles")
     public ResponseEntity<ApiResponse<?>> getAllRoles() {
         List<Role> role=roleService.getAllRoles();
         return ResponseEntity.ok(new ApiResponse<>(true,"All roles fetched successfully",role));
     }
 
-    //create a new role if not exist or get existing role---------------------------------------------------------------
+
+    //8. fetch all user based on specific role assign to him------------------------------------------------------------------------------
+    @GetMapping("/allWithRole/{roleName}")
+    public ResponseEntity<ApiResponse<?>> getUsersWithRole(@PathVariable String roleName) {
+        return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with user role"+roleName,roleService.getUserWithRole(roleName)));
+    }
+
+
+
+
+
+
+
+
+    //8.create a new role if not exist or get existing role-------------------------------------------------------------
     @PostMapping("/createRole/{roleName}")
     public ResponseEntity<ApiResponse<Role>> createOrGetRole(@PathVariable RoleEnum roleName) {
         return ResponseEntity.ok(new ApiResponse<>(true,"Role created or retrieved successfully",roleService.createOrGetRole(roleName)));
-    }
-
-    /* fetch all user who have User role*/
-    @GetMapping("/usersWithRole")
-    public ResponseEntity<ApiResponse<?>> getUsersWithRole() {
-        return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with user role",roleService.getUserWithUserRole()));
     }
 
     //fetch all user with specific role---------------------------------------------------------------------------------

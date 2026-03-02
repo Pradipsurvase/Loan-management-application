@@ -2,6 +2,7 @@ package com.example.educationloan.entity;
 
 import com.example.educationloan.enumconstant.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Role {
 
     @Id
