@@ -19,20 +19,17 @@ import java.util.List;
 import java.util.Optional;
 import static com.example.educationloan.dto.UserDTO.toUserDTO;
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/api/v1/roles")
 @RequiredArgsConstructor
 public class RoleController {
     private final RoleService roleService;
     private final UserService userService;
     private final UserRoleService userRoleService;
 
-
-    //1.Get all roles assigned to a specific user-----------------------------------------------------------------------------------
-
+    //1.Get all roles assigned to a specific user-----------------------------------------------------------------------
     @GetMapping("/byUserId/{userId}")
     public ResponseEntity<ApiResponse<?>> getRolesByUserId(@PathVariable Long userId) {
         Optional<User> userOptional = userService.getUserById1(userId);
-
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             UserDTO userDTO = toUserDTO(user);
@@ -40,7 +37,7 @@ public class RoleController {
             List<UserRole> userRoles = userRoleService.getUserRolesByUserId(userId);
             // Extract Role objects from UserRole
             List<RoleDTO> roleDTOs = userRoles.stream().map(UserRole::getRole)
-                                                 .map(role -> new RoleDTO(role.getRoleId(), role.getName())).toList();
+                                              .map(role -> new RoleDTO(role.getRoleId(), role.getName())).toList();
             // Attach roles to the UserDTO
             userDTO.setRoles(new HashSet<>(roleDTOs));
             return ResponseEntity.ok(new ApiResponse<>(true, "Roles for user with id " + userId + " fetched successfully", userDTO));
@@ -48,21 +45,7 @@ public class RoleController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false, "User with id " + userId + " not found", null));
         }
     }
-
-
-
-    //2.update the role assign to the specific user--------------------------------------------------------
-
-    @PutMapping("/updateUserRole/{userId}/{newRoleName}")
-    public ResponseEntity<ApiResponse<UserDTO>> updateUserRole(@PathVariable Long userId, @PathVariable RoleEnum newRoleName) {
-        User updatedUserRole=roleService.updateUserRole(userId, newRoleName);
-        UserDTO userDTO = toUserDTO(updatedUserRole);
-        return ResponseEntity.ok(new ApiResponse<>(true,"User role updated successfully for user with id:"+ userId,userDTO));
-    }
-
-
-    // 3.add or assign  new role to the existing user if same role is not exist--------------------------------------------------------------------------------------
-
+    // 2.add or assign  new role to the existing user,if same role is not exist-----------------------------------------
     @PostMapping("/assignRole/{userId}/{roleName}")
     public ResponseEntity<ApiResponse<UserDTO>> assignRoleUser(@PathVariable Long userId, @PathVariable RoleEnum roleName) {
         User updatedUserRole=userService.assignRoleToUser(userId, roleName);
@@ -70,9 +53,24 @@ public class RoleController {
         return ResponseEntity.ok(new ApiResponse<>(true,"Role "+ roleName+" assigned to user with id "+userId+" successfully",userDTO));
     }
 
+    //3.update the role assign to the specific user---------------------------------------------------------------------
+    @PutMapping("/updateUserRole/{userId}/{oldRole}/{newRole}")
+    public ResponseEntity<ApiResponse<UserDTO>> updateUserRole(@PathVariable Long userId, @PathVariable RoleEnum oldRole,@PathVariable RoleEnum newRole) {
+        User updatedUserRole=roleService.updateUserRole(userId, oldRole,newRole);
+        UserDTO userDTO = toUserDTO(updatedUserRole);
+        return ResponseEntity.ok(new ApiResponse<>(true,"User role updated successfully for user with id:"+ userId,userDTO));
+    }
+
+    //4.remove role from a specific user--------------------------------------------------------------------------------
+    @DeleteMapping("/removeRole/{userId}/{roleName}")
+    public ResponseEntity<ApiResponse<UserDTO>> removeRoleFromUser(@PathVariable Long userId, @PathVariable RoleEnum roleName) {
+            User updatedUser=roleService.removeRoleFromUser(userId, roleName);
+            UserDTO userDTO=toUserDTO(updatedUser);
+            return ResponseEntity.ok(new ApiResponse<>(true,"Role " + roleName + " removed from user with id " + userId,userDTO));
+    }
 
 
-    //4.get role by name------------------------------------------------------------------------------------------------
+    //5.get role by name------------------------------------------------------------------------------------------------
 
     @GetMapping("/{roleName}")
     public ResponseEntity<ApiResponse<Role>> getRoleByName(@PathVariable RoleEnum role) {
@@ -81,7 +79,7 @@ public class RoleController {
     }
 
 
-     //Get all roles----------------------------------------------------------------------------------------------------
+    //Get all roles----------------------------------------------------------------------------------------------------
 
     @GetMapping("/getRoles")
     public ResponseEntity<ApiResponse<?>> getAllRoles() {
@@ -97,13 +95,6 @@ public class RoleController {
 
 
 
-
-    /*remove role from a specific user*/
-    @DeleteMapping("/removeRole/{userId}/{roleName}")
-    public ResponseEntity<ApiResponse<?>> removeRoleFromUser(@PathVariable Long userId, @PathVariable RoleEnum roleName) {
-            roleService.removeRoleFromUser(userId, roleName);
-            return ResponseEntity.ok(new ApiResponse<>(true,"Role " + roleName + " removed from user with id " + userId,null));
-    }
 
     /* fetch all user who have User role*/
     @GetMapping("/usersWithRole")

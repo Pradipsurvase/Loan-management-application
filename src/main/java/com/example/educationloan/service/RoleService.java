@@ -4,8 +4,7 @@ import com.example.educationloan.entity.Role;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.entity.UserRole;
 import com.example.educationloan.enumconstant.RoleEnum;
-import com.example.educationloan.exception.DuplicateResourceException;
-import com.example.educationloan.exception.ResourceNotFoundException;
+import com.example.educationloan.exception.*;
 import com.example.educationloan.repository.RoleRepository;
 import com.example.educationloan.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.educationloan.enumconstant.RoleEnum.EMPLOYEE;
 import static com.example.educationloan.enumconstant.RoleEnum.USER;
 
 @Service
@@ -67,22 +67,29 @@ public class RoleService {
     // Remove a specific role from a user--------------------------------------------
 
     @Transactional
-    public void removeRoleFromUser(Long userId, RoleEnum roleName) {
-        Role role = roleRepository.findByName(roleName)
-                .orElseThrow(() -> new RuntimeException("Role not found with name: " + roleName));
+    public User removeRoleFromUser(Long userId, RoleEnum roleName) {
 
-        User user = userService.getUserById(userId);
-
-        UserRole userRoleToRemove = user.getUserRoles().stream()
-                .filter(userRole -> userRole.getRole().equals(role))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("User with id " + userId + " does not have role: " + roleName));
-
+     //find role
+        Role role=roleRepository.findByName(roleName).orElseThrow(() -> new ResourceNotFoundException("Role not found with name:" + roleName));
+     // find user or throw
+      User user=userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("User not found with this id:"+userId));
+      //if user has at most 1 i.e only one role don't remove, instead use update api
+      if(user.getUserRoles().size()==1){
+          throw new LastRoleException("Cannot remove the last role '" + roleName + "' from user with id: " + userId + ". User must have at least one role assigned.");
+      }
+      boolean isRoleAssigned=user.getUserRoles().stream().anyMatch(userRole -> userRole.getRole().getName().equals(roleName));
+      if(!isRoleAssigned){
+          throw new RoleNotAssignedException("Role:"+roleName+" is not assigned to user with id:"+userId);
+      }
+      //find the specific UserRole to remove or throw
+        UserRole userRoleToRemove=user.getUserRoles().stream().filter(userRole -> userRole.getRole().equals(role))
+                .findFirst().orElseThrow(() -> new RoleNotAssignedException("User with id " + userId + " does not have role: " + roleName));
+      //remove the role from both side of the relationship
         user.getUserRoles().remove(userRoleToRemove);
         role.getUserRoles().remove(userRoleToRemove);
-        userRepository.save(user);
-
-        log.info("Removed role {} from user with id {}", roleName, userId);
+        User user1=userRepository.save(user);
+        log.info("Role {} removed from user with id {}",roleName,userId);
+     return  user1;
     }
 
     //Update role details-----------------------------------------------------------
@@ -121,17 +128,36 @@ public class RoleService {
     //Update role of a specific user (replaces all existing roles)------------------------------
 
     @Transactional
-    public User updateUserRole(Long userId, RoleEnum newRoleName) {
+    public User updateUserRole(Long userId, RoleEnum oldRole,RoleEnum newRole) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
-        Role role = roleRepository.findByName(newRoleName)
-                .orElseThrow(() -> new ResourceNotFoundException("Role not found with name: " + newRoleName));
+       Role currentRole=roleRepository.findByName(newRole)
+               .orElseThrow(()->new ResourceNotFoundException("Role not found: "+newRole));
 
-        user.getUserRoles().clear();
-        user.addRole(role, "system");
+       /*
+       *for updating specific role to the specific role,check if old role is actually assigned to the user
+        */
+       boolean isOldRoleAssigned=user.getUserRoles().stream()
+               .anyMatch(userRole->userRole.getRole().getName().equals(oldRole));
+
+       if(!isOldRoleAssigned){
+           throw new RoleNotAssignedException("Role:"+oldRole+" is not assigned to user with id:"+userId);
+       }
+       //check if new role is already assigned to avoid duplicates
+        boolean isNewRoleAlreadyAssign=user.getUserRoles().stream()
+                .anyMatch(userRole -> userRole.getRole().getName().equals(newRole));
+
+       if(isNewRoleAlreadyAssign){
+           throw new RoleAlreadyAssignedException("Role:"+newRole+" is already assigned to user with id:"+userId);
+       }
+       //remove only the old role if present
+        user.getUserRoles().removeIf(userRole -> userRole.getRole().getName().equals(oldRole));
+       //add the new role
+        user.addRole(currentRole,"system");
         return userRepository.save(user);
     }
+
 
     public List<Role> getRolesByUserId1(Long userId) {
         return roleRepository.findRolesByUserId(userId);

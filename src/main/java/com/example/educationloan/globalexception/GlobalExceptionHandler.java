@@ -1,8 +1,6 @@
-package com.example.educationloan.global_exception;
+package com.example.educationloan.globalexception;
 
-import com.example.educationloan.exception.DuplicateResourceException;
-import com.example.educationloan.exception.ResourceNotFoundException;
-import com.example.educationloan.exception.RoleNotFoundException;
+import com.example.educationloan.exception.*;
 import com.example.educationloan.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,4 +33,23 @@ public class GlobalExceptionHandler {
         ApiResponse<Void> response = new ApiResponse<>(false, ex.getMessage(), null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+
+    @ExceptionHandler(RoleNotAssignedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleRoleNotAssignedException(RoleNotAssignedException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ApiResponse<>(false, ex.getMessage(), null));
+    }
+
+    @ExceptionHandler(RoleAlreadyAssignedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleRoleAlreadyAssigned(RoleAlreadyAssignedException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ApiResponse<>(false, ex.getMessage(), null));
+    }
+
+    @ExceptionHandler(LastRoleException.class)
+    public ResponseEntity<ApiResponse<Void>> handleLastRoleException(LastRoleException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ApiResponse<>(false, ex.getMessage(), null));
+    }
+
 }
