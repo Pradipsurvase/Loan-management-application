@@ -134,10 +134,8 @@ public class RoleController {
 
     @PostMapping("/{userId}/role/{roleName}")
     public ResponseEntity<ApiResponse<UserDTO>> addRole(@PathVariable Long userId, @PathVariable RoleEnum roleName) {
-
         User updatedUser = userService.assignRolesUser1(userId, List.of(roleName));
         UserDTO response = toUserDTO(updatedUser);
-
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(true, "Role added successfully", response));
     }
 

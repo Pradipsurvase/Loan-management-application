@@ -27,6 +27,52 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+
+    // Auto-generate unique username — regenerate if already exists in DB
+    private String generateUsername(String firstName, String lastName) {
+        String username;
+        do {
+            int randomNumber = (int) (Math.random() * 900000) + 100000;
+            username = (firstName + "_" + lastName + "_" + randomNumber).toLowerCase();
+        } while (userRepository.existsByUsername(username));
+        return username;
+    }
+
+    @Transactional
+    public User createUser( String email, String password, String firstName, String lastName) {
+
+        // 2. Auto-generate unique username
+        String username = generateUsername(firstName, lastName);
+        if (userRepository.existsByUsername(username)) {
+            throw new DuplicateResourceException("Username already exists: " + username);
+        }
+        if (userRepository.existsByEmail(email)) {
+            throw new DuplicateResourceException("Email already exists: " + email);
+        }
+
+        Role defaultRole = roleRepository.findByName(RoleEnum.USER)
+                .orElseThrow(() -> new ResourceNotFoundException("Default role not found: " + RoleEnum.USER));
+
+        User user = User.builder()
+                .username(username)
+                .email(email)
+                .password(passwordEncoder.encode(password))
+                .firstName(firstName)
+                .lastName(lastName)
+                .isActive(true)
+                .isEmailVerified(false)
+                .build();
+
+        user.addRole(defaultRole, "system");
+        userRepository.save(user);
+        log.info("User {} with email {} created successfully", username, email);
+
+        // Re-fetch with roles eagerly after save
+        return userRepository.findByIdWithRoles(user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found after creation"));
+    }
+
+
     // uses findByIdWithRoles to eagerly fetch userRoles — prevents LazyInitializationException
     @Transactional(readOnly = true)
     public User getUserById(Long id) {
@@ -156,36 +202,7 @@ public class UserService {
         log.info("Password updated successfully for user {} with email {}", user.getUsername(), user.getEmail());
     }
 
-    @Transactional
-    public User createUser(String username, String email, String password, String firstName, String lastName) {
-        if (userRepository.existsByUsername(username)) {
-            throw new DuplicateResourceException("Username already exists: " + username);
-        }
-        if (userRepository.existsByEmail(email)) {
-            throw new DuplicateResourceException("Email already exists: " + email);
-        }
 
-        Role defaultRole = roleRepository.findByName(RoleEnum.USER)
-                .orElseThrow(() -> new ResourceNotFoundException("Default role not found: " + RoleEnum.USER));
-
-        User user = User.builder()
-                .username(username)
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .firstName(firstName)
-                .lastName(lastName)
-                .isActive(true)
-                .isEmailVerified(false)
-                .build();
-
-        user.addRole(defaultRole, "system");
-        userRepository.save(user);
-        log.info("User {} with email {} created successfully", username, email);
-
-        // Re-fetch with roles eagerly after save
-        return userRepository.findByIdWithRoles(user.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found after creation"));
-    }
 
     @Transactional(readOnly = true)
     public List<User> filterUsersByRoleAndStatus(RoleEnum roleName, Boolean isActive) {

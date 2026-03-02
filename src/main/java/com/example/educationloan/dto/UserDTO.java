@@ -1,6 +1,7 @@
 package com.example.educationloan.dto;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.entity.UserRole;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Builder
+@JsonPropertyOrder({"id", "username", "firstName", "lastName", "email", "isActive", "isEmailVerified", "createdAt", "updatedAt", "roles"})
 public class UserDTO {
     private Long id;
     private String username;

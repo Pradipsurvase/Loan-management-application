@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import static com.example.educationloan.dto.UserDTO.toUserDTO;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -25,7 +25,7 @@ public class UserController {
     */
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<UserDTO>> createUser1(@RequestBody User user) {
-        User createdUser = userService.createUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
+        User createdUser = userService.createUser(user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
         UserDTO response = toUserDTO(createdUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(true,"User created successfully",response));
     }
