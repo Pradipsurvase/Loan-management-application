@@ -28,7 +28,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
-    // Auto-generate unique username — regenerate if already exists in DB
+    //auto generate unique username,regenerate if already exists in database
     private String generateUsername(String firstName, String lastName) {
         String username;
         do {
@@ -40,7 +40,6 @@ public class UserService {
 
     @Transactional
     public User createUser( String email, String password, String firstName, String lastName) {
-
         // 2. Auto-generate unique username
         String username = generateUsername(firstName, lastName);
         if (userRepository.existsByUsername(username)) {
@@ -49,10 +48,8 @@ public class UserService {
         if (userRepository.existsByEmail(email)) {
             throw new DuplicateResourceException("Email already exists: " + email);
         }
-
         Role defaultRole = roleRepository.findByName(RoleEnum.USER)
                 .orElseThrow(() -> new ResourceNotFoundException("Default role not found: " + RoleEnum.USER));
-
         User user = User.builder()
                 .username(username)
                 .email(email)
@@ -67,7 +64,6 @@ public class UserService {
         userRepository.save(user);
         log.info("User {} with email {} created successfully", username, email);
 
-        // Re-fetch with roles eagerly after save
         return userRepository.findByIdWithRoles(user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found after creation"));
     }
