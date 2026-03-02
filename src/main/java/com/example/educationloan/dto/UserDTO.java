@@ -36,9 +36,9 @@ public class UserDTO {
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .roles(user.getUserRoles().stream()
-                        .map(UserRole::getRole) // ✅ Extract Role from UserRole
+                        .map(UserRole::getRole)
                         .map(role -> new RoleDTO(role.getRoleId(), role.getName()))
-                        .collect(Collectors.toSet())) // ✅ Collect into Set
+                        .collect(Collectors.toSet()))
                 .build();
     }
 }

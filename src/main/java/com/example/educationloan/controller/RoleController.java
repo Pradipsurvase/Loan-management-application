@@ -80,7 +80,6 @@ public class RoleController {
 
 
     //Get all roles----------------------------------------------------------------------------------------------------
-
     @GetMapping("/getRoles")
     public ResponseEntity<ApiResponse<?>> getAllRoles() {
         List<Role> role=roleService.getAllRoles();
@@ -93,24 +92,19 @@ public class RoleController {
         return ResponseEntity.ok(new ApiResponse<>(true,"Role created or retrieved successfully",roleService.createOrGetRole(roleName)));
     }
 
-
-
-
     /* fetch all user who have User role*/
     @GetMapping("/usersWithRole")
     public ResponseEntity<ApiResponse<?>> getUsersWithRole() {
         return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with user role",roleService.getUserWithUserRole()));
     }
 
-    /*fetch all user with specific role*/
+    //fetch all user with specific role---------------------------------------------------------------------------------
     @GetMapping("/usersWithRole/{roleName}")
     public ResponseEntity<ApiResponse<?>> getUsersWithSpecificRole(@PathVariable RoleEnum roleName) {
         return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with role: "+roleName,roleService.getUsersByRoleName(roleName)));
     }
 
-
-    //-----------------------------------------------------------------------------------------------------------------------------
-    // Create or get a role by name
+    // Create or get a role by name-------------------------------------------------------------------------------------
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<Role>> createRole(@RequestParam RoleEnum role) {
         Role createdRole = roleService.createOrGetRole(role);
