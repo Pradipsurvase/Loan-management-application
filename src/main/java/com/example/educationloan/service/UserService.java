@@ -4,9 +4,7 @@ import com.example.educationloan.entity.Role;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.entity.UserRole;
 import com.example.educationloan.enumconstant.RoleEnum;
-import com.example.educationloan.exception.DuplicateResourceException;
-import com.example.educationloan.exception.ResourceNotFoundException;
-import com.example.educationloan.exception.RoleNotFoundException;
+import com.example.educationloan.exception.*;
 import com.example.educationloan.repository.RoleRepository;
 import com.example.educationloan.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -82,24 +79,17 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(Long id) {
+    public boolean deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("User not found with id: " + id);
         }
-        userRepository.deleteById(id);
-        log.info("User with id {} deleted successfully", id);
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+        if(userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            log.info("User with id {} deleted successfully", id);
+            return true;
+        }
+        log.info("User with id {} does  not exists:",id);
+        return false;
     }
 
     // fetches user with roles eagerly before calling toUserDTO()
@@ -121,89 +111,10 @@ public class UserService {
         } else {
             log.info("User {} already has role {}", user.getUsername(), roleName);
         }
-
         return userRepository.findByIdWithRoles(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
     }
 
-    @Transactional
-    public void removeRoleFromUser(Long userId, RoleEnum roleName) {
-        User user = userRepository.findByIdWithRoles(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-
-        Role role = roleRepository.findByName(roleName)
-                .orElseThrow(() -> new ResourceNotFoundException("Role not found with name: " + roleName));
-
-        UserRole userRoleToRemove = user.getUserRoles().stream()
-                .filter(userRole -> userRole.getRole().equals(role))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("User with id " + userId + " does not have role: " + roleName));
-
-        user.getUserRoles().remove(userRoleToRemove);
-        role.getUserRoles().remove(userRoleToRemove);
-        userRepository.save(user);
-        log.info("Role {} removed from user {}", roleName, user.getUsername());
-    }
-
-    @Transactional(readOnly = true)
-    public boolean isUserAdmin(Long userId) {
-        User user = getUserById(userId);
-        return user.getUserRoles().stream().map(UserRole::getRole)
-                .anyMatch(role -> role.getName().equals(RoleEnum.ADMIN));
-    }
-
-    @Transactional(readOnly = true)
-    public boolean isUserEmployee(Long userId) {
-        User user = getUserById(userId);
-        return user.getUserRoles().stream().map(UserRole::getRole)
-                .anyMatch(role -> role.getName().equals(RoleEnum.EMPLOYEE));
-    }
-
-    @Transactional(readOnly = true)
-    public boolean doesUserHaveRole(Long id, RoleEnum roleName) {
-        User user = getUserById(id);
-        return user.getUserRoles().stream().map(UserRole::getRole)
-                .anyMatch(role -> role.getName() == roleName);
-    }
-
-    @Transactional
-    public void activateUser(Long id) {
-        User user = getUserById(id);
-        user.setIsActive(true);
-        userRepository.save(user);
-        log.info("User {} with email {} activated successfully", user.getUsername(), user.getEmail());
-    }
-
-    @Transactional
-    public void deactivateUser(Long id) {
-        User user = getUserById(id);
-        user.setIsActive(false);
-        userRepository.save(user);
-        log.info("User {} with email {} deactivated successfully", user.getUsername(), user.getEmail());
-    }
-
-    @Transactional
-    public void verifyEmail(Long id) {
-        User user = getUserById(id);
-        user.setIsEmailVerified(true);
-        userRepository.save(user);
-        log.info("User {} with emailId {} verified successfully", user.getUsername(), user.getEmail());
-    }
-
-    @Transactional
-    public void updatePassword(Long id, String newPassword) {
-        User user = getUserById(id);
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-        log.info("Password updated successfully for user {} with email {}", user.getUsername(), user.getEmail());
-    }
-
-
-
-    @Transactional(readOnly = true)
-    public List<User> filterUsersByRoleAndStatus(RoleEnum roleName, Boolean isActive) {
-        return userRepository.findByRoleAndStatus(roleName, isActive);
-    }
 
     @Transactional
     public User updateUser(Long id, String username, String email, String password, String firstName, String lastName) {
@@ -246,11 +157,7 @@ public class UserService {
         return userRepository.findByIdWithRoles(userId);
     }
 
-    public List<Role> getRolesByUserId(Long userId) {
-        return roleRepository.findRolesByUserId(userId);
-    }
-
-    // fetches user with roles eagerly before assigning multiple roles----------------------------
+    // fetches user with roles eagerly before assigning multiple roles--------------------------------------------------
     @Transactional
     public User assignRolesUser1(Long userId, List<RoleEnum> roleNames) {
         User user = userRepository.findByIdWithRoles(userId)
@@ -267,14 +174,115 @@ public class UserService {
                 user.addRole(role, "system");
                 log.info("Role {} assigned to user {}", roleName, user.getUsername());
             } else {
-                log.info("User {} already has role {}", user.getUsername(), roleName);
+                throw new RoleAlreadyAssignedException( "User " + user.getUsername() + " already has role " + roleName );
             }
         }
-
         userRepository.save(user);
-
         //Re-fetch after save to return fresh data with all roles-------------------------------
         return userRepository.findByIdWithRoles(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
     }
+
+
+
+    @Transactional(readOnly = true)
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> filterUsersByRoleAndStatus(RoleEnum roleName, Boolean isActive) {
+        return userRepository.findByRoleAndStatus(roleName, isActive);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isUserAdmin(Long userId) {
+        User user = getUserById(userId);
+        return user.getUserRoles().stream().map(UserRole::getRole)
+                .anyMatch(role -> role.getName().equals(RoleEnum.ADMIN));
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isUserEmployee(Long userId) {
+        User user = getUserById(userId);
+        return user.getUserRoles().stream().map(UserRole::getRole)
+                .anyMatch(role -> role.getName().equals(RoleEnum.EMPLOYEE));
+    }
+
+    @Transactional(readOnly = true)
+    public boolean doesUserHaveRole(Long id, RoleEnum roleName) {
+        User user = getUserById(id);
+        if(user.getUserRoles().stream().noneMatch(role->role.getRole().getName().equals(roleName))){
+            throw new RoleNotAssignedException("Role is not assigned to get user id with the particular role:"+id);
+        }
+        return user.getUserRoles().stream().map(UserRole::getRole)
+                .anyMatch(role -> role.getName() == roleName);
+    }
+
+    @Transactional
+    public void activateUser(Long id) {
+        User user = getUserById(id);
+        user.setIsActive(true);
+        userRepository.save(user);
+        log.info("User {} with email {} activated successfully", user.getUsername(), user.getEmail());
+    }
+
+    @Transactional
+    public void deactivateUser(Long id) {
+        User user = getUserById(id);
+        user.setIsActive(false);
+        userRepository.save(user);
+        log.info("User {} with email {} deactivated successfully", user.getUsername(), user.getEmail());
+    }
+
+    @Transactional
+    public void verifyEmail(Long id) {
+        User user = getUserById(id);
+        user.setIsEmailVerified(true);
+        userRepository.save(user);
+        log.info("User {} with emailId {} verified successfully", user.getUsername(), user.getEmail());
+    }
+
+    @Transactional
+    public void updatePassword(Long id, String newPassword) {
+        User user = getUserById(id);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        log.info("Password updated successfully for user {} with email {}", user.getUsername(), user.getEmail());
+    }
+
+    @Transactional
+    public void removeRoleFromUser(Long userId, RoleEnum roleName) {
+        User user = userRepository.findByIdWithRoles(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+
+        Role role = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found with name: " + roleName));
+
+        UserRole userRoleToRemove = user.getUserRoles().stream()
+                .filter(userRole -> userRole.getRole().equals(role))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + userId + " does not have role: " + roleName));
+
+        user.getUserRoles().remove(userRoleToRemove);
+        role.getUserRoles().remove(userRoleToRemove);
+        userRepository.save(user);
+        log.info("Role {} removed from user {}", roleName, user.getUsername());
+    }
+
+
+    public List<Role> getRolesByUserId(Long userId) {
+        return roleRepository.findRolesByUserId(userId);
+    }
+
+
+
+
 }

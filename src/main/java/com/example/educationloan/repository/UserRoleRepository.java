@@ -19,7 +19,7 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
     // Fetch all UserRole mappings for a given role
     List<UserRole> findByRole_RoleId(Long roleId);
 
-    //Fetch User with all roles eagerly — fixes LazyInitializationException
+    //Fetch User with all roles eagerly — fixes LazyInitializationException(fixes N+1) problem
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.userRoles ur LEFT JOIN FETCH ur.role WHERE u.id = :id")
     Optional<User> findByIdWithRoles(@Param("id") Long id);
 }

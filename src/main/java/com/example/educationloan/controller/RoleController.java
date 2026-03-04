@@ -26,7 +26,7 @@ public class RoleController {
     private final UserService userService;
     private final UserRoleService userRoleService;
 
-    //1.Get all data and roles assigned to a specific user-----------------------------------------------------------
+    //1.Get all data and roles assigned to a specific user--------------------------------------------------------------
     @GetMapping("/byUserId/{userId}")
     public ResponseEntity<ApiResponse<?>> getRolesByUserId(@PathVariable Long userId) {
         Optional<User> userOptional = userService.getUserById1(userId);
@@ -46,7 +46,7 @@ public class RoleController {
         }
     }
 
-    //2.get all data and roles assigned to all user data at once-------------------------------------
+    //2.get all data and roles assigned to all user data at once--------------------------------------------------------
     @GetMapping("/getAllData")
     public ResponseEntity<ApiResponse<List<UserDTO>>> getAllUsersWithRoles() {
         List<User> users = userService.getAllUsers();
@@ -111,47 +111,27 @@ public class RoleController {
         return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with user role"+roleName,roleService.getUserWithRole(roleName)));
     }
 
-
-
-
-
-
-
-
-    //8.create a new role if not exist or get existing role-------------------------------------------------------------
-    @PostMapping("/createRole/{roleName}")
-    public ResponseEntity<ApiResponse<Role>> createOrGetRole(@PathVariable RoleEnum roleName) {
-        return ResponseEntity.ok(new ApiResponse<>(true,"Role created or retrieved successfully",roleService.createOrGetRole(roleName)));
-    }
-
-    //fetch all user with specific role---------------------------------------------------------------------------------
+    //9.fetch all user with specific role---------------------------------------------------------------------------------
     @GetMapping("/usersWithRole/{roleName}")
     public ResponseEntity<ApiResponse<?>> getUsersWithSpecificRole(@PathVariable RoleEnum roleName) {
         return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with role: "+roleName,roleService.getUsersByRoleName(roleName)));
     }
 
-    // Create or get a role by name-------------------------------------------------------------------------------------
-    @PostMapping("/create")
-    public ResponseEntity<ApiResponse<Role>> createRole(@RequestParam RoleEnum role) {
-        Role createdRole = roleService.createOrGetRole(role);
-        return ResponseEntity.ok(new ApiResponse<>(true, "Role Created successfully", createdRole));
-    }
-
-    // Get all roles
-    @GetMapping
+    //10.Get all roles
+    @GetMapping("getAllRoleWithId")
     public ResponseEntity<ApiResponse<List<Role>>> getAllRoles1() {
         List<Role> roles = roleService.getAllRoles();
         return ResponseEntity.ok(new ApiResponse<>(true, "All roles fetched successfully", roles));
     }
 
-    // Get roles assigned to a specific user
+    //11.Get roles assigned to a specific user
     @GetMapping("/user/{userId}")
     public ResponseEntity<ApiResponse<List<Role>>> getRolesByUser(@PathVariable Long userId) {
         List<Role> roles = roleService.getRolesByUserId(userId);
         return ResponseEntity.ok(new ApiResponse<>(true, "Roles for user " + userId + " fetched successfully", roles));
     }
 
-
+     //12.get the user that has the specific role assigned to him or not using the rollNo-------------------------------
     @PostMapping("/{userId}/role/{roleName}")
     public ResponseEntity<ApiResponse<UserDTO>> addRole(@PathVariable Long userId, @PathVariable RoleEnum roleName) {
         User updatedUser = userService.assignRolesUser1(userId, List.of(roleName));

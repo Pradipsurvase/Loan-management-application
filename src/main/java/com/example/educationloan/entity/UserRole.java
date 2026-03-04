@@ -44,11 +44,11 @@ public class UserRole {
     @Column(nullable = false, updatable = false)
     private LocalDateTime assignedAt;
 
-    // convenience constructor
     public UserRole(User user, Role role, String assignedBy) {
         this.user = user;
         this.role = role;
         this.assignedBy = assignedBy;
         this.assignedAt = LocalDateTime.now();
     }
+
 }

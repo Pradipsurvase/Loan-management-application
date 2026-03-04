@@ -1,5 +1,6 @@
 package com.example.educationloan.entity;
 
+import com.example.educationloan.dto.RoleDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -74,4 +75,6 @@ public class User {
         UserRole userRole = new UserRole(this, role, assignedBy);
         this.userRoles.add(userRole);
     }
+
+
 }
