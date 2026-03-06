@@ -7,6 +7,7 @@ import com.example.educationloan.enumconstant.RoleEnum;
 import com.example.educationloan.exception.*;
 import com.example.educationloan.repository.RoleRepository;
 import com.example.educationloan.repository.UserRepository;
+import com.example.educationloan.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
 
     private final Random random = new Random();
@@ -243,8 +245,10 @@ public class UserService {
     }
 
     @Transactional
-    public void verifyEmail(Long id) {
-        User user = getUserById(id);
+    public void verifyEmail(Long id,String email) {
+        User user = userRepository.findByIdAndEmail(id, email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
         user.setIsEmailVerified(true);
         userRepository.save(user);
         log.info("User {} with emailId {} verified successfully", user.getUsername(), user.getEmail());
@@ -252,6 +256,9 @@ public class UserService {
 
     @Transactional
     public void updatePassword(Long id, String newPassword) {
+        if(newPassword==null ||newPassword.isBlank()){
+            throw new PasswordBlankException("password cannot be null or blank for updation");
+        }
         User user = getUserById(id);
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
@@ -281,6 +288,21 @@ public class UserService {
     public List<Role> getRolesByUserId(Long userId) {
         return roleRepository.findRolesByUserId(userId);
     }
+
+    public Role getRoleById(Long roleId) {
+        return roleRepository.findById(roleId) .orElseThrow(() -> new RuntimeException("Role not found with id: " + roleId));
+    }
+
+    public void removeUserRole(Long userRoleId) {
+        if (!userRoleRepository.existsById(userRoleId)) {
+            throw new ResourceNotFoundException("UserRole not found with id: " + userRoleId);
+        }
+        userRoleRepository.deleteById(userRoleId);
+    }
+
+
+
+
 
 
 

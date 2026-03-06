@@ -1,6 +1,8 @@
 package com.example.educationloan.dto;
 
 
+import com.example.educationloan.entity.UserRole;
+import com.example.educationloan.enumconstant.RoleEnum;
 import lombok.*;
 @Getter
 @Setter
@@ -11,11 +13,14 @@ public class UserRoleDTO {
     private Long id;
     private Long userId;
     private Long roleId;
+    private RoleEnum roleName;
+    private String assignedBy;
 
-    public UserRoleDTO toUserRoleDTO(Long userId, Long roleId) {
-        return UserRoleDTO.builder()
-                .userId(userId)
-                .roleId(roleId)
-                .build();
+    public static UserRoleDTO fromEntity(UserRole userRole) {
+        return new UserRoleDTO( userRole.getId(),
+                                userRole.getUser().getId(),
+                                userRole.getRole().getRoleId(),
+                                userRole.getRole().getName(),
+                                userRole.getAssignedBy() );
     }
 }

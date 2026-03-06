@@ -53,4 +53,10 @@ public class GlobalExceptionHandler {
                 .body(new ApiResponse<>(false, ex.getMessage(), null));
     }
 
+    @ExceptionHandler(PasswordBlankException.class)
+    public ResponseEntity<ApiResponse<String>> handlePasswordBlankException(PasswordBlankException ex) {
+        return ResponseEntity.badRequest()
+                .body(new ApiResponse<>(false, ex.getMessage(), null));
+    }
+
 }

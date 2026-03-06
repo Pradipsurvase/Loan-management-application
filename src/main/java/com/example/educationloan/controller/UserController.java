@@ -1,14 +1,12 @@
 package com.example.educationloan.controller;
 
-import com.example.educationloan.dto.PasswordUpdateDTO;
-import com.example.educationloan.dto.RoleDTO;
-import com.example.educationloan.dto.UpdateUserDTO;
-import com.example.educationloan.dto.UserDTO;
+import com.example.educationloan.dto.*;
 import com.example.educationloan.entity.Role;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.enumconstant.RoleEnum;
 import com.example.educationloan.response.ApiResponse;
 import com.example.educationloan.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +52,6 @@ public class UserController {
     public ResponseEntity<ApiResponse<List<UserDTO>>> getAllUsers() {
         //this logic can be used to show a which roles is assigned to particular user in api response
         //List<UserDTO> response = userService.getAllUsers() .stream() .map(UserDTO::toUserDTO) .toList();
-
         //this custom user to dto mapping is used for i don't want to show that which roles is assigned to the specific user
         List<User> users = userService.getAllUsers();
         List<UserDTO> response = users.stream()
@@ -102,7 +99,7 @@ public class UserController {
         return ResponseEntity.ok(new ApiResponse<>(true, "User patched successfully", toUserDTO(patchedUser)));
     }
 
-
+    //get the user by username--------------------------------------------------
     @GetMapping("/username/{username}")
     public ResponseEntity<ApiResponse<UserDTO>> getUserByUsername(@PathVariable String username) {
         User user = userService.getUserByUsername(username);
@@ -110,6 +107,7 @@ public class UserController {
         return ResponseEntity.ok( new ApiResponse<>(true, "User fetched successfully", response) );
     }
 
+    //get the user detail by email-----------------------------------------------
     @GetMapping("/email/{email}")
     public ResponseEntity<ApiResponse<UserDTO>> getUserByEmail(@PathVariable String email) {
         User user = userService.getUserByEmail(email);
@@ -117,29 +115,29 @@ public class UserController {
         return ResponseEntity.ok( new ApiResponse<>(true, "User fetched successfully", response) );
     }
 
-
-    @GetMapping("/getByRoleAndStatus")
+  //get the users by roles and status---------------------------------
+  @GetMapping("/getByRoleAndStatus/{roleName}/{isActive}")
     public ResponseEntity<ApiResponse<List<UserDTO>>> filterUsersByRoleAndStatus(@RequestParam RoleEnum roleName, @RequestParam Boolean isActive) {
         List<User> users = userService.filterUsersByRoleAndStatus(roleName, isActive);
         List<UserDTO> response = users.stream().map(UserDTO::toUserDTO).toList();
-        return ResponseEntity.ok(new ApiResponse<>(true, "Filtered users fetched successfully", response));
+        return ResponseEntity.ok(new ApiResponse<>(true, String.format("Filtered users fetched successfully for role %s and status %s", roleName, isActive), response));
         }
 
-
+  //whether the user with the given is admin or not----------------------
     @GetMapping("/{id}/isAdmin")
-    public ResponseEntity<ApiResponse<Boolean>> isUserAdmin(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<String>> isUserAdmin(@PathVariable Long id) {
         boolean isAdmin = userService.isUserAdmin(id);
-        return ResponseEntity.ok( new ApiResponse<>(true, "Admin check completed", isAdmin) );
+        return ResponseEntity.ok( new ApiResponse<>(true, "Admin check completed", "this user is admin:"+isAdmin) );
     }
 
-
+//check whether user with the given id is employee or not-------------------
     @GetMapping("/{id}/isEmployee")
-    public ResponseEntity<ApiResponse<Boolean>> isUserEmployee(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<String>> isUserEmployee(@PathVariable Long id) {
         boolean isEmployee = userService.isUserEmployee(id);
-        return ResponseEntity.ok( new ApiResponse<>(true, "Employee check completed", isEmployee) );
+        return ResponseEntity.ok( new ApiResponse<>(true, "Employee check completed", "this user is Employee:"+isEmployee) );
     }
 
-    //get a data of particular user id to check if the user has given role
+    //get a data of particular user id to check if the user has given role provided in the url path--------------------
     @GetMapping("/{id}/hasRole/{roleName}")
     public ResponseEntity<ApiResponse<Boolean>> doesUserHaveRole( @PathVariable Long id, @PathVariable RoleEnum roleName) {
         boolean hasRole = userService.doesUserHaveRole(id, roleName);
@@ -147,7 +145,7 @@ public class UserController {
     }
 
 
-    //activate the user based on the id
+    //activate the user of the  given id------------------------------
     @PutMapping("/{id}/activate")
     public ResponseEntity<ApiResponse<Long>> activateUser(@PathVariable Long id) {
         userService.activateUser(id);
@@ -163,28 +161,29 @@ public class UserController {
 
     //verify email flag to true by the admin is email is verified-------------------------------------------------------
     @PutMapping("/{id}/verifyEmail")
-    public ResponseEntity<ApiResponse<Long>> verifyEmail(@PathVariable Long id) {
-        userService.verifyEmail(id);
-        return ResponseEntity.ok( new ApiResponse<>(true, "User email verified successfully", id) );
+    public ResponseEntity<ApiResponse<String>> verifyEmail(@PathVariable Long id,@RequestBody EmailDTO email) {
+        userService.verifyEmail(id,email.getEmail());
+        return ResponseEntity.ok( new ApiResponse<>(true, "User email verified successfully", "id:"+id+" ,"+"email: "+email.getEmail()) );
     }
 
     //update the password by the user
     @PutMapping("/{id}/updatePassword")
-    public ResponseEntity<ApiResponse<Long>> updatePassword( @PathVariable Long id, @RequestBody PasswordUpdateDTO request) {
+    public ResponseEntity<ApiResponse<Long>> updatePassword( @PathVariable Long id,@RequestBody PasswordUpdateDTO request) {
         userService.updatePassword(id, request.getNewPassword());
         return ResponseEntity.ok( new ApiResponse<>(true, "Password updated successfully", id) );
     }
 
-    // Remove a role from a user based on the id
+    // Remove a role from a user based on the id-----------------
     @DeleteMapping("/{id}/roles/{roleName}")
     public ResponseEntity<ApiResponse<Long>> removeRoleFromUser( @PathVariable Long id, @PathVariable RoleEnum roleName) {
         userService.removeRoleFromUser(id, roleName);
-        return ResponseEntity.ok( new ApiResponse<>(true, "Role removed successfully", id) );
+        return ResponseEntity.ok( new ApiResponse<>(true, roleName+":Role removed successfully with user having ", id));
     }
 
 
     // Get all roles for a user
-    @GetMapping("/{id}/roles") public ResponseEntity<ApiResponse<List<RoleDTO>>> getRolesByUserId(@PathVariable Long id) {
+    @GetMapping("/{id}/roles")
+    public ResponseEntity<ApiResponse<List<RoleDTO>>> getRolesByUserId(@PathVariable Long id) {
         List<Role> roles = userService.getRolesByUserId(id);
         List<RoleDTO> response = roles.stream().map(role -> new RoleDTO(role.getRoleId(), role.getName())) .toList();
         return ResponseEntity.ok( new ApiResponse<>(true, "Roles fetched successfully", response) );

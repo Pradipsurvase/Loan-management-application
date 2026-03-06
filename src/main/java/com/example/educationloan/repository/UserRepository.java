@@ -36,4 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //Filter users by role and active status
     @Query("SELECT u FROM User u JOIN u.userRoles ur JOIN ur.role r WHERE r.name = :roleName AND u.isActive = :isActive")
     List<User> findByRoleAndStatus(@Param("roleName") RoleEnum roleName, @Param("isActive") Boolean isActive);
+
+    @Query("SELECT u FROM User u WHERE u.id = :id AND LOWER(u.email) = LOWER(:email)")
+    Optional<User> findByIdAndEmail(@Param("id") Long id, @Param("email") String email);
 }

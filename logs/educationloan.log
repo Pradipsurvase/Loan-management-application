@@ -1,19 +1,19 @@
-2026-03-04T11:03:00.617+05:30  INFO 19260 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 19260 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T11:03:00.645+05:30  INFO 19260 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T11:03:04.288+05:30  INFO 19260 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T11:03:04.569+05:30  INFO 19260 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 234 ms. Found 3 JPA repository interfaces.
-2026-03-04T11:03:07.404+05:30  INFO 19260 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T11:03:07.459+05:30  INFO 19260 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T11:03:07.461+05:30  INFO 19260 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T11:03:07.727+05:30  INFO 19260 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 6830 ms
-2026-03-04T11:03:08.612+05:30  INFO 19260 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T11:03:08.913+05:30  INFO 19260 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T11:03:11.211+05:30  INFO 19260 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T11:03:11.532+05:30  INFO 19260 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T11:03:12.459+05:30  INFO 19260 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@27b490de
-2026-03-04T11:03:12.462+05:30  INFO 19260 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T11:03:12.682+05:30  WARN 19260 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T11:03:12.786+05:30  INFO 19260 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T10:33:37.205+05:30  INFO 15432 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 15432 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T10:33:37.446+05:30  INFO 15432 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T10:33:40.843+05:30  INFO 15432 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T10:33:41.483+05:30  INFO 15432 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 572 ms. Found 3 JPA repository interfaces.
+2026-03-06T10:33:43.243+05:30  INFO 15432 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T10:33:43.278+05:30  INFO 15432 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T10:33:43.278+05:30  INFO 15432 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T10:33:43.421+05:30  INFO 15432 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5799 ms
+2026-03-06T10:33:43.834+05:30  INFO 15432 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T10:33:44.008+05:30  INFO 15432 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T10:33:45.142+05:30  INFO 15432 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T10:33:45.212+05:30  INFO 15432 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T10:33:45.618+05:30  INFO 15432 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@14b26e90
+2026-03-06T10:33:45.618+05:30  INFO 15432 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T10:33:45.713+05:30  WARN 15432 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T10:33:45.776+05:30  INFO 15432 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -25,40 +25,37 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T11:03:19.764+05:30  INFO 19260 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T11:03:20.430+05:30  INFO 19260 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T11:03:20.717+05:30  INFO 19260 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T11:03:24.321+05:30  WARN 19260 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T11:03:24.764+05:30  INFO 19260 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T11:03:26.627+05:30  INFO 19260 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T11:03:26.659+05:30  INFO 19260 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 28.739 seconds (process running for 31.098)
-2026-03-04T11:03:26.673+05:30  INFO 19260 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T11:03:27.592+05:30  INFO 19260 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T11:06:26.556+05:30  INFO 19260 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-04T11:15:01.527+05:30  INFO 19260 --- [educationloan] [http-nio-8080-exec-7] c.e.educationloan.service.UserService    : Role USER assigned to user narsing_98
-2026-03-04T11:15:45.122+05:30  INFO 19260 --- [educationloan] [http-nio-8080-exec-5] c.e.educationloan.service.UserService    : User narsing_98 already has role DIRECTOR
-2026-03-04T11:15:51.057+05:30  INFO 19260 --- [educationloan] [http-nio-8080-exec-6] c.e.educationloan.service.UserService    : User narsing_98 already has role DIRECTOR
-2026-03-04T11:16:14.305+05:30  INFO 19260 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T11:16:14.337+05:30  INFO 19260 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T11:16:14.373+05:30  INFO 19260 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T11:16:14.402+05:30  INFO 19260 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T11:16:14.420+05:30  INFO 19260 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-04T14:50:02.798+05:30  INFO 15508 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 15508 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T14:50:02.798+05:30  INFO 15508 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T14:50:04.319+05:30  INFO 15508 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T14:50:04.380+05:30  INFO 15508 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 3 JPA repository interfaces.
-2026-03-04T14:50:05.371+05:30  INFO 15508 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T14:50:05.403+05:30  INFO 15508 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T14:50:05.403+05:30  INFO 15508 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T14:50:05.483+05:30  INFO 15508 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2607 ms
-2026-03-04T14:50:05.882+05:30  INFO 15508 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T14:50:06.068+05:30  INFO 15508 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T14:50:06.831+05:30  INFO 15508 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T14:50:06.881+05:30  INFO 15508 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T14:50:07.196+05:30  INFO 15508 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5178345d
-2026-03-04T14:50:07.196+05:30  INFO 15508 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T14:50:07.260+05:30  WARN 15508 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T14:50:07.307+05:30  INFO 15508 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T10:33:47.194+05:30  INFO 15432 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T10:33:47.464+05:30  INFO 15432 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T10:33:47.623+05:30  INFO 15432 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T10:33:49.163+05:30  WARN 15432 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T10:33:49.337+05:30  INFO 15432 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T10:33:50.572+05:30  INFO 15432 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T10:33:50.587+05:30  INFO 15432 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 14.503 seconds (process running for 16.289)
+2026-03-06T10:33:50.590+05:30  INFO 15432 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T10:33:50.987+05:30  INFO 15432 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T10:35:07.547+05:30  INFO 15432 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T10:43:43.506+05:30  INFO 15432 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T10:43:43.544+05:30  INFO 15432 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T10:43:43.576+05:30  INFO 15432 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T10:43:43.606+05:30  INFO 15432 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T10:43:43.618+05:30  INFO 15432 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T10:43:51.787+05:30  INFO 3820 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 3820 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T10:43:51.790+05:30  INFO 3820 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T10:43:53.252+05:30  INFO 3820 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T10:43:53.338+05:30  INFO 3820 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 75 ms. Found 3 JPA repository interfaces.
+2026-03-06T10:43:54.280+05:30  INFO 3820 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T10:43:54.297+05:30  INFO 3820 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T10:43:54.297+05:30  INFO 3820 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T10:43:54.376+05:30  INFO 3820 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2482 ms
+2026-03-06T10:43:56.217+05:30  INFO 3820 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T10:43:56.400+05:30  INFO 3820 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T10:43:56.993+05:30  INFO 3820 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T10:43:57.045+05:30  INFO 3820 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T10:43:57.285+05:30  INFO 3820 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2375a976
+2026-03-06T10:43:57.287+05:30  INFO 3820 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T10:43:57.360+05:30  WARN 3820 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T10:43:57.397+05:30  INFO 3820 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -70,40 +67,37 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T14:50:08.466+05:30  INFO 15508 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T14:50:08.738+05:30  INFO 15508 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T14:50:08.848+05:30  INFO 15508 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T14:50:09.996+05:30  WARN 15508 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T14:50:10.122+05:30  INFO 15508 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T14:50:10.823+05:30  INFO 15508 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T14:50:10.830+05:30  INFO 15508 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 9.001 seconds (process running for 9.822)
-2026-03-04T14:50:10.836+05:30  INFO 15508 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T14:50:11.142+05:30  INFO 15508 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T14:51:42.608+05:30  INFO 15508 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-04T14:53:47.488+05:30  INFO 15508 --- [educationloan] [http-nio-8080-exec-7] c.e.educationloan.service.UserService    : Role ADMIN assigned to user narsing_98
-2026-03-04T14:54:14.571+05:30  INFO 15508 --- [educationloan] [http-nio-8080-exec-10] c.e.educationloan.service.UserService    : Role ADMIN assigned to user narsing_98
-2026-03-04T14:54:14.580+05:30  INFO 15508 --- [educationloan] [http-nio-8080-exec-10] c.e.educationloan.service.UserService    : Role VENDOR assigned to user narsing_98
-2026-03-04T15:01:02.926+05:30  INFO 15508 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T15:01:02.936+05:30  INFO 15508 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T15:01:02.948+05:30  INFO 15508 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:01:02.952+05:30  INFO 15508 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T15:01:02.952+05:30  INFO 15508 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-04T15:16:40.783+05:30  INFO 16036 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 16036 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T15:16:40.799+05:30  INFO 16036 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T15:16:42.261+05:30  INFO 16036 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T15:16:42.328+05:30  INFO 16036 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 3 JPA repository interfaces.
-2026-03-04T15:16:43.182+05:30  INFO 16036 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T15:16:43.214+05:30  INFO 16036 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T15:16:43.214+05:30  INFO 16036 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T15:16:43.278+05:30  INFO 16036 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2375 ms
-2026-03-04T15:16:43.673+05:30  INFO 16036 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T15:16:43.798+05:30  INFO 16036 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T15:16:44.687+05:30  INFO 16036 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T15:16:44.735+05:30  INFO 16036 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T15:16:44.991+05:30  INFO 16036 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@18ac4af6
-2026-03-04T15:16:44.991+05:30  INFO 16036 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T15:16:45.051+05:30  WARN 16036 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T15:16:45.099+05:30  INFO 16036 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T10:43:58.534+05:30  INFO 3820 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T10:43:58.640+05:30  INFO 3820 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T10:43:58.762+05:30  INFO 3820 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T10:43:59.957+05:30  WARN 3820 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T10:44:00.142+05:30  INFO 3820 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T10:44:01.050+05:30  INFO 3820 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T10:44:01.058+05:30  INFO 3820 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 10.208 seconds (process running for 11.328)
+2026-03-06T10:44:01.062+05:30  INFO 3820 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T10:44:01.320+05:30  INFO 3820 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T10:47:06.684+05:30  INFO 3820 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T11:03:06.845+05:30  INFO 3820 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T11:03:06.860+05:30  INFO 3820 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T11:03:06.878+05:30  INFO 3820 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T11:03:06.898+05:30  INFO 3820 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T11:03:06.904+05:30  INFO 3820 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T11:03:43.147+05:30  INFO 17208 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 17208 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T11:03:43.156+05:30  INFO 17208 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T11:03:44.576+05:30  INFO 17208 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T11:03:44.633+05:30  INFO 17208 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 3 JPA repository interfaces.
+2026-03-06T11:03:45.552+05:30  INFO 17208 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T11:03:45.566+05:30  INFO 17208 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T11:03:45.566+05:30  INFO 17208 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T11:03:45.636+05:30  INFO 17208 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2381 ms
+2026-03-06T11:03:46.073+05:30  INFO 17208 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T11:03:46.183+05:30  INFO 17208 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T11:03:48.341+05:30  INFO 17208 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T11:03:48.392+05:30  INFO 17208 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T11:03:48.612+05:30  INFO 17208 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2375a976
+2026-03-06T11:03:48.614+05:30  INFO 17208 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T11:03:48.671+05:30  WARN 17208 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T11:03:48.719+05:30  INFO 17208 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -115,37 +109,37 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T15:16:46.327+05:30  INFO 16036 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T15:16:46.430+05:30  INFO 16036 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:16:46.575+05:30  INFO 16036 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T15:16:47.874+05:30  WARN 16036 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T15:16:48.071+05:30  INFO 16036 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T15:16:49.346+05:30  INFO 16036 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T15:16:49.363+05:30  INFO 16036 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 9.327 seconds (process running for 10.185)
-2026-03-04T15:16:49.378+05:30  INFO 16036 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T15:16:49.869+05:30  INFO 16036 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T15:17:32.260+05:30  INFO 16036 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-04T15:21:19.000+05:30  INFO 16036 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T15:21:19.036+05:30  INFO 16036 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T15:21:19.051+05:30  INFO 16036 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:21:19.054+05:30  INFO 16036 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T15:21:19.054+05:30  INFO 16036 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-04T15:21:24.386+05:30  INFO 17336 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 17336 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T15:21:24.389+05:30  INFO 17336 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T15:21:25.838+05:30  INFO 17336 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T15:21:25.933+05:30  INFO 17336 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 83 ms. Found 3 JPA repository interfaces.
-2026-03-04T15:21:26.758+05:30  INFO 17336 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T15:21:26.758+05:30  INFO 17336 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T15:21:26.758+05:30  INFO 17336 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T15:21:26.837+05:30  INFO 17336 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2340 ms
-2026-03-04T15:21:27.168+05:30  INFO 17336 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T15:21:27.245+05:30  INFO 17336 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T15:21:27.928+05:30  INFO 17336 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T15:21:27.991+05:30  INFO 17336 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T15:21:28.179+05:30  INFO 17336 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@573870cb
-2026-03-04T15:21:28.181+05:30  INFO 17336 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T15:21:28.212+05:30  WARN 17336 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T15:21:28.246+05:30  INFO 17336 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T11:03:49.868+05:30  INFO 17208 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T11:03:49.949+05:30  INFO 17208 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T11:03:50.063+05:30  INFO 17208 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T11:03:51.149+05:30  WARN 17208 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T11:03:51.344+05:30  INFO 17208 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T11:03:52.296+05:30  INFO 17208 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T11:03:52.302+05:30  INFO 17208 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 9.939 seconds (process running for 10.826)
+2026-03-06T11:03:52.315+05:30  INFO 17208 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T11:03:52.720+05:30  INFO 17208 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T11:04:00.470+05:30  INFO 17208 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T11:06:58.996+05:30  INFO 17208 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T11:06:59.008+05:30  INFO 17208 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T11:06:59.015+05:30  INFO 17208 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T11:06:59.017+05:30  INFO 17208 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T11:06:59.022+05:30  INFO 17208 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T11:07:04.310+05:30  INFO 8868 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 8868 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T11:07:04.319+05:30  INFO 8868 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T11:07:05.544+05:30  INFO 8868 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T11:07:05.631+05:30  INFO 8868 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 3 JPA repository interfaces.
+2026-03-06T11:07:06.448+05:30  INFO 8868 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T11:07:06.459+05:30  INFO 8868 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T11:07:06.459+05:30  INFO 8868 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T11:07:06.535+05:30  INFO 8868 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2072 ms
+2026-03-06T11:07:06.860+05:30  INFO 8868 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T11:07:06.926+05:30  INFO 8868 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T11:07:07.673+05:30  INFO 8868 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T11:07:07.723+05:30  INFO 8868 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T11:07:07.923+05:30  INFO 8868 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T11:07:07.925+05:30  INFO 8868 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T11:07:07.954+05:30  WARN 8868 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T11:07:07.984+05:30  INFO 8868 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -157,37 +151,37 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T15:21:29.284+05:30  INFO 17336 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T15:21:29.364+05:30  INFO 17336 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:21:29.459+05:30  INFO 17336 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T15:21:30.570+05:30  WARN 17336 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T15:21:30.697+05:30  INFO 17336 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T15:21:31.576+05:30  INFO 17336 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T15:21:31.576+05:30  INFO 17336 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 7.991 seconds (process running for 8.629)
-2026-03-04T15:21:31.586+05:30  INFO 17336 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T15:21:31.966+05:30  INFO 17336 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T15:21:39.688+05:30  INFO 17336 --- [educationloan] [http-nio-8080-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-04T15:22:18.360+05:30  INFO 17336 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T15:22:18.360+05:30  INFO 17336 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T15:22:18.360+05:30  INFO 17336 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:22:18.375+05:30  INFO 17336 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T15:22:18.375+05:30  INFO 17336 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-04T15:27:09.329+05:30  INFO 6740 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 6740 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T15:27:09.345+05:30  INFO 6740 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T15:27:10.711+05:30  INFO 6740 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T15:27:10.807+05:30  INFO 6740 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 79 ms. Found 3 JPA repository interfaces.
-2026-03-04T15:27:11.633+05:30  INFO 6740 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T15:27:11.648+05:30  INFO 6740 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T15:27:11.648+05:30  INFO 6740 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T15:27:11.727+05:30  INFO 6740 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2267 ms
-2026-03-04T15:27:12.108+05:30  INFO 6740 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T15:27:12.219+05:30  INFO 6740 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T15:27:12.832+05:30  INFO 6740 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T15:27:12.887+05:30  INFO 6740 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T15:27:13.062+05:30  INFO 6740 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@573870cb
-2026-03-04T15:27:13.078+05:30  INFO 6740 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T15:27:13.114+05:30  WARN 6740 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T15:27:13.142+05:30  INFO 6740 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T11:07:09.062+05:30  INFO 8868 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T11:07:09.146+05:30  INFO 8868 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T11:07:09.248+05:30  INFO 8868 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T11:07:10.293+05:30  WARN 8868 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T11:07:10.442+05:30  INFO 8868 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T11:07:11.249+05:30  INFO 8868 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T11:07:11.255+05:30  INFO 8868 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 7.703 seconds (process running for 8.346)
+2026-03-06T11:07:11.271+05:30  INFO 8868 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T11:07:11.558+05:30  INFO 8868 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T11:07:20.847+05:30  INFO 8868 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T11:07:31.890+05:30  INFO 8868 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T11:07:31.897+05:30  INFO 8868 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T11:07:31.902+05:30  INFO 8868 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T11:07:31.909+05:30  INFO 8868 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T11:07:31.912+05:30  INFO 8868 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T12:09:13.207+05:30  INFO 13188 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 13188 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T12:09:13.226+05:30  INFO 13188 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T12:09:16.173+05:30  INFO 13188 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T12:09:16.362+05:30  INFO 13188 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 153 ms. Found 3 JPA repository interfaces.
+2026-03-06T12:09:18.181+05:30  INFO 13188 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T12:09:18.232+05:30  INFO 13188 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T12:09:18.233+05:30  INFO 13188 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T12:09:18.396+05:30  INFO 13188 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4984 ms
+2026-03-06T12:09:19.126+05:30  INFO 13188 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T12:09:19.322+05:30  INFO 13188 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T12:09:20.674+05:30  INFO 13188 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T12:09:20.773+05:30  INFO 13188 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T12:09:21.268+05:30  INFO 13188 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T12:09:21.271+05:30  INFO 13188 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T12:09:21.401+05:30  WARN 13188 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T12:09:21.499+05:30  INFO 13188 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -199,37 +193,49 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T15:27:14.152+05:30  INFO 6740 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T15:27:14.220+05:30  INFO 6740 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:27:14.310+05:30  INFO 6740 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T15:27:15.309+05:30  WARN 6740 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T15:27:15.468+05:30  INFO 6740 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T15:27:16.342+05:30  INFO 6740 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T15:27:16.357+05:30  INFO 6740 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 7.8 seconds (process running for 8.405)
-2026-03-04T15:27:16.373+05:30  INFO 6740 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T15:27:16.675+05:30  INFO 6740 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T15:27:23.835+05:30  INFO 6740 --- [educationloan] [http-nio-8080-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-04T15:27:48.400+05:30  INFO 6740 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T15:27:48.416+05:30  INFO 6740 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T15:27:48.416+05:30  INFO 6740 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:27:48.416+05:30  INFO 6740 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T15:27:48.416+05:30  INFO 6740 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-04T15:40:25.841+05:30  INFO 17832 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 17832 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T15:40:25.841+05:30  INFO 17832 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T15:40:27.349+05:30  INFO 17832 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T15:40:27.397+05:30  INFO 17832 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 3 JPA repository interfaces.
-2026-03-04T15:40:28.256+05:30  INFO 17832 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T15:40:28.272+05:30  INFO 17832 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T15:40:28.272+05:30  INFO 17832 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T15:40:28.384+05:30  INFO 17832 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2402 ms
-2026-03-04T15:40:28.749+05:30  INFO 17832 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T15:40:28.844+05:30  INFO 17832 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T15:40:29.560+05:30  INFO 17832 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T15:40:29.623+05:30  INFO 17832 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T15:40:29.830+05:30  INFO 17832 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@573870cb
-2026-03-04T15:40:29.830+05:30  INFO 17832 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T15:40:29.862+05:30  WARN 17832 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T15:40:29.893+05:30  INFO 17832 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T12:09:23.657+05:30  INFO 13188 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T12:09:23.926+05:30  INFO 13188 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:09:24.148+05:30  INFO 13188 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T12:09:26.620+05:30  WARN 13188 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T12:09:27.002+05:30  INFO 13188 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T12:09:28.853+05:30  INFO 13188 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T12:09:28.873+05:30  INFO 13188 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 17.187 seconds (process running for 19.313)
+2026-03-06T12:09:28.892+05:30  INFO 13188 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T12:09:29.574+05:30  INFO 13188 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T12:09:35.004+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T12:13:14.394+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-8] c.e.educationloan.service.UserService    : User narsing_98 with email narsing9824@gmail.com activated successfully
+2026-03-06T12:13:20.777+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-10] c.e.educationloan.service.UserService    : User narsing_patil_8791 with email narsingpatil98@example.com activated successfully
+2026-03-06T12:13:23.653+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-2] c.e.educationloan.service.UserService    : User narsing_patil_4014 with email narsingpatil9824@example.com activated successfully
+2026-03-06T12:13:29.685+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-1] c.e.educationloan.service.UserService    : User sumit_shinde_6143 with email sumitshinde@gmail.com activated successfully
+2026-03-06T12:13:31.636+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-3] c.e.educationloan.service.UserService    : User ajit_birajdar_574317 with email ajitbirajdar@gmail.com activated successfully
+2026-03-06T12:13:33.617+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-4] c.e.educationloan.service.UserService    : User john_doe_5129 with email john.doe@example.com activated successfully
+2026-03-06T12:13:39.399+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-6] c.e.educationloan.service.UserService    : User john_doe_5129 with email john.doe@example.com activated successfully
+2026-03-06T12:14:04.163+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-7] c.e.educationloan.service.UserService    : User narsing_98 with email narsing9824@gmail.com deactivated successfully
+2026-03-06T12:14:10.141+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-8] c.e.educationloan.service.UserService    : User ajit_birajdar_574317 with email ajitbirajdar@gmail.com deactivated successfully
+2026-03-06T12:14:16.022+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-9] c.e.educationloan.service.UserService    : User narsing_patil_8791 with email narsingpatil98@example.com deactivated successfully
+2026-03-06T12:15:51.083+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-4] c.e.educationloan.service.UserService    : User narsing_patil_8791 with emailId narsingpatil98@example.com verified successfully
+2026-03-06T12:16:12.797+05:30  INFO 13188 --- [educationloan] [http-nio-8080-exec-5] c.e.educationloan.service.UserService    : User narsing_patil_4014 with emailId narsingpatil9824@example.com verified successfully
+2026-03-06T12:19:44.456+05:30  INFO 13188 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T12:19:44.479+05:30  INFO 13188 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T12:19:44.488+05:30  INFO 13188 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:19:44.496+05:30  INFO 13188 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T12:19:44.503+05:30  INFO 13188 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T12:31:49.077+05:30  INFO 392 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 392 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T12:31:49.091+05:30  INFO 392 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T12:31:52.386+05:30  INFO 392 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T12:31:52.551+05:30  INFO 392 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 140 ms. Found 3 JPA repository interfaces.
+2026-03-06T12:31:54.277+05:30  INFO 392 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T12:31:54.308+05:30  INFO 392 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T12:31:54.309+05:30  INFO 392 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T12:31:54.425+05:30  INFO 392 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5063 ms
+2026-03-06T12:31:55.074+05:30  INFO 392 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T12:31:55.313+05:30  INFO 392 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T12:31:56.811+05:30  INFO 392 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T12:31:56.904+05:30  INFO 392 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T12:31:57.306+05:30  INFO 392 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T12:31:57.308+05:30  INFO 392 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T12:31:57.434+05:30  WARN 392 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T12:31:57.546+05:30  INFO 392 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -241,38 +247,37 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T15:40:31.113+05:30  INFO 17832 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T15:40:31.216+05:30  INFO 17832 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:40:31.347+05:30  INFO 17832 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T15:40:32.466+05:30  WARN 17832 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T15:40:32.594+05:30  INFO 17832 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T15:40:33.422+05:30  INFO 17832 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T15:40:33.422+05:30  INFO 17832 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 8.371 seconds (process running for 9.024)
-2026-03-04T15:40:33.438+05:30  INFO 17832 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T15:40:33.835+05:30  INFO 17832 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T15:41:24.292+05:30  INFO 17832 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-04T15:41:55.874+05:30  INFO 17832 --- [educationloan] [http-nio-8080-exec-5] c.e.educationloan.service.UserService    : User narsing_98 updated successfully
-2026-03-04T15:43:21.200+05:30  INFO 17832 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T15:43:21.200+05:30  INFO 17832 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T15:43:21.209+05:30  INFO 17832 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:43:21.209+05:30  INFO 17832 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T15:43:21.216+05:30  INFO 17832 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-04T15:45:45.116+05:30  INFO 2496 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 2496 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T15:45:45.123+05:30  INFO 2496 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T15:45:46.631+05:30  INFO 2496 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T15:45:46.721+05:30  INFO 2496 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 3 JPA repository interfaces.
-2026-03-04T15:45:47.773+05:30  INFO 2496 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T15:45:47.798+05:30  INFO 2496 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T15:45:47.799+05:30  INFO 2496 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T15:45:47.899+05:30  INFO 2496 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2656 ms
-2026-03-04T15:45:48.252+05:30  INFO 2496 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T15:45:48.330+05:30  INFO 2496 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T15:45:49.153+05:30  INFO 2496 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T15:45:49.207+05:30  INFO 2496 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T15:45:49.422+05:30  INFO 2496 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@573870cb
-2026-03-04T15:45:49.425+05:30  INFO 2496 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T15:45:49.486+05:30  WARN 2496 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T15:45:49.528+05:30  INFO 2496 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T12:32:00.639+05:30  INFO 392 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T12:32:00.871+05:30  INFO 392 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:32:01.047+05:30  INFO 392 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T12:32:04.291+05:30  WARN 392 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T12:32:04.727+05:30  INFO 392 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T12:32:06.492+05:30  INFO 392 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T12:32:06.525+05:30  INFO 392 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 19.167 seconds (process running for 21.038)
+2026-03-06T12:32:06.543+05:30  INFO 392 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T12:32:07.308+05:30  INFO 392 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T12:33:30.117+05:30  INFO 392 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T12:37:34.854+05:30  INFO 392 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T12:37:34.893+05:30  INFO 392 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T12:37:34.907+05:30  INFO 392 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:37:34.915+05:30  INFO 392 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T12:37:34.927+05:30  INFO 392 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T12:42:23.582+05:30  INFO 12992 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 12992 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T12:42:23.600+05:30  INFO 12992 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T12:42:27.827+05:30  INFO 12992 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T12:42:28.004+05:30  INFO 12992 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 144 ms. Found 3 JPA repository interfaces.
+2026-03-06T12:42:29.688+05:30  INFO 12992 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T12:42:29.722+05:30  INFO 12992 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T12:42:29.723+05:30  INFO 12992 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T12:42:29.866+05:30  INFO 12992 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5891 ms
+2026-03-06T12:42:30.563+05:30  INFO 12992 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T12:42:30.813+05:30  INFO 12992 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T12:42:32.250+05:30  INFO 12992 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T12:42:32.363+05:30  INFO 12992 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T12:42:32.890+05:30  INFO 12992 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T12:42:32.893+05:30  INFO 12992 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T12:42:33.049+05:30  WARN 12992 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T12:42:33.161+05:30  INFO 12992 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -284,38 +289,38 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T15:45:50.675+05:30  INFO 2496 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T15:45:50.779+05:30  INFO 2496 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:45:50.896+05:30  INFO 2496 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T15:45:52.149+05:30  WARN 2496 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T15:45:52.364+05:30  INFO 2496 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T15:45:53.263+05:30  INFO 2496 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T15:45:53.279+05:30  INFO 2496 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 9.007 seconds (process running for 9.61)
-2026-03-04T15:45:53.288+05:30  INFO 2496 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T15:45:53.695+05:30  INFO 2496 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T15:46:17.360+05:30  INFO 2496 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-04T15:46:17.654+05:30  INFO 2496 --- [educationloan] [http-nio-8080-exec-2] c.e.educationloan.service.UserService    : User narsing_98 updated successfully
-2026-03-04T15:46:35.647+05:30  INFO 2496 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T15:46:35.650+05:30  INFO 2496 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T15:46:35.659+05:30  INFO 2496 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T15:46:35.661+05:30  INFO 2496 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T15:46:35.661+05:30  INFO 2496 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-03-04T16:37:45.433+05:30  INFO 18152 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 18152 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
-2026-03-04T16:37:45.433+05:30  INFO 18152 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
-2026-03-04T16:37:47.347+05:30  INFO 18152 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-04T16:37:47.500+05:30  INFO 18152 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 123 ms. Found 3 JPA repository interfaces.
-2026-03-04T16:37:48.720+05:30  INFO 18152 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-03-04T16:37:48.761+05:30  INFO 18152 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-03-04T16:37:48.762+05:30  INFO 18152 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-03-04T16:37:49.041+05:30  INFO 18152 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3501 ms
-2026-03-04T16:37:49.896+05:30  INFO 18152 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-03-04T16:37:50.386+05:30  INFO 18152 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-03-04T16:37:51.507+05:30  INFO 18152 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-04T16:37:51.603+05:30  INFO 18152 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-03-04T16:37:51.987+05:30  INFO 18152 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3d98729a
-2026-03-04T16:37:51.987+05:30  INFO 18152 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-03-04T16:37:52.087+05:30  WARN 18152 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-03-04T16:37:52.126+05:30  INFO 18152 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-03-06T12:42:35.574+05:30  INFO 12992 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T12:42:35.876+05:30  INFO 12992 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:42:36.084+05:30  INFO 12992 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T12:42:38.720+05:30  WARN 12992 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T12:42:39.054+05:30  INFO 12992 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T12:42:40.871+05:30  INFO 12992 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T12:42:40.889+05:30  INFO 12992 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 20.012 seconds (process running for 21.985)
+2026-03-06T12:42:40.913+05:30  INFO 12992 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T12:42:41.492+05:30  INFO 12992 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T12:42:56.368+05:30  INFO 12992 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T12:42:56.918+05:30  INFO 12992 --- [educationloan] [http-nio-8080-exec-1] c.e.educationloan.service.UserService    : User ajit_birajdar_574317 with emailId ajitbirajdar@gmail.com verified successfully
+2026-03-06T12:43:58.691+05:30  INFO 12992 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T12:43:58.702+05:30  INFO 12992 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T12:43:58.702+05:30  INFO 12992 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:43:58.716+05:30  INFO 12992 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T12:43:58.716+05:30  INFO 12992 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T12:44:06.171+05:30  INFO 12064 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 12064 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T12:44:06.184+05:30  INFO 12064 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T12:44:07.675+05:30  INFO 12064 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T12:44:07.789+05:30  INFO 12064 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 3 JPA repository interfaces.
+2026-03-06T12:44:08.866+05:30  INFO 12064 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T12:44:08.882+05:30  INFO 12064 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T12:44:08.882+05:30  INFO 12064 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T12:44:08.946+05:30  INFO 12064 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2619 ms
+2026-03-06T12:44:09.328+05:30  INFO 12064 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T12:44:09.440+05:30  INFO 12064 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T12:44:10.734+05:30  INFO 12064 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T12:44:10.868+05:30  INFO 12064 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T12:44:11.344+05:30  INFO 12064 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T12:44:11.354+05:30  INFO 12064 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T12:44:11.418+05:30  WARN 12064 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T12:44:11.503+05:30  INFO 12064 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -327,17 +332,326 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-04T16:37:53.917+05:30  INFO 18152 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-04T16:37:54.078+05:30  INFO 18152 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T16:37:54.276+05:30  INFO 18152 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-04T16:37:55.854+05:30  WARN 18152 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-04T16:37:56.145+05:30  INFO 18152 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-03-04T16:37:58.820+05:30  INFO 18152 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-03-04T16:37:58.859+05:30  INFO 18152 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 16.887 seconds (process running for 17.769)
-2026-03-04T16:37:58.876+05:30  INFO 18152 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
-2026-03-04T16:37:59.601+05:30  INFO 18152 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
-2026-03-04T16:52:56.679+05:30  INFO 18152 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-04T16:52:56.695+05:30  INFO 18152 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-03-04T16:52:56.695+05:30  INFO 18152 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-04T16:52:56.695+05:30  INFO 18152 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-03-04T16:52:56.711+05:30  INFO 18152 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T12:44:13.096+05:30  INFO 12064 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T12:44:13.235+05:30  INFO 12064 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:44:13.363+05:30  INFO 12064 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T12:44:15.303+05:30  WARN 12064 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T12:44:15.618+05:30  INFO 12064 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T12:44:17.151+05:30  INFO 12064 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T12:44:17.159+05:30  INFO 12064 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 12.194 seconds (process running for 12.988)
+2026-03-06T12:44:17.178+05:30  INFO 12064 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T12:44:17.809+05:30  INFO 12064 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T12:44:24.327+05:30  INFO 12064 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T12:44:24.534+05:30  INFO 12064 --- [educationloan] [http-nio-8080-exec-2] c.e.educationloan.service.UserService    : User ajit_birajdar_574317 with emailId ajitbirajdar@gmail.com verified successfully
+2026-03-06T12:45:08.301+05:30  INFO 12064 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T12:45:08.317+05:30  INFO 12064 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T12:45:08.328+05:30  INFO 12064 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:45:08.329+05:30  INFO 12064 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T12:45:08.329+05:30  INFO 12064 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T12:45:14.000+05:30  INFO 18272 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 18272 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T12:45:14.000+05:30  INFO 18272 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T12:45:15.636+05:30  INFO 18272 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T12:45:15.726+05:30  INFO 18272 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 79 ms. Found 3 JPA repository interfaces.
+2026-03-06T12:45:16.692+05:30  INFO 18272 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T12:45:16.708+05:30  INFO 18272 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T12:45:16.708+05:30  INFO 18272 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T12:45:16.787+05:30  INFO 18272 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2668 ms
+2026-03-06T12:45:17.264+05:30  INFO 18272 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T12:45:17.389+05:30  INFO 18272 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T12:45:18.308+05:30  INFO 18272 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T12:45:18.388+05:30  INFO 18272 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T12:45:18.610+05:30  INFO 18272 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T12:45:18.610+05:30  INFO 18272 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T12:45:18.650+05:30  WARN 18272 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T12:45:18.703+05:30  INFO 18272 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-06T12:45:19.794+05:30  INFO 18272 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T12:45:19.889+05:30  INFO 18272 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:45:19.984+05:30  INFO 18272 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T12:45:21.335+05:30  WARN 18272 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T12:45:21.535+05:30  INFO 18272 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T12:45:22.931+05:30  INFO 18272 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T12:45:22.948+05:30  INFO 18272 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 9.861 seconds (process running for 10.679)
+2026-03-06T12:45:22.978+05:30  INFO 18272 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T12:45:23.688+05:30  INFO 18272 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T12:45:38.875+05:30  INFO 18272 --- [educationloan] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T12:45:39.222+05:30  INFO 18272 --- [educationloan] [http-nio-8080-exec-1] c.e.educationloan.service.UserService    : User ajit_birajdar_574317 with emailId ajitbirajdar@gmail.com verified successfully
+2026-03-06T12:47:54.987+05:30  INFO 18272 --- [educationloan] [http-nio-8080-exec-7] c.e.educationloan.service.UserService    : Password updated successfully for user narsing_98 with email narsing9824@gmail.com
+2026-03-06T12:47:55.036+05:30  WARN 18272 --- [educationloan] [http-nio-8080-exec-7] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: 23502
+2026-03-06T12:47:55.037+05:30  WARN 18272 --- [educationloan] [http-nio-8080-exec-7] org.hibernate.orm.jdbc.error             : ERROR: null value in column "password" of relation "users" violates not-null constraint
+  Detail: Failing row contains (f, f, 2026-03-02 00:16:57.637463, 1, 2026-03-06 12:47:54.997169, narsing_98, Narsing, Patil, narsing9824@gmail.com, null).
+2026-03-06T12:48:33.613+05:30  INFO 18272 --- [educationloan] [http-nio-8080-exec-5] c.e.educationloan.service.UserService    : Password updated successfully for user narsing_98 with email narsing9824@gmail.com
+2026-03-06T12:48:33.618+05:30  WARN 18272 --- [educationloan] [http-nio-8080-exec-5] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: 23502
+2026-03-06T12:48:33.618+05:30  WARN 18272 --- [educationloan] [http-nio-8080-exec-5] org.hibernate.orm.jdbc.error             : ERROR: null value in column "password" of relation "users" violates not-null constraint
+  Detail: Failing row contains (f, f, 2026-03-02 00:16:57.637463, 1, 2026-03-06 12:48:33.616425, narsing_98, Narsing, Patil, narsing9824@gmail.com, null).
+2026-03-06T12:51:53.984+05:30  INFO 18272 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T12:51:53.984+05:30  INFO 18272 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T12:51:54.000+05:30  INFO 18272 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:51:54.000+05:30  INFO 18272 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T12:51:54.005+05:30  INFO 18272 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T12:58:10.587+05:30  INFO 10736 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 10736 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T12:58:10.604+05:30  INFO 10736 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T12:58:13.485+05:30  INFO 10736 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T12:58:13.596+05:30  INFO 10736 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 96 ms. Found 3 JPA repository interfaces.
+2026-03-06T12:58:15.130+05:30  INFO 10736 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T12:58:15.191+05:30  INFO 10736 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T12:58:15.193+05:30  INFO 10736 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T12:58:15.350+05:30  INFO 10736 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4492 ms
+2026-03-06T12:58:16.044+05:30  INFO 10736 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T12:58:16.379+05:30  INFO 10736 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T12:58:17.940+05:30  INFO 10736 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T12:58:18.098+05:30  INFO 10736 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T12:58:18.662+05:30  INFO 10736 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T12:58:18.666+05:30  INFO 10736 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T12:58:18.778+05:30  WARN 10736 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T12:58:18.958+05:30  INFO 10736 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-06T12:58:21.405+05:30  INFO 10736 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T12:58:21.643+05:30  INFO 10736 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T12:58:21.818+05:30  INFO 10736 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T12:58:24.075+05:30  WARN 10736 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T12:58:24.425+05:30  INFO 10736 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T12:58:26.159+05:30  INFO 10736 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T12:58:26.173+05:30  INFO 10736 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 17.669 seconds (process running for 19.037)
+2026-03-06T12:58:26.184+05:30  INFO 10736 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T12:58:26.871+05:30  INFO 10736 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T12:58:32.297+05:30  INFO 10736 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T13:00:02.865+05:30  INFO 10736 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T13:00:02.879+05:30  INFO 10736 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T13:00:02.879+05:30  INFO 10736 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T13:00:02.879+05:30  INFO 10736 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T13:00:02.895+05:30  INFO 10736 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T13:00:11.250+05:30  INFO 1196 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 1196 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T13:00:11.259+05:30  INFO 1196 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T13:00:13.779+05:30  INFO 1196 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T13:00:13.953+05:30  INFO 1196 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 161 ms. Found 3 JPA repository interfaces.
+2026-03-06T13:00:15.558+05:30  INFO 1196 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T13:00:15.589+05:30  INFO 1196 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T13:00:15.589+05:30  INFO 1196 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T13:00:15.702+05:30  INFO 1196 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4225 ms
+2026-03-06T13:00:16.227+05:30  INFO 1196 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T13:00:16.357+05:30  INFO 1196 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T13:00:17.519+05:30  INFO 1196 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T13:00:17.597+05:30  INFO 1196 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T13:00:17.930+05:30  INFO 1196 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7d5ef1c3
+2026-03-06T13:00:17.932+05:30  INFO 1196 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T13:00:17.984+05:30  WARN 1196 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T13:00:18.037+05:30  INFO 1196 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-06T13:00:19.804+05:30  INFO 1196 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T13:00:19.948+05:30  INFO 1196 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T13:00:20.093+05:30  INFO 1196 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T13:00:22.013+05:30  WARN 1196 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T13:00:22.279+05:30  INFO 1196 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T13:00:23.741+05:30  INFO 1196 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T13:00:23.759+05:30  INFO 1196 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 13.831 seconds (process running for 15.002)
+2026-03-06T13:00:23.773+05:30  INFO 1196 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T13:00:24.207+05:30  INFO 1196 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T13:00:30.062+05:30  INFO 1196 --- [educationloan] [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T13:01:21.639+05:30  INFO 1196 --- [educationloan] [http-nio-8080-exec-6] c.e.educationloan.service.UserService    : Password updated successfully for user narsing_98 with email narsing9824@gmail.com
+2026-03-06T13:01:49.659+05:30  INFO 1196 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T13:01:49.675+05:30  INFO 1196 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T13:01:49.675+05:30  INFO 1196 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T13:01:49.691+05:30  INFO 1196 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T13:01:49.691+05:30  INFO 1196 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T14:02:01.235+05:30  INFO 18372 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 18372 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T14:02:01.258+05:30  INFO 18372 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T14:02:03.947+05:30  INFO 18372 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T14:02:04.055+05:30  INFO 18372 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 93 ms. Found 3 JPA repository interfaces.
+2026-03-06T14:02:05.406+05:30  INFO 18372 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T14:02:05.438+05:30  INFO 18372 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T14:02:05.438+05:30  INFO 18372 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T14:02:05.581+05:30  INFO 18372 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4107 ms
+2026-03-06T14:02:06.041+05:30  INFO 18372 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T14:02:06.218+05:30  INFO 18372 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T14:02:07.577+05:30  INFO 18372 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T14:02:07.657+05:30  INFO 18372 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T14:02:08.040+05:30  INFO 18372 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4bc21e34
+2026-03-06T14:02:08.040+05:30  INFO 18372 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T14:02:08.135+05:30  WARN 18372 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T14:02:08.182+05:30  INFO 18372 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-06T14:02:09.925+05:30  INFO 18372 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T14:02:10.056+05:30  INFO 18372 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:02:10.214+05:30  INFO 18372 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T14:02:11.974+05:30  WARN 18372 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T14:02:12.116+05:30  INFO 18372 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T14:02:13.067+05:30  INFO 18372 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T14:02:13.073+05:30  INFO 18372 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 13.001 seconds (process running for 14.598)
+2026-03-06T14:02:13.083+05:30  INFO 18372 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T14:02:13.513+05:30  INFO 18372 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T14:02:18.604+05:30  INFO 18372 --- [educationloan] [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T14:05:37.150+05:30  INFO 18372 --- [educationloan] [http-nio-8080-exec-2] c.e.educationloan.service.UserService    : Role USER removed from user narsing_98
+2026-03-06T14:08:03.301+05:30  INFO 18372 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T14:08:03.325+05:30  INFO 18372 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T14:08:03.344+05:30  INFO 18372 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:08:03.346+05:30  INFO 18372 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T14:08:03.355+05:30  INFO 18372 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T14:08:14.181+05:30  INFO 17316 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 17316 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T14:08:14.181+05:30  INFO 17316 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T14:08:16.499+05:30  INFO 17316 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T14:08:16.671+05:30  INFO 17316 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 148 ms. Found 3 JPA repository interfaces.
+2026-03-06T14:08:18.341+05:30  INFO 17316 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T14:08:18.368+05:30  INFO 17316 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T14:08:18.368+05:30  INFO 17316 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T14:08:18.507+05:30  INFO 17316 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4128 ms
+2026-03-06T14:08:18.985+05:30  INFO 17316 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T14:08:19.225+05:30  INFO 17316 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T14:08:20.472+05:30  INFO 17316 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T14:08:20.545+05:30  INFO 17316 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T14:08:20.812+05:30  INFO 17316 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4bc21e34
+2026-03-06T14:08:20.814+05:30  INFO 17316 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T14:08:20.929+05:30  WARN 17316 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T14:08:21.024+05:30  INFO 17316 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-06T14:08:22.543+05:30  INFO 17316 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T14:08:22.686+05:30  INFO 17316 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:08:22.866+05:30  INFO 17316 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T14:08:24.524+05:30  WARN 17316 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T14:08:24.699+05:30  INFO 17316 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T14:08:25.777+05:30  INFO 17316 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T14:08:25.790+05:30  INFO 17316 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 13.046 seconds (process running for 14.126)
+2026-03-06T14:08:25.808+05:30  INFO 17316 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T14:08:26.239+05:30  INFO 17316 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T14:09:21.443+05:30  INFO 17316 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T14:09:21.813+05:30  INFO 17316 --- [educationloan] [http-nio-8080-exec-2] c.e.educationloan.service.UserService    : Role DIRECTOR removed from user narsing_98
+2026-03-06T14:10:11.151+05:30  INFO 17316 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T14:10:11.171+05:30  INFO 17316 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T14:10:11.184+05:30  INFO 17316 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:10:11.191+05:30  INFO 17316 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T14:10:11.204+05:30  INFO 17316 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T14:10:18.774+05:30  INFO 11572 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 11572 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T14:10:18.774+05:30  INFO 11572 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T14:10:21.392+05:30  INFO 11572 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T14:10:21.466+05:30  INFO 11572 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66 ms. Found 3 JPA repository interfaces.
+2026-03-06T14:10:22.737+05:30  INFO 11572 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T14:10:22.780+05:30  INFO 11572 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T14:10:22.780+05:30  INFO 11572 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T14:10:22.943+05:30  INFO 11572 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3970 ms
+2026-03-06T14:10:23.527+05:30  INFO 11572 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T14:10:23.623+05:30  INFO 11572 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T14:10:24.582+05:30  INFO 11572 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T14:10:24.646+05:30  INFO 11572 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T14:10:24.948+05:30  INFO 11572 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@573870cb
+2026-03-06T14:10:24.948+05:30  INFO 11572 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T14:10:24.996+05:30  WARN 11572 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T14:10:25.077+05:30  INFO 11572 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-06T14:10:26.419+05:30  INFO 11572 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T14:10:26.530+05:30  INFO 11572 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:10:26.711+05:30  INFO 11572 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T14:10:28.589+05:30  WARN 11572 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T14:10:28.812+05:30  INFO 11572 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T14:10:29.904+05:30  INFO 11572 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T14:10:29.917+05:30  INFO 11572 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 12.327 seconds (process running for 13.443)
+2026-03-06T14:10:29.920+05:30  INFO 11572 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T14:10:30.300+05:30  INFO 11572 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T14:10:35.722+05:30  INFO 11572 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T14:10:50.720+05:30  INFO 11572 --- [educationloan] [http-nio-8080-exec-4] c.e.educationloan.service.UserService    : Role ADMIN removed from user narsing_98
+2026-03-06T14:12:45.556+05:30  INFO 11572 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T14:12:45.569+05:30  INFO 11572 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T14:12:45.591+05:30  INFO 11572 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:12:45.601+05:30  INFO 11572 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T14:12:45.607+05:30  INFO 11572 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-06T14:12:54.163+05:30  INFO 6600 --- [educationloan] [main] c.e.e.EducationloanApplication           : Starting EducationloanApplication using Java 23.0.2 with PID 6600 (D:\educationloan\target\classes started by Narsing Patil in D:\educationloan)
+2026-03-06T14:12:54.163+05:30  INFO 6600 --- [educationloan] [main] c.e.e.EducationloanApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-03-06T14:12:56.225+05:30  INFO 6600 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-06T14:12:56.334+05:30  INFO 6600 --- [educationloan] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 96 ms. Found 3 JPA repository interfaces.
+2026-03-06T14:12:57.697+05:30  INFO 6600 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-06T14:12:57.743+05:30  INFO 6600 --- [educationloan] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-06T14:12:57.743+05:30  INFO 6600 --- [educationloan] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-06T14:12:57.854+05:30  INFO 6600 --- [educationloan] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3538 ms
+2026-03-06T14:12:58.322+05:30  INFO 6600 --- [educationloan] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-06T14:12:58.472+05:30  INFO 6600 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-06T14:12:59.381+05:30  INFO 6600 --- [educationloan] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-06T14:12:59.447+05:30  INFO 6600 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-06T14:12:59.701+05:30  INFO 6600 --- [educationloan] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3573e19d
+2026-03-06T14:12:59.701+05:30  INFO 6600 --- [educationloan] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-06T14:12:59.749+05:30  WARN 6600 --- [educationloan] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-06T14:12:59.781+05:30  INFO 6600 --- [educationloan] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-06T14:13:01.242+05:30  INFO 6600 --- [educationloan] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-06T14:13:01.369+05:30  INFO 6600 --- [educationloan] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:13:01.482+05:30  INFO 6600 --- [educationloan] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-06T14:13:03.112+05:30  WARN 6600 --- [educationloan] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-06T14:13:03.335+05:30  INFO 6600 --- [educationloan] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-03-06T14:13:04.871+05:30  INFO 6600 --- [educationloan] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-06T14:13:04.871+05:30  INFO 6600 --- [educationloan] [main] c.e.e.EducationloanApplication           : Started EducationloanApplication in 12.066 seconds (process running for 13.123)
+2026-03-06T14:13:04.886+05:30  INFO 6600 --- [educationloan] [main] c.e.e.config.RoleInitializer             : Available roles are loading in roles database..........................
+2026-03-06T14:13:05.236+05:30  INFO 6600 --- [educationloan] [main] c.e.e.config.RoleInitializer             : all Available roles are Successfully loaded in the roles database..........!!!
+2026-03-06T14:13:46.135+05:30  INFO 6600 --- [educationloan] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-06T14:15:18.285+05:30  INFO 6600 --- [educationloan] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-06T14:15:18.301+05:30  INFO 6600 --- [educationloan] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-06T14:15:18.306+05:30  INFO 6600 --- [educationloan] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-06T14:15:18.308+05:30  INFO 6600 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-06T14:15:18.314+05:30  INFO 6600 --- [educationloan] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

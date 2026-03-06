@@ -8,6 +8,7 @@ import com.example.educationloan.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,11 +27,11 @@ public class UserRoleService {
         return userRoleRepository.findByRole_RoleId(roleId);
     }
 
-    // Assign a role to a user with metadata
-    public UserRole assignRoleToUser(User user, Role role, String assignedBy) {
-        UserRole userRole = new UserRole(user, role, assignedBy);
-        return userRoleRepository.save(userRole);
-    }
+//    // Assign a role to a user with metadata
+//    public UserRole assignRoleToUser(User user, Role role, String assignedBy) {
+//        UserRole userRole = new UserRole(user, role, assignedBy);
+//        return userRoleRepository.save(userRole);
+//    }
 
     // Remove a role assignment
     public void removeUserRole(Long userRoleId) {
@@ -41,5 +42,14 @@ public class UserRoleService {
     public User getUserById(Long id) {
         return userRoleRepository.findByIdWithRoles(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+    }
+
+    public UserRole giveRoleToUser(User user, Role role, String assignedBy) {
+        UserRole userRole = new UserRole();
+        userRole.setUser(user);
+        userRole.setRole(role);
+        userRole.setAssignedBy(assignedBy);
+        userRole.setAssignedAt(LocalDateTime.now());
+        return userRoleRepository.save(userRole);
     }
 }
