@@ -300,6 +300,12 @@ public class UserService {
         userRoleRepository.deleteById(userRoleId);
     }
 
+    public void removeUserRole1(Long userId, Long roleId) {
+        UserRole userRole = userRoleRepository.findByUserIdAndRoleId(userId, roleId)
+                .orElseThrow(() -> new ResourceNotFoundException("UserRole not found for userId: " + userId + " and roleId: " + roleId));
+        userRoleRepository.delete(userRole);
+    }
+
 
 
 

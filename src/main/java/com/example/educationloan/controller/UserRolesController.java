@@ -39,6 +39,13 @@ public class UserRolesController {
     }
 
     //pass/assign the role in the request body-----------------------------------------------------------
+    /*sample json
+      {
+        "userId": 2,
+        "roleId": 7,
+        "assignedBy": "adminUser"
+       }
+    * */
     @PostMapping("/assign")
     public ResponseEntity<ApiResponse<UserRoleDTO>> assignRoleToUser(@RequestBody AssignRoleDTO request) {
         User user = userService.getUserById(request.getUserId());
@@ -48,9 +55,9 @@ public class UserRolesController {
     }
 
     //remove the particular role from the user using the roleId---------------------------------------------------
-    @DeleteMapping("/role/{userRoleId}")
-    public ResponseEntity<ApiResponse<Void>> removeUserRole(@PathVariable Long userRoleId) {
-        userService.removeUserRole(userRoleId);
+    @DeleteMapping("/{userId}/role/{roleId}")
+    public ResponseEntity<ApiResponse<Void>> removeUserRole(@PathVariable Long userId, @PathVariable Long roleId) {
+        userService.removeUserRole1(userId, roleId);
         return ResponseEntity.ok(new ApiResponse<>(true, "User role removed successfully", null));
     }
 

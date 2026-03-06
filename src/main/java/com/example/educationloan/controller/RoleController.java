@@ -97,7 +97,7 @@ public class RoleController {
                 orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false,"User Role Not Found",null)));
     }
 
-    //7.Get all roles and its id at once--------------------------------------------------------------------------------
+    //7.Get all available roles and its id at once--------------------------------------------------------------------------------
     @GetMapping("/getAllRoles")
     public ResponseEntity<ApiResponse<?>> getAllRoles() {
         List<Role> role=roleService.getAllRoles();
@@ -111,20 +111,20 @@ public class RoleController {
         return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with user role"+roleName,roleService.getUserWithRole(roleName)));
     }
 
-    //9.fetch all user with specific role---------------------------------------------------------------------------------
+    //9.fetch/get all user with specific role---------------------------------------------------------------------------
     @GetMapping("/usersWithRole/{roleName}")
     public ResponseEntity<ApiResponse<?>> getUsersWithSpecificRole(@PathVariable RoleEnum roleName) {
         return ResponseEntity.ok(new ApiResponse<>(true,"fetch all user with role: "+roleName,roleService.getUsersByRoleName(roleName)));
     }
 
-    //10.Get all roles
-    @GetMapping("getAllRoleWithId")
+    //10.Get all roles--------------------------------------------------------------------------------------------------
+    @GetMapping("/getAllRoleWithId")
     public ResponseEntity<ApiResponse<List<Role>>> getAllRoles1() {
         List<Role> roles = roleService.getAllRoles();
         return ResponseEntity.ok(new ApiResponse<>(true, "All roles fetched successfully", roles));
     }
 
-    //11.Get roles assigned to a specific user
+    //11.Get roles assigned to a specific user--------------------------------------------------------------------------
     @GetMapping("/user/{userId}")
     public ResponseEntity<ApiResponse<List<Role>>> getRolesByUser(@PathVariable Long userId) {
         List<Role> roles = roleService.getRolesByUserId(userId);
