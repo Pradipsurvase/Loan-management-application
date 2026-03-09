@@ -1,5 +1,6 @@
 package com.example.educationloan.service;
 
+import com.example.educationloan.dto.RegisterDTO;
 import com.example.educationloan.entity.Role;
 import com.example.educationloan.entity.User;
 import com.example.educationloan.entity.UserRole;
@@ -10,17 +11,23 @@ import com.example.educationloan.repository.UserRepository;
 import com.example.educationloan.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Function;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserInterface {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -307,10 +314,14 @@ public class UserService {
     }
 
 
-
-
-
-
-
+    @Transactional
+    public User registerUser(RegisterDTO request) {
+        return createUser(
+                request.getEmail(),
+                request.getPassword(),
+                request.getFirstName(),
+                request.getLastName()
+        );
+    }
 
 }

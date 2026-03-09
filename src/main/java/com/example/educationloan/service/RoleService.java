@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 @Transactional
 @RequiredArgsConstructor
-public class RoleService {
+public class RoleService implements RoleInterface {
 
     private final RoleRepository roleRepository;
     private final UserService userService;
@@ -137,55 +137,5 @@ public class RoleService {
         user.addRole(currentRole,"system");
         return userRepository.save(user);
     }
-
-
-
-
-
-
-
-    /*
-
-    public List<Role> getRolesByUserId1(Long userId) {
-        return roleRepository.findRolesByUserId(userId);
-    }
-
-    //Update role assigned to a specific user (alternate version)--------------------------------------
-    @Transactional
-    public User updateUserRole1(Long userId, RoleEnum newRoleName) {
-        User user = userService.getUserById(userId);
-
-        Role newRole = roleRepository.findByName(newRoleName)
-                .orElseThrow(() -> new RuntimeException("Role not found with name: " + newRoleName));
-
-        user.getUserRoles().clear();
-        user.addRole(newRole, "system");
-        User updatedUser = userRepository.save(user);
-
-        log.info("Updated role for user with id {}: new role name {}", userId, newRoleName);
-        return updatedUser;
-    }
-
-    //Update role details---------------------------------------------------------------------------------------
-    @Transactional
-    public Role updateRole(Long id, RoleEnum name) {
-        Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + id));
-        if (name != null) {
-            roleRepository.findByName(name).ifPresent(existingRole -> {
-                if (!existingRole.getRoleId().equals(id)) {
-                    throw new DuplicateResourceException("Role name already exists: " + name);
-                }
-            });
-            role.setName(name);
-        }
-        return roleRepository.save(role);
-    }
-*/
-
-
-
-
-
 
 }

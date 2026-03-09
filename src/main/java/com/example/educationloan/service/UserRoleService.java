@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserRoleService {
+public class UserRoleService implements UserRoleInterface{
 
     private final UserRoleRepository userRoleRepository;
 
@@ -27,11 +27,6 @@ public class UserRoleService {
         return userRoleRepository.findByRole_RoleId(roleId);
     }
 
-//    // Assign a role to a user with metadata
-//    public UserRole assignRoleToUser(User user, Role role, String assignedBy) {
-//        UserRole userRole = new UserRole(user, role, assignedBy);
-//        return userRoleRepository.save(userRole);
-//    }
 
     // Remove a role assignment
     public void removeUserRole(Long userRoleId) {

@@ -12,18 +12,19 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class RoleInitializer implements CommandLineRunner {
+
+    private static final String BLUE  = "\u001B[34m";
+    private static final String RESET = "\u001B[0m";
+
     private final RoleService roleService;
-
-
     @Override
     public void run(String... args) {
-       /*available roles are loading*/
-        log.info("Available roles are loading in roles database..........................");
 
+        log.info(BLUE +"Available roles are loading in roles database.........................."+RESET);
         RoleEnum[] rolesToCreate = {RoleEnum.ADMIN, RoleEnum.USER, RoleEnum.MANAGER, RoleEnum.EMPLOYEE, RoleEnum.CASHIER, RoleEnum.AUDITOR, RoleEnum.SUPPORT, RoleEnum.ANALYST, RoleEnum.DEVELOPER, RoleEnum.TESTER, RoleEnum.CONSULTANT, RoleEnum.INTERN, RoleEnum.CONTRACTOR, RoleEnum.SUPERVISOR, RoleEnum.DIRECTOR, RoleEnum.EXECUTIVE, RoleEnum.OWNER, RoleEnum.GUEST, RoleEnum.MEMBER, RoleEnum.PARTNER, RoleEnum.VENDOR};
         for (RoleEnum roleEnum : rolesToCreate) {
             roleService.createOrGetRole(roleEnum);
         }
-        log.info("all Available roles are Successfully loaded in the roles database..........!!!");
+        log.info(BLUE + "all Available roles are Successfully loaded in the roles database..........!!!" + RESET);
     }
 }
