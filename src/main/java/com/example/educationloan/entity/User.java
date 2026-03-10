@@ -1,6 +1,6 @@
 package com.example.educationloan.entity;
 
-import com.example.educationloan.dto.RoleDTO;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -70,7 +70,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<UserRole> userRoles = new HashSet<>();
 
-    // helper method to assign a role with metadata
     public void addRole(Role role, String assignedBy) {
         UserRole userRole = new UserRole(this, role, assignedBy);
         this.userRoles.add(userRole);

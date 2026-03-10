@@ -26,6 +26,7 @@ spring:
         use_sql_comments: true
 
 logging:
+  config: classpath:logback-spring.xml
   file:
     name: logs/educationloan.log
     max-size: 10MB
@@ -63,7 +64,6 @@ app:
         refill-duration-minutes: 1
         login-bucket-capacity: 5
         register-bucket-capacity: 3
-
     #Fixed Window (used by your interceptor)
       fixed-window:
         enabled: false

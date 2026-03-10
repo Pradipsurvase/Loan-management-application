@@ -64,7 +64,7 @@ public class AuditLoggingInterceptor implements HandlerInterceptor {
         log.info(CYAN+"[AUDIT] user={} | {} {} | IP={} | status={} | time={}ms", username,request.getMethod(), uri, clientIp, response.getStatus(), timeTaken+RESET);
 
         if (ex != null) {
-            log.error(RED+"[AUDIT] Exception | user={} | {} {} | error={}", username, request.getMethod(), uri, ex.getMessage()+RESET);
+            log.error(RED+" [AUDIT] Exception | user={} | {} {} | error={}", username, request.getMethod(), uri, ex.getMessage()+ RESET);
         }
     }
 
