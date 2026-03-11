@@ -16,10 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuditLoggingInterceptor implements HandlerInterceptor {
 
-    private static final String RESET = "\u001B[0m";
-    private static final String CYAN  = "\u001B[36m";
-    private static final String RED   = "\u001B[31m";
-
     private final JwtTokenProvider jwtTokenProvider;
 
     @Value("${app.interceptor.audit-logging.enabled:true}")
@@ -61,10 +57,10 @@ public class AuditLoggingInterceptor implements HandlerInterceptor {
         long startTime = (Long) request.getAttribute(START_TIME);
         long timeTaken = System.currentTimeMillis() - startTime;
         String clientIp = getClientIp(request);
-        log.info(CYAN+"[AUDIT] user={} | {} {} | IP={} | status={} | time={}ms", username,request.getMethod(), uri, clientIp, response.getStatus(), timeTaken+RESET);
+        log.info("[AUDIT] user={} | {} {} | IP={} | status={} | time={}ms", username,request.getMethod(), uri, clientIp, response.getStatus(), timeTaken);
 
         if (ex != null) {
-            log.error(RED+" [AUDIT] Exception | user={} | {} {} | error={}", username, request.getMethod(), uri, ex.getMessage()+ RESET);
+            log.error("[AUDIT] Exception | user={} | {} {} | error={}", username, request.getMethod(), uri, ex.getMessage());
         }
     }
 

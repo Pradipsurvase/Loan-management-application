@@ -16,6 +16,7 @@ spring:
       auto-commit: true
 
   jpa:
+    open-in-view: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
@@ -59,16 +60,16 @@ app:
     #Token Bucket (existing)
       token-bucket:
         enabled: true
-        bucket-capacity: 10
+        bucket-capacity: 5
         refill-tokens: 1
         refill-duration-minutes: 1
-        login-bucket-capacity: 5
+        login-bucket-capacity: 2
         register-bucket-capacity: 3
     #Fixed Window (used by your interceptor)
-      fixed-window:
-        enabled: false
-        max-requests: 5
-        time-window-ms: 60000
+#      fixed-window:
+#        enabled: false
+#        max-requests: 5
+#        time-window-ms: 60000
 
     #Token Expiry
     token-expiry:
@@ -101,6 +102,8 @@ management:
 #http://localhost:8080/actuator/info
 #http://localhost:8080/actuator/metrics
 #http://localhost:8080/actuator/env
+
+# application.properties
 
 
 server:

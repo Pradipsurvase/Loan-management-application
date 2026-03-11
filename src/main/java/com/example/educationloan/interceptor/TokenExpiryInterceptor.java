@@ -1,7 +1,4 @@
-
-
 package com.example.educationloan.interceptor;
-
 import com.example.educationloan.config.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,10 +15,6 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class TokenExpiryInterceptor implements HandlerInterceptor {
-
-    private static final String RED    = "\u001B[31m";
-    private static final String ORANGE = "\u001B[33m";
-    private static final String RESET  = "\u001B[0m";
 
     private final JwtTokenProvider jwtTokenProvider;
     private static final long TOKEN_EXPIRY_WARNING_MS = 10 * 60 * 1000;
@@ -48,14 +41,14 @@ public class TokenExpiryInterceptor implements HandlerInterceptor {
             Date expiry  = jwtTokenProvider.extractExpiration(token);
             long timeLeft = expiry.getTime() - System.currentTimeMillis();
             if (timeLeft <= 0) {
-                log.warn(RED+"Expired token used for URL: {}", uri+RESET);
+                log.warn("Expired token used for URL: {}", uri);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setContentType("application/json");
                 response.getWriter().write("{\"success\":false,\"message\":\"Token has expired. Please login again.\",\"data\":null}");
                 return false;
             }
             if (timeLeft <= TOKEN_EXPIRY_WARNING_MS) {
-                log.info(ORANGE+"Token expiring soon for URL: {} | Time left: {}s", uri, timeLeft / 1000+RESET);
+                log.info("Token expiring soon for URL: {} | Time left: {}s", uri, timeLeft / 1000);
                 response.setHeader("X-Token-Expiring-Soon", "true");
                 response.setHeader("X-Token-Expires-In", String.valueOf(timeLeft / 1000) + "s");
             }
@@ -64,7 +57,6 @@ public class TokenExpiryInterceptor implements HandlerInterceptor {
         }
         return true;
     }
-
 
     private String extractToken(HttpServletRequest request) {
         String bearer = request.getHeader("Authorization");

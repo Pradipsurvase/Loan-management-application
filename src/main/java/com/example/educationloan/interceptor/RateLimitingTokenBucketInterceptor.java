@@ -23,18 +23,14 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RateLimitingTokenBucketInterceptor implements HandlerInterceptor {
 
-    private static final String GREEN  = "\u001B[32m";
-    private static final String RED    = "\u001B[31m";
-    private static final String YELLOW = "\u001B[33m";
-    private static final String RESET  = "\u001B[0m";
 
     @Value("${app.interceptor.rate-limiting.enabled:true}")
     private boolean enabled;
 
-    @Value("${app.interceptor.rate-limiting.bucket-capacity:100}")
+    @Value("${app.interceptor.rate-limiting.bucket-capacity:5}")
     private int bucketCapacity;
 
-    @Value("${app.interceptor.rate-limiting.refill-tokens:100}")
+    @Value("${app.interceptor.rate-limiting.refill-tokens:5}")
     private int refillTokens;
 
     @Value("${app.interceptor.rate-limiting.refill-duration-minutes:1}")
@@ -49,20 +45,19 @@ public class RateLimitingTokenBucketInterceptor implements HandlerInterceptor {
     @Value("${app.interceptor.rate-limiting.get-user-bucket-capacity:5}")
     private int getUserBucketCapacity;
 
-    // ── CHANGE 1: Store BucketEntry (bucket + lastUsed) instead of bare Bucket
     private record BucketEntry(Bucket bucket, Instant lastUsed) {}
     private final Map<String, BucketEntry> buckets = new ConcurrentHashMap<>(); // ← type changed
 
     @PostConstruct
     public void init() {
-        log.info(RED + "=================================================================================================" + RESET);
-        log.info("\u001B[34m RateLimitingInterceptor for Token Bucket is ready..............................\u001B[0m");
-        log.info(GREEN +"enabled               = {}" + RESET, enabled);
-        log.info(GREEN +"general capacity      = {}/min" + RESET, bucketCapacity);
-        log.info(GREEN +"login capacity        = {}/min" + RESET, loginBucketCapacity);
-        log.info(GREEN +"register capacity     = {}/min" + RESET, registerBucketCapacity);
-        log.info(GREEN +"get-user capacity     = {}/min" + RESET, getUserBucketCapacity);
-        log.info(RED + "=================================================================================================" + RESET);
+        log.info("=================================================================================================");
+        log.info("RateLimitingInterceptor for Token Bucket is ready.................................................");
+        log.info("enabled               = {}", enabled);
+        log.info("general capacity      = {}/min", bucketCapacity);
+        log.info("login capacity        = {}/min", loginBucketCapacity);
+        log.info("register capacity     = {}/min", registerBucketCapacity);
+        log.info("get-user capacity     = {}/min", getUserBucketCapacity);
+        log.info("=================================================================================================");
     }
 
     @Override
@@ -78,12 +73,12 @@ public class RateLimitingTokenBucketInterceptor implements HandlerInterceptor {
 
         if (bucket.tryConsume(1)) {
             long remaining = bucket.getAvailableTokens();
-            log.debug(YELLOW+"Token Allowed | IP: {} | URL: {} | Tokens left: {}", clientIp, uri, remaining+RESET);
+            log.debug("Token Allowed | IP: {} | URL: {} | Tokens left: {}", clientIp, uri, remaining);
             response.setHeader("X-Rate-Limit-Remaining", String.valueOf(remaining));
             return true;
         }
 
-        log.warn(RED+"Token-Rate limit exceeded | IP: {} | URL: {}", clientIp, uri+RESET);
+        log.warn("Token-Rate limit exceeded | IP: {} | URL: {}", clientIp, uri);
         response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -101,11 +96,11 @@ public class RateLimitingTokenBucketInterceptor implements HandlerInterceptor {
             int capacity = getUserBucketCapacity;
             return getOrCreate("get-user:" + clientIp, capacity, capacity);
         }
-        if (uri.contains("/auth/login")) {
+        if (uri.contains("/api/v1/auth/login")) {
             int capacity = loginBucketCapacity;
             return getOrCreate("login:" + clientIp, capacity, capacity);
         }
-        if (uri.contains("/auth/register")) {
+        if (uri.contains("/api/v1/auth/register")) {
             int capacity = registerBucketCapacity;
             return getOrCreate("register:" + clientIp, capacity, capacity);
         }
@@ -131,12 +126,12 @@ public class RateLimitingTokenBucketInterceptor implements HandlerInterceptor {
         return ip;
     }
 
-    // runs every 10 min, removes IPs idle for 10+ minutes ────────
-    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
-    public void evictStaleBuckets() {
-        Instant cutoff = Instant.now().minus(Duration.ofMinutes(10));
-        int before = buckets.size();
-        buckets.entrySet().removeIf(e -> e.getValue().lastUsed().isBefore(cutoff));
-        log.info(YELLOW+"Bucket cleanup | removed={} | remaining={}", before - buckets.size(), buckets.size()+RESET);
-    }
+//    // runs every 10 min, removes IPs idle for 10+ minutes ────────
+//    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
+//    public void evictStaleBuckets() {
+//        Instant cutoff = Instant.now().minus(Duration.ofMinutes(10));
+//        int before = buckets.size();
+//        buckets.entrySet().removeIf(e -> e.getValue().lastUsed().isBefore(cutoff));
+//        log.info("Bucket cleanup | removed={} | remaining={}", before - buckets.size(), buckets.size());
+//    }
 }

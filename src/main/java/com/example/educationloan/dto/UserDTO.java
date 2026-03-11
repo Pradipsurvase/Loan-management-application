@@ -41,6 +41,19 @@ public class UserDTO {
                         .collect(Collectors.toSet()))
                 .build();
     }
+    public static UserDTO toUserDTO1(User user) {
+        return UserDTO.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .isActive(user.getIsActive())
+                .isEmailVerified(user.getIsEmailVerified())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
+                .build();
+    }
 }
 
 

@@ -1,5 +1,5 @@
 
-
+/*
 package com.example.educationloan.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,11 +16,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @Component
 public class RateLimitingFixedWindowInterceptor implements HandlerInterceptor {
-
-
-    private static final String RED    = "\u001B[31m";
-    private static final String PURPLE = "\u001B[35m";
-    private static final String RESET  = "\u001B[0m";
 
     @Value("${app.interceptor.rate-limiting.fixed-window.max-requests}")
     private int maxRequests;
@@ -52,7 +47,7 @@ public class RateLimitingFixedWindowInterceptor implements HandlerInterceptor {
         }
         int currentCount = requestCounts.get(clientIp).incrementAndGet();
         if (currentCount > maxRequests) {
-            log.warn(RED+"Fix-WindowRate limit exceeded for IP: {} | Count: {}", clientIp, currentCount+RESET);
+            log.warn("Fix-WindowRate limit exceeded for IP: {} | Count: {}", clientIp, currentCount);
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
             response.setContentType("application/json");
             response.getWriter().write("{\"success\":false," +
@@ -60,8 +55,7 @@ public class RateLimitingFixedWindowInterceptor implements HandlerInterceptor {
                                            "\"data\":null}");
             return false;
         }
-
-        log.debug(PURPLE+"Fix-Window Rate limit check | IP: {} | Count: {}/{}", clientIp, currentCount, maxRequests+RESET);
+        log.debug("Fix-Window Rate limit check | IP: {} | Count: {}/{}", clientIp, currentCount, maxRequests);
         return true;
     }
 
@@ -73,3 +67,4 @@ public class RateLimitingFixedWindowInterceptor implements HandlerInterceptor {
         return ip;
     }
 }
+ */

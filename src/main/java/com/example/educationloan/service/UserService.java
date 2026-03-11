@@ -19,6 +19,8 @@ import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -169,27 +171,25 @@ public class UserService implements UserInterface {
     // fetches user with roles eagerly before assigning multiple roles--------------------------------------------------
     @Transactional
     public User assignRolesUser1(Long userId, List<RoleEnum> roleNames) {
-        User user = userRepository.findByIdWithRoles(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-
+        User user = userRepository.findByIdWithRoles(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        List<RoleEnum> alreadyAssigned = new ArrayList<>();
         for (RoleEnum roleName : roleNames) {
-            Role role = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RoleNotFoundException("Role not found with name: " + roleName));
-
-            boolean alreadyHasRole = user.getUserRoles().stream()
-                    .anyMatch(userRole -> userRole.getRole().equals(role));
-
+            Role role = roleRepository.findByName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found with name: " + roleName));
+            boolean alreadyHasRole = user.getUserRoles().stream().anyMatch(userRole -> userRole.getRole().equals(role));
             if (!alreadyHasRole) {
                 user.addRole(role, "system");
                 log.info("Role {} assigned to user {}", roleName, user.getUsername());
             } else {
-                throw new RoleAlreadyAssignedException( "User " + user.getUsername() + " already has role " + roleName );
+                alreadyAssigned.add(roleName);
             }
         }
         userRepository.save(user);
-        //Re-fetch after save to return fresh data with all roles-------------------------------
-        return userRepository.findByIdWithRoles(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        User updatedUser = userRepository.findByIdWithRoles(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        if (!alreadyAssigned.isEmpty()) {
+            throw new RoleAlreadyAssignedException("User " + updatedUser.getUsername() +" with id:"+updatedUser.getId()+ " already has roles: " + alreadyAssigned);
+        }
+
+        return updatedUser;
     }
 
 
@@ -293,6 +293,8 @@ public class UserService implements UserInterface {
 
 
     public List<Role> getRolesByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         return roleRepository.findRolesByUserId(userId);
     }
 

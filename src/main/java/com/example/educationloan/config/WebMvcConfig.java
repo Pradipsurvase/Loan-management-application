@@ -16,7 +16,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private final RateLimitingTokenBucketInterceptor rateLimitingTokenBucketInterceptor;
     private final TokenExpiryInterceptor tokenExpiryInterceptor;
     private final AuditLoggingInterceptor auditLoggingInterceptor;
-    private final RateLimitingFixedWindowInterceptor fixedWindowRateLimiter;
+    //private final RateLimitingFixedWindowInterceptor fixedWindowRateLimiter;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -30,8 +30,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(auditLoggingInterceptor).addPathPatterns("/**");
 
-        registry.addInterceptor(fixedWindowRateLimiter).addPathPatterns("/**")
-                .excludePathPatterns("/actuator/health", "/actuator/info", "/favicon.ico", "/error");
+       // registry.addInterceptor(fixedWindowRateLimiter).addPathPatterns("/**").excludePathPatterns("/actuator/health", "/actuator/info", "/favicon.ico", "/error");
 
 
     }

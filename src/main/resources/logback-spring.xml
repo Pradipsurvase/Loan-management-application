@@ -1,138 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- 1. Console -->
+
+
+
+    <!-- ── 1. Console ──────────────────────────────────────────────────────── -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>false</withJansi>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- 2. Main app log → logs/educationloan.log -->
-    <appender name="APP_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/educationloan.log</file>
+    <!-- ── 2. ONE CENTRAL LOG → logs/educationloan-central.log ────────────── -->
+    <!--  Captures every layer in request order:                              -->
+    <!--  Filters → Interceptors → Controllers → Services → Exceptions       -->
+    <appender name="CENTRAL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <immediateFlush>true</immediateFlush>
+        <file>logs/educationloan-central.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/educationloan.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- 3. Audit log → logs/audit.log -->
-    <appender name="AUDIT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/audit.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/audit.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>logs/educationloan-central.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>20MB</maxFileSize>
-            <maxHistory>90</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- 4. Fixed-window rate limit log → logs/ratelimit-fixedwindow.log -->
-    <appender name="RATELIMIT_FIXED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/ratelimit-fixedwindow.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/ratelimit-fixedwindow.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
             <maxHistory>30</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- 5. Token-bucket rate limit log → logs/ratelimit-tokenbucket.log -->
-    <appender name="RATELIMIT_TOKEN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/ratelimit-tokenbucket.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/ratelimit-tokenbucket.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- 6. Request logging → logs/request.log -->
-    <appender name="REQUEST_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/request.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/request.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- 7. Token expiry log → logs/token-expiry.log -->
-    <appender name="TOKEN_EXPIRY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/token-expiry.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/token-expiry.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
 
-    <!-- AuditLoggingInterceptor → audit.log -->
-    <logger name="com.example.educationloan.interceptor.AuditLoggingInterceptor"
-            level="DEBUG" additivity="false">
-        <appender-ref ref="AUDIT_FILE"/>
+    <logger name="com.example.educationloan" level="DEBUG" additivity="false">
+        <appender-ref ref="CENTRAL_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <!-- RateLimitingFixedWindowInterceptor → ratelimit-fixedwindow.log -->
-    <logger name="com.example.educationloan.interceptor.RateLimitingFixedWindowInterceptor" level="DEBUG" additivity="false">
-        <appender-ref ref="RATELIMIT_FIXED_FILE"/>
+
+    <logger name="org.springframework.security" level="DEBUG" additivity="false">
+        <appender-ref ref="CENTRAL_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <!-- RateLimitingTokenBucketInterceptor → ratelimit-tokenbucket.log -->
-    <logger name="com.example.educationloan.interceptor.RateLimitingTokenBucketInterceptor"
-            level="DEBUG" additivity="false">
-        <appender-ref ref="RATELIMIT_TOKEN_FILE"/>
-        <appender-ref ref="CONSOLE"/>
-    </logger>
-
-    <!-- RequestLoggingInterceptor → request.log -->
-    <logger name="com.example.educationloan.interceptor.RequestLoggingInterceptor"
-            level="DEBUG" additivity="false">
-        <appender-ref ref="REQUEST_FILE"/>
-        <appender-ref ref="CONSOLE"/>
-    </logger>
-
-    <!-- TokenExpiryInterceptor → token-expiry.log -->
-    <logger name="com.example.educationloan.interceptor.TokenExpiryInterceptor"
-            level="DEBUG" additivity="false">
-        <appender-ref ref="TOKEN_EXPIRY_FILE"/>
-        <appender-ref ref="CONSOLE"/>
-    </logger>
-
-    <!-- App code (everything except interceptors above) -->
-    <logger name="com.example.educationloan"         level="DEBUG"/>
-    <logger name="org.springframework.security"       level="DEBUG"/>
     <logger name="org.springframework.web"            level="INFO"/>
     <logger name="org.hibernate.SQL"                  level="DEBUG"/>
     <logger name="org.hibernate.type.descriptor.sql"  level="TRACE"/>
 
-    <!-- ══════════════════════════════════════════
-         ROOT → console + educationloan.log
-    ══════════════════════════════════════════ -->
+
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="APP_FILE"/>
     </root>
 
 </configuration>

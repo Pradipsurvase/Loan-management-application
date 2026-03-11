@@ -1,4 +1,0 @@
-2026-03-10 12:33:45 [http-nio-8080-exec-1] INFO  [36m[AUDIT] user=john_doe_9137 | GET /api/v1/users/get/1 | IP=0:0:0:0:0:0:0:1 | status=200 | time=221[0mms
-2026-03-10 12:40:21 [http-nio-8080-exec-5] INFO  [36m[AUDIT] user=john_doe_9137 | GET /api/v1/users/get/1 | IP=0:0:0:0:0:0:0:1 | status=200 | time=174[0mms
-2026-03-10 12:42:53 [http-nio-8080-exec-3] INFO  [36m[AUDIT] user=anonymous | POST /api/v1/auth/register | IP=0:0:0:0:0:0:0:1 | status=409 | time=265[0mms
-2026-03-10 12:43:01 [http-nio-8080-exec-6] INFO  [36m[AUDIT] user=anonymous | POST /api/v1/auth/register | IP=0:0:0:0:0:0:0:1 | status=200 | time=460[0mms
