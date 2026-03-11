@@ -29,7 +29,7 @@ public class UserController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy hh:mm:ss a").withZone(ZoneId.of("Asia/Kolkata"));
     private static final String ROW  = "+------------+----------------------+----------------------+------------------------------+------------+-----------------+-----------------------------------+";
     private static final String HEAD = "| %-10s | %-20s | %-20s | %-28s | %-10s | %-15s | %-33s |";
-    private static final String DATA = "| %-10s | %-20s | %-20s | %-28s | %-10s | %-15s | %-33s |";
+    private static final String DATA = "| %-10s | %-20s | %-20s | %-28s | %-10s | %-15s | %-31s |";
 
     private void logUserTable(String operation, UserDTO u) {
         log.info("Operation : {}", operation);

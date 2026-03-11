@@ -46,7 +46,7 @@ public class RateLimitingTokenBucketInterceptor implements HandlerInterceptor {
     private int getUserBucketCapacity;
 
     private record BucketEntry(Bucket bucket, Instant lastUsed) {}
-    private final Map<String, BucketEntry> buckets = new ConcurrentHashMap<>(); // ← type changed
+    private final Map<String, BucketEntry> buckets = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
@@ -126,12 +126,5 @@ public class RateLimitingTokenBucketInterceptor implements HandlerInterceptor {
         return ip;
     }
 
-//    // runs every 10 min, removes IPs idle for 10+ minutes ────────
-//    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
-//    public void evictStaleBuckets() {
-//        Instant cutoff = Instant.now().minus(Duration.ofMinutes(10));
-//        int before = buckets.size();
-//        buckets.entrySet().removeIf(e -> e.getValue().lastUsed().isBefore(cutoff));
-//        log.info("Bucket cleanup | removed={} | remaining={}", before - buckets.size(), buckets.size());
-//    }
+
 }
