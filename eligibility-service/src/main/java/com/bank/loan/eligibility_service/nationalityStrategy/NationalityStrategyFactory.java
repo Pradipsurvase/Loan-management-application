@@ -1,9 +1,10 @@
 package com.bank.loan.eligibility_service.nationalityStrategy;
 
 import com.bank.loan.eligibility_service.enums.Nationality;
+import org.springframework.stereotype.Component;
 
 import static com.bank.loan.eligibility_service.enums.Nationality.*;
-
+@Component
 public class NationalityStrategyFactory {
 
     public NationalityEligibilityStrategy getStrategy(Nationality nationality) {

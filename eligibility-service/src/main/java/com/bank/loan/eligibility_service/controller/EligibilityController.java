@@ -22,7 +22,6 @@ public class EligibilityController {
     @PostMapping("/check")
     public ResponseEntity<EligibilityResponseDTO> checkEligibility(
             @Valid @RequestBody EligibilityRequestDTO request) {
-
         EligibilityResponseDTO response = eligibilityService.checkEligibility(request);
         return ResponseEntity.ok(response);
     }

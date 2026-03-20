@@ -2,38 +2,33 @@ package com.bank.loan.eligibility_service.Validator;
 
 import com.bank.loan.eligibility_service.entity.FinancialDetails;
 import com.bank.loan.eligibility_service.exception.BusinessException;
+import com.bank.loan.eligibility_service.exception.ValidationException;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class FinancialValidator {
 
     public void validate(FinancialDetails financial) {
 
         Optional.ofNullable(financial)
                 .orElseThrow(() ->
-                        new BusinessException("Financial details cannot be null"));
+                      new BusinessException("Financial details cannot be null"));
 
         validateCreditScore(financial);
-        validateAnnualIncome(financial);
         validateCourseFees(financial);
-        validateRequestedLoanAmount(financial);
         validateExistingEMI(financial);
+        validateAnnualvsLoan(financial);
+        validateLoanToValue(financial);
     }
 
     private void validateCreditScore(FinancialDetails financial) {
 
         Optional.ofNullable(financial.getCreditScore())
-                .filter(score -> score >= 600 && score <= 900)
+                .filter(score -> score >= 300 && score <= 900)
                 .orElseThrow(() ->
                         new BusinessException("Credit score must be between 300 and 900"));
-    }
-
-    private void validateAnnualIncome(FinancialDetails financial) {
-
-        Optional.ofNullable(financial.getAnnualIncome())
-                .filter(income -> income > 0)
-                .orElseThrow(() ->
-                        new BusinessException("Annual income must be greater than zero"));
     }
 
     private void validateCourseFees(FinancialDetails financial) {
@@ -44,13 +39,20 @@ public class FinancialValidator {
                         new BusinessException("Course fees must be greater than zero"));
     }
 
-    private void validateRequestedLoanAmount(FinancialDetails financial) {
+    private  void validateAnnualvsLoan(FinancialDetails financial){
+        Optional.ofNullable(financial.getAnnualIncome())
+                .filter(income ->income >0)
+                .orElseThrow(()-> new ValidationException("invalid annual income"));
 
         Optional.ofNullable(financial.getRequestedLoanAmount())
-                .filter(amount -> amount > 0)
-                .orElseThrow(() ->
-                        new BusinessException("Requested loan amount must be greater than zero"));
+                .filter(loan ->loan >0)
+                .orElseThrow(()->new ValidationException("invalid loan"));
+
+        if (financial.getAnnualIncome()<financial.getRequestedLoanAmount()){
+            throw new BusinessException("annual income must be grater than loan");
+        }
     }
+
 
     private void validateExistingEMI(FinancialDetails financial) {
 
@@ -58,5 +60,18 @@ public class FinancialValidator {
                 .filter(emi -> emi >= 0)
                 .orElseThrow(() ->
                         new BusinessException("Existing EMI cannot be negative"));
+    }
+
+    private void validateLoanToValue(FinancialDetails financial){
+       double fees= financial.getCourseFees();
+       double loan= financial.getRequestedLoanAmount();
+
+            double maxAllowdAmount= fees * 0.9;
+            if (loan > maxAllowdAmount){
+                throw new BusinessException("Requested loan exceeds 90% of course fees ");
+            }
+
+
+
     }
 }

@@ -35,7 +35,6 @@ public class LoanEligibility {
 
     private LocalDateTime createdAt;    //audit fields
     private LocalDateTime updatedAt;    //audit fields
-    private String createdBy;           //audit field
 
 
 }

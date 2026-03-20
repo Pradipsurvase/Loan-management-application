@@ -2,14 +2,15 @@ package com.bank.loan.eligibility_service.Validator;
 
 import com.bank.loan.eligibility_service.entity.CoApplicantDetails;
 import com.bank.loan.eligibility_service.exception.BusinessException;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@Component
 public class CoApplicantValidator {
 
     public void validate(CoApplicantDetails coApplicant){
 
-        if(Boolean.TRUE.equals(coApplicant.getCoApplicationPresent())){
+        if(coApplicant != null && Boolean.TRUE.equals(coApplicant.getCoApplicationPresent())){
 
             Optional.ofNullable(coApplicant.getCoApplicantIncome())
                     .filter(income -> income > 0)

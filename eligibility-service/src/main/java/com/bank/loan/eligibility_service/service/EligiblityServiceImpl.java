@@ -9,6 +9,7 @@ import com.bank.loan.eligibility_service.Validator.StudentValidator;
 import com.bank.loan.eligibility_service.dto.EligibilityRequestDTO;
 import com.bank.loan.eligibility_service.dto.EligibilityResponseDTO;
 import com.bank.loan.eligibility_service.entity.*;
+import com.bank.loan.eligibility_service.enums.CollegeCategory;
 import com.bank.loan.eligibility_service.enums.RiskCategory;
 
 import com.bank.loan.eligibility_service.nationalityStrategy.NationalityEligibilityStrategy;
@@ -26,28 +27,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EligiblityServiceImpl implements EligibilityService {
 
-    private static final double FOIR_LIMIT = 50;
-    private static final double LTV_LIMIT = 90;
     private static final double MAX_LOAN_PERCENTAGE = 0.9;
 
-    private static final String CREATED_BY_SYSTEM = "SYSTEM";
     private static final String APPROVED_MESSAGE = "Loan Approved";
     private static final String REJECTED_MESSAGE = "Loan Rejected";
 
     private final LoanEligibilityRepository repository;
 
-    private final StudentValidator studentValidator = new StudentValidator();
-    private final EducationValidator educationValidator = new EducationValidator();
-    private final FinancialValidator financialValidator = new FinancialValidator();
-    private final CoApplicantValidator coApplicantValidator = new CoApplicantValidator();
+    private final StudentValidator studentValidator;
+    private final EducationValidator educationValidator;
+    private final FinancialValidator financialValidator;
+    private final CoApplicantValidator coApplicantValidator;
 
-    private final FOIRCalculator foirCalculator = new FOIRCalculator();
-    private final LTVCalculator ltvCalculator = new LTVCalculator();
+    private final FOIRCalculator foirCalculator;
+    private final LTVCalculator ltvCalculator;
 
-    private final RiskStrategyFactory riskFactory = new RiskStrategyFactory();
+    private final RiskStrategyFactory riskFactory;
 
-    private final NationalityStrategyFactory nationalityFactory =
-            new NationalityStrategyFactory();
+    private final NationalityStrategyFactory nationalityFactory;
     @Override
     public EligibilityResponseDTO checkEligibility(EligibilityRequestDTO request) {
 
@@ -62,55 +59,68 @@ public class EligiblityServiceImpl implements EligibilityService {
         coApplicantValidator.validate(coApplicant);
 
         double totalIncome = financial.getAnnualIncome();
+
         if (coApplicant != null && Boolean.TRUE.equals(coApplicant.getCoApplicationPresent())){
             totalIncome +=coApplicant.getCoApplicantIncome();
         }
-
-             FinancialDetails updatedFinancial = FinancialDetails.builder()
-                       .annualIncome(totalIncome)
-                       .existingEMI(financial.getExistingEMI())
-                       .courseFees(financial.getCourseFees())
-                       .requestedLoanAmount(financial.getRequestedLoanAmount())
-                       .creditScore(financial.getCreditScore())
-                       .build();
+             //because main eligibility is depend on repayment capacity
+        FinancialDetails updatedFinancial = FinancialDetails.builder()
+                .annualIncome(totalIncome)
+                .existingEMI(financial.getExistingEMI())
+                .courseFees(financial.getCourseFees())
+                .requestedLoanAmount(financial.getRequestedLoanAmount())
+                .creditScore(financial.getCreditScore())
+                .build();
 
         double foir = foirCalculator.calculate(updatedFinancial);
         double ltv = ltvCalculator.calculate(updatedFinancial);
-
         double maxEligibleAmount = financial.getCourseFees() * MAX_LOAN_PERCENTAGE;
 
+        updatedFinancial.setFoir(foir);
+        updatedFinancial.setLtvRatio(ltv);
+        updatedFinancial.setMaxEligibleAmount(maxEligibleAmount);
 
-        RiskCategory risk = riskFactory.evaluate(financial, foir);
-       financial.setFoir(foir);
-       financial.setLtvRatio(ltv);
-       financial.setMaxEligibleAmount(maxEligibleAmount);
+        CollegeCategory category =education.getCollegeCategory();
+        RiskCategory risk = riskFactory.evaluate(updatedFinancial, foir,category);
+        boolean eligible = false;
+        switch (risk) {
+
+            case LOW:
+                eligible = foir <= 40 && ltv <= 80;
+                break;
+
+            case MEDIUM:
+                eligible = foir <= 50 && ltv <= 90;
+                break;
+
+            case HIGH:
+                eligible = foir <= 60 && ltv <= 95;
+                break;
+        }
 
         NationalityEligibilityStrategy nationalityStrategy =
                 nationalityFactory.getStrategy(student.getNationality());
+        nationalityStrategy.validate(student, updatedFinancial, coApplicant);
 
-        nationalityStrategy.validate(student, financial, coApplicant);
-
-        boolean eligible =
-                risk != RiskCategory.HIGH &&
-                        foir <= FOIR_LIMIT &&
-                        ltv <= LTV_LIMIT;
+        LocalDateTime createdAt = LocalDateTime.now();
+        LocalDateTime updateAt = createdAt.plusMinutes(6);
+        LocalDate decisionDate = createdAt.toLocalDate();
 
         LoanEligibility entity = LoanEligibility.builder()
                 .studentDetails(student)
                 .educationDetails(education)
-                .financialDetails(financial)
+                .financialDetails(updatedFinancial)
                 .coApplicantDetails(coApplicant)
                 .decisionDetails(
                         DecisionDetails.builder()
                                 .eligible(eligible)
                                 .riskCategory(risk)
                                 .rejectionReason(eligible ? null : "FOIR/LTV exceeded")
-                                .decisionDate(LocalDate.now())
+                                .decisionDate(decisionDate)
                                 .build()
                 )
-                .updatedAt(LocalDateTime.now())
-                .createdAt(LocalDateTime.now())
-                .createdBy(CREATED_BY_SYSTEM)
+                .updatedAt(updateAt)
+                .createdAt(createdAt)
                 .build();
 
         LoanEligibility saved = repository.save(entity);
@@ -120,7 +130,7 @@ public class EligiblityServiceImpl implements EligibilityService {
                 .riskCategory(risk.name())
                 .foir(foir)
                 .ltvRatio(ltv)
-                .maxEligibleAmount(financial.getCourseFees() * MAX_LOAN_PERCENTAGE)
+                .maxEligibleAmount(maxEligibleAmount)
                 .message(eligible ? APPROVED_MESSAGE : REJECTED_MESSAGE)
                 .build();
     }
