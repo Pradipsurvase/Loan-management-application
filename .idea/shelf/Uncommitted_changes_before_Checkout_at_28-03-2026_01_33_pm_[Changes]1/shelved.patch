@@ -1,0 +1,140 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n\t\t xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n\t<modelVersion>4.0.0</modelVersion>\r\n\t<parent>\r\n\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t<artifactId>spring-boot-starter-parent</artifactId>\r\n\t\t<version>3.5.11</version>\r\n\t\t<relativePath/> <!-- lookup parent from repository -->\r\n\t</parent>\r\n\t<groupId>com.example</groupId>\r\n\t<artifactId>github-actions</artifactId>\r\n\t<version>0.0.1-SNAPSHOT</version>\r\n\t<name>github-actions</name>\r\n\t<description>Demo project for Spring Boot</description>\r\n\t<url/>\r\n\t<licenses>\r\n\t\t<license/>\r\n\t</licenses>\r\n\t<developers>\r\n\t\t<developer/>\r\n\t</developers>\r\n\t<scm>\r\n\t\t<connection/>\r\n\t\t<developerConnection/>\r\n\t\t<tag/>\r\n\t\t<url/>\r\n\t</scm>\r\n\t<properties>\r\n\t\t<java.version>17</java.version>\r\n\t\t<jacoco.version>0.8.12</jacoco.version>\r\n\t\t<sonar.java.binaries>target/classes</sonar.java.binaries>\r\n\t</properties>\r\n\t<dependencies>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-data-jpa</artifactId>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-web</artifactId>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.jacoco</groupId>\r\n\t\t\t<artifactId>jacoco-maven-plugin</artifactId>\r\n\t\t\t<version>0.8.12</version>\r\n\t\t</dependency>\r\n\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.postgresql</groupId>\r\n\t\t\t<artifactId>postgresql</artifactId>\r\n\t\t\t<scope>runtime</scope>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-test</artifactId>\r\n\t\t\t<scope>test</scope>\r\n\t\t</dependency>\r\n\r\n\t\t<!-- Mockito Core -->\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.mockito</groupId>\r\n\t\t\t<artifactId>mockito-core</artifactId>\r\n\t\t\t<version>5.7.0</version>\r\n\t\t\t<scope>test</scope>\r\n\t\t</dependency>\r\n\r\n\t\t<!-- Mockito JUnit Integration -->\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.mockito</groupId>\r\n\t\t\t<artifactId>mockito-junit-jupiter</artifactId>\r\n\t\t\t<version>5.7.0</version>\r\n\t\t\t<scope>test</scope>\r\n\t\t</dependency>\r\n\r\n\t</dependencies>\r\n\r\n\t<build>\r\n\t\t<plugins>\r\n\t\t\t<plugin>\r\n\t\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t\t<artifactId>spring-boot-maven-plugin</artifactId>\r\n\t\t\t</plugin>\r\n\r\n\t\t\t<!-- 2. JaCoCo Plugin (Correctly Separated) -->\r\n\t\t\t<plugin>\r\n\t\t\t\t<groupId>org.jacoco</groupId>\r\n\t\t\t\t<artifactId>jacoco-maven-plugin</artifactId>\r\n\t\t\t\t<version>0.8.12</version>\r\n\t\t\t\t<executions>\r\n\t\t\t\t\t<execution>\r\n\t\t\t\t\t\t<goals>\r\n\t\t\t\t\t\t\t<goal>prepare-agent</goal>\r\n\t\t\t\t\t\t</goals>\r\n\t\t\t\t\t</execution>\r\n\r\n\t\t\t\t\t<execution>\r\n\t\t\t\t\t\t<id>report</id>\r\n\t\t\t\t\t\t<phase>test</phase>\r\n\t\t\t\t\t\t<goals>\r\n\t\t\t\t\t\t\t<goal>report</goal>\r\n\t\t\t\t\t\t</goals>\r\n\t\t\t\t\t</execution>\r\n\t\t\t\t</executions>\r\n\t\t\t</plugin>\r\n\r\n\t\t\t<plugin>\r\n\t\t\t\t<groupId>org.sonarsource.scanner.maven</groupId>\r\n\t\t\t\t<artifactId>sonar-maven-plugin</artifactId>\r\n\t\t\t\t<version>4.0.0.4121</version>\r\n\t\t\t</plugin>\r\n\t\t</plugins>\r\n\t</build>\r\n\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
++++ b/pom.xml	(date 1774444105627)
+@@ -9,9 +9,9 @@
+ 		<relativePath/> <!-- lookup parent from repository -->
+ 	</parent>
+ 	<groupId>com.example</groupId>
+-	<artifactId>github-actions</artifactId>
++	<artifactId>Loan-management-application</artifactId>
+ 	<version>0.0.1-SNAPSHOT</version>
+-	<name>github-actions</name>
++	<name>Loan-management-application</name>
+ 	<description>Demo project for Spring Boot</description>
+ 	<url/>
+ 	<licenses>
+@@ -27,7 +27,7 @@
+ 		<url/>
+ 	</scm>
+ 	<properties>
+-		<java.version>17</java.version>
++		<java.version>21</java.version>
+ 		<jacoco.version>0.8.12</jacoco.version>
+ 		<sonar.java.binaries>target/classes</sonar.java.binaries>
+ 	</properties>
+Index: Dockerfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Use official Java 17 image\r\nFROM eclipse-temurin:17-jdk-alpine\r\n\r\n# Set working directory inside container\r\nWORKDIR /app\r\n\r\n# Copy jar file into container\r\nCOPY target/*.jar app.jar\r\n\r\n# Expose application port\r\nEXPOSE 8080\r\n\r\n# Run the application\r\nENTRYPOINT [\"java\", \"-jar\", \"app.jar\"]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dockerfile b/Dockerfile
+--- a/Dockerfile	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
++++ b/Dockerfile	(date 1774444105727)
+@@ -1,5 +1,5 @@
+ # Use official Java 17 image
+-FROM eclipse-temurin:17-jdk-alpine
++FROM eclipse-temurin:21-jdk-alpine
+ 
+ # Set working directory inside container
+ WORKDIR /app
+Index: .github/workflows/maven.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.github/workflows/maven.yml b/.github/workflows/maven.yml
+deleted file mode 100644
+--- a/.github/workflows/maven.yml	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
++++ /dev/null	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
+@@ -1,50 +0,0 @@
+-on:
+-  push:
+-    branches: [ "main" ]
+-env:
+-  AWS_REGION: ap-south-1
+-  ECR_REPOSITORY: repo/github-action
+-  CONTAINER_NAME: container-github-action
+-
+-jobs:
+-  build:
+-
+-    runs-on: ubuntu-latest
+-
+-    steps:
+-      - uses: actions/checkout@v4
+-      - name: Set up JDK 17
+-        uses: actions/setup-java@v4
+-        with:
+-          java-version: '17'
+-          distribution: 'temurin'
+-          cache: maven
+-
+-      - name: Give execute permission to script
+-        run: chmod +x ./scm/txt.sh
+-
+-      - name: Make Maven Wrapper Executable
+-        run: chmod +x mvnw
+-        working-directory: eligibility-service
+-
+-      - name: Configure AWS credentials
+-        uses: aws-actions/configure-aws-credentials@v1
+-        with:
+-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+-          aws-region: ${{ env.AWS_REGION }}
+-
+-      - name: Login to Amazon ECR
+-        id: login-ecr
+-        uses: aws-actions/amazon-ecr-login@v1
+-
+-      - name: Run CI/CD Script
+-        env:
+-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+-          ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
+-          CONTAINER_NAME: ${{ env.CONTAINER_NAME }}
+-          EC2_HOST: ${{ secrets.EC2_HOST }}
+-          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+-        run: ./scm/txt.sh
+-
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n        <option value=\"$PROJECT_DIR$/eligibility-service/pom.xml\" />\r\n        <option value=\"$USER_HOME$/Downloads/LoanManagement/LoanManagement/pom.xml\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"ignoredFiles\">\r\n      <set>\r\n        <option value=\"$USER_HOME$/Downloads/LoanManagement/LoanManagement/pom.xml\" />\r\n      </set>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" default=\"true\" project-jdk-name=\"ms-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
++++ b/.idea/misc.xml	(date 1774445784527)
+@@ -5,17 +5,13 @@
+     <option name="originalFiles">
+       <list>
+         <option value="$PROJECT_DIR$/pom.xml" />
++        <option value="$PROJECT_DIR$/verification-service/pom.xml" />
+         <option value="$PROJECT_DIR$/eligibility-service/pom.xml" />
+-        <option value="$USER_HOME$/Downloads/LoanManagement/LoanManagement/pom.xml" />
++        <option value="$PROJECT_DIR$/LoanManagement/pom.xml" />
+       </list>
+     </option>
+-    <option name="ignoredFiles">
+-      <set>
+-        <option value="$USER_HOME$/Downloads/LoanManagement/LoanManagement/pom.xml" />
+-      </set>
+-    </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="ms-21" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file

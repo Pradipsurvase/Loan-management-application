@@ -68,7 +68,7 @@ public class LoanServiceImpl implements LoanService {
                 .gender(requestDTO.getGender())
                 .loanType(requestDTO.getLoanType())
                 .interestType(requestDTO.getInterestType())
-                // coverage buckets
+
                 .courseFee(requestDTO.getCourseFee())
                 .livingExpenses(requestDTO.getLivingExpenses())
                 .travelExpenses(requestDTO.getTravelExpenses())
@@ -76,7 +76,7 @@ public class LoanServiceImpl implements LoanService {
                 .insuranceCoverage(requestDTO.getInsuranceCoverage())
                 .laptopAllowance(requestDTO.getLaptopAllowance())
                 .loanAmount(loanAmount)
-                // interest snapshot
+
                 .baseInterestRate(rate.getBaseRate())
                 .floatingSpread(rate.getFloatingSpread())
                 .benchmarkName(rate.getBenchmarkName())
@@ -87,10 +87,10 @@ public class LoanServiceImpl implements LoanService {
                 .moratoriumInterest(calc.moratoriumInterest())
                 .principalAfterMoratorium(calc.principalAfterMoratorium())
                 .totalRepayableAmount(calc.totalRepayableAmount())
-                // subsidy
+
                 .subsidized(Boolean.TRUE.equals(requestDTO.getSubsidized()))
                 .subsidyScheme(requestDTO.getSubsidyScheme())
-                // lifecycle
+
                 .status(LoanStatus.SUBMITTED)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())

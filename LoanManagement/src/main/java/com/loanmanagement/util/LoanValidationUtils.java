@@ -12,14 +12,12 @@ public class LoanValidationUtils {
 
     public static void validateRateLoanTypeMatch(BankInterestRate rate, LoanApplicationRequestDTO req) {
         if (rate.getLoanType() != req.getLoanType()) {
-            throw new LoanBusinessException(
-                    "Selected rate is for " + rate.getLoanType() +
-                            " loans but request specifies " + req.getLoanType() + " loan.");
+            throw new LoanBusinessException("Selected rate is for " + rate.getLoanType() +
+                                            " loans but request specifies " + req.getLoanType() + " loan.");
         }
         if (rate.getInterestType() != req.getInterestType()) {
-            throw new LoanBusinessException(
-                    "Selected rate is " + rate.getInterestType() +
-                            " but request specifies " + req.getInterestType() + ".");
+            throw new LoanBusinessException("Selected rate is " + rate.getInterestType() +
+                                             " but request specifies " + req.getInterestType() + ".");
         }
     }
 

@@ -1,0 +1,140 @@
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <annotationProcessing>\r\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\r\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\r\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <module name=\"github-actions\" />\r\n        <module name=\"eligibility-service\" />\r\n      </profile>\r\n      <profile name=\"Annotation profile for LoanManagement\" enabled=\"true\">\r\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\r\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <processorPath useClasspath=\"false\">\r\n          <entry name=\"$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar\" />\r\n        </processorPath>\r\n      </profile>\r\n    </annotationProcessing>\r\n    <bytecodeTargetLevel>\r\n      <module name=\"Ecommerce-Service\" target=\"21\" />\r\n      <module name=\"LoanManagement\" target=\"21\" />\r\n    </bytecodeTargetLevel>\r\n  </component>\r\n  <component name=\"JavacSettings\">\r\n    <option name=\"ADDITIONAL_OPTIONS_OVERRIDE\">\r\n      <module name=\"Ecommerce-Service\" options=\"-parameters\" />\r\n      <module name=\"LoanManagement\" options=\"-parameters\" />\r\n      <module name=\"eligibility-service\" options=\"-parameters\" />\r\n      <module name=\"github-actions\" options=\"-parameters\" />\r\n    </option>\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
++++ b/.idea/compiler.xml	(date 1774445784546)
+@@ -6,7 +6,9 @@
+         <sourceOutputDir name="target/generated-sources/annotations" />
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+         <outputRelativeToContentRoot value="true" />
++        <module name="Ecommerce-Service" />
+         <module name="github-actions" />
++        <module name="verification-service" />
+         <module name="eligibility-service" />
+       </profile>
+       <profile name="Annotation profile for LoanManagement" enabled="true">
+@@ -14,14 +16,11 @@
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+         <outputRelativeToContentRoot value="true" />
+         <processorPath useClasspath="false">
+-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar" />
++          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+         </processorPath>
++        <module name="LoanManagement" />
+       </profile>
+     </annotationProcessing>
+-    <bytecodeTargetLevel>
+-      <module name="Ecommerce-Service" target="21" />
+-      <module name="LoanManagement" target="21" />
+-    </bytecodeTargetLevel>
+   </component>
+   <component name="JavacSettings">
+     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+@@ -29,6 +28,7 @@
+       <module name="LoanManagement" options="-parameters" />
+       <module name="eligibility-service" options="-parameters" />
+       <module name="github-actions" options="-parameters" />
++      <module name="verification-service" options="-parameters" />
+     </option>
+   </component>
+ </project>
+\ No newline at end of file
+Index: scm/txt.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>chmod +x mvnw\r\n\r\necho \"STEP 1 : Build Spring Boot Project\"\r\n./mvnw clean install -DskipTests\r\n\r\necho \"STEP 2 : Run Tests\"\r\n./mvnw test\r\n\r\necho \"STEP 3 : SonarQube Analysis\"\r\n./mvnw clean verify sonar:sonar \\\r\n  -Dsonar.token=$SONAR_TOKEN \\\r\n  -Dsonar.organization=reshmamahadik0 \\\r\n  -Dsonar.projectKey=ReshmaMahadik0_github-action \\\r\n  -Dsonar.host.url=https://sonarcloud.io\r\n\r\necho \"STEP 4 : Build Docker Image\"\r\nIMAGE_TAG=latest\r\ndocker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .\r\n\r\n\r\necho \"STEP 5 : Push Image to ECR\"\r\ndocker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG\r\n\r\n\r\necho \"STEP 6 : Deploy to EC2\"\r\n\r\necho \"$EC2_SSH_KEY\" > key.pem\r\nchmod 400 key.pem\r\n\r\n#echo \"EC2 HOST = $EC2_HOST\"\r\n\r\nssh -o StrictHostKeyChecking=no -i key.pem ec2-user@$EC2_HOST << EOF\r\n\r\naws ecr get-login-password --region $AWS_REGION \\\r\n| docker login --username AWS --password-stdin $ECR_REGISTRY\r\n\r\n#pull the latest image\r\ndocker pull $ECR_REGISTRY/$ECR_REPOSITORY:latest\r\n\r\n#Stop old container(if running)\r\ndocker stop $CONTAINER_NAME || true\r\ndocker rm $CONTAINER_NAME || true\r\n\r\n#Run new Container\r\ndocker run -d \\\r\n-p 80:8080 \\\r\n--name $CONTAINER_NAME \\\r\n$ECR_REGISTRY/$ECR_REPOSITORY:latest\r\n\r\nEOF\r\n\r\necho \"Deployment Completed\"\r\n
+===================================================================
+diff --git a/scm/txt.sh b/scm/txt.sh
+--- a/scm/txt.sh	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
++++ b/scm/txt.sh	(date 1774444105673)
+@@ -1,52 +1,45 @@
+-chmod +x mvnw
+ 
+-echo "STEP 1 : Build Spring Boot Project"
+-./mvnw clean install -DskipTests
++
++echo "STEP 1 : Build Project"
++./mvnw -f $SERVICE_PATH/pom.xml clean install -DskipTests
+ 
+ echo "STEP 2 : Run Tests"
+-./mvnw test
++./mvnw -f $SERVICE_PATH/pom.xml test
+ 
+-echo "STEP 3 : SonarQube Analysis"
+-./mvnw clean verify sonar:sonar \
++echo "STEP 3 : SonarQube"
++./mvnw -f $SERVICE_PATH/pom.xml verify sonar:sonar \
+   -Dsonar.token=$SONAR_TOKEN \
+   -Dsonar.organization=reshmamahadik0 \
+-  -Dsonar.projectKey=ReshmaMahadik0_github-action \
++  -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+   -Dsonar.host.url=https://sonarcloud.io
+ 
+-echo "STEP 4 : Build Docker Image"
+-IMAGE_TAG=latest
+-docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+-
++echo "STEP 4 : Build Docker"
++docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest $SERVICE_PATH
+ 
+-echo "STEP 5 : Push Image to ECR"
+-docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+-
++echo "STEP 5 : Push Docker"
++docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+ 
+ echo "STEP 6 : Deploy to EC2"
+ 
+ echo "$EC2_SSH_KEY" > key.pem
+ chmod 400 key.pem
+ 
+-#echo "EC2 HOST = $EC2_HOST"
+-
+ ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@$EC2_HOST << EOF
+ 
+ aws ecr get-login-password --region $AWS_REGION \
+ | docker login --username AWS --password-stdin $ECR_REGISTRY
+ 
+-#pull the latest image
+ docker pull $ECR_REGISTRY/$ECR_REPOSITORY:latest
+ 
+-#Stop old container(if running)
+ docker stop $CONTAINER_NAME || true
+ docker rm $CONTAINER_NAME || true
+ 
+-#Run new Container
+ docker run -d \
+--p 80:8080 \
++-p $PORT:8080 \
+ --name $CONTAINER_NAME \
++--restart always \
+ $ECR_REGISTRY/$ECR_REPOSITORY:latest
+ 
+ EOF
+ 
+-echo "Deployment Completed"
++echo "Deployment Done"
+\ No newline at end of file
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Encoding\">\r\n    <file url=\"file://$USER_HOME$/Downloads/LoanManagement/LoanManagement/src/main/java\" charset=\"UTF-8\" />\r\n    <file url=\"file://$PROJECT_DIR$/eligibility-service/src/main/java\" charset=\"UTF-8\" />\r\n    <file url=\"file://$PROJECT_DIR$/src/main/java\" charset=\"UTF-8\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+--- a/.idea/encodings.xml	(revision 6f3e6defce87fe9ec00f81d7958ac0a9cc340747)
++++ b/.idea/encodings.xml	(date 1774445784561)
+@@ -1,8 +1,9 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="Encoding">
+-    <file url="file://$USER_HOME$/Downloads/LoanManagement/LoanManagement/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/LoanManagement/src/main/java" charset="UTF-8" />
+     <file url="file://$PROJECT_DIR$/eligibility-service/src/main/java" charset="UTF-8" />
+     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/verification-service/src/main/java" charset="UTF-8" />
+   </component>
+ </project>
+\ No newline at end of file
