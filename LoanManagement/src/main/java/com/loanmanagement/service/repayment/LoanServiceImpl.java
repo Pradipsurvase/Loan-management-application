@@ -138,6 +138,8 @@ public class LoanServiceImpl implements LoanService {
                         .laptopAllowance(requestDTO.getLaptopAllowance())
                         .loanAmount(loanAmount)
                         .baseInterestRate(rate.getBaseRate())
+                        .floatingSpread(rate.getFloatingSpread())
+                        .benchmarkName(rate.getBenchmarkName())
                         .appliedInterestRate(calc.appliedInterestRate())
                         .studyPeriodMonths(requestDTO.getStudyPeriodMonths())
                         .gracePeriodMonths(requestDTO.getGracePeriodMonths())
