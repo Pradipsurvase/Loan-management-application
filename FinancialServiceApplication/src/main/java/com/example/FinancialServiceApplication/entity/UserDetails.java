@@ -1,8 +1,6 @@
 package com.example.FinancialServiceApplication.entity;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 @Data
 @AllArgsConstructor
 public class UserDetails {
