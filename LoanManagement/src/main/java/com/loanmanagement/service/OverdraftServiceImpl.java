@@ -1,5 +1,6 @@
 package com.loanmanagement.service;
 
+import com.loanmanagement.constants.MessageConstants;
 import com.loanmanagement.dto.OverdraftResponseDto;
 import com.loanmanagement.entity.Overdraft;
 import com.loanmanagement.enums.Status;
@@ -69,7 +70,7 @@ public class OverdraftServiceImpl implements OverdraftService {
         log.info("Withdraw request: loanId={}, amount={}", loanId, amount);
 
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException("Withdraw amount must be greater than zero");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         Overdraft od = getActiveOD(loanId);
@@ -78,7 +79,7 @@ public class OverdraftServiceImpl implements OverdraftService {
 
         if (amount.compareTo(available) > 0) {
             log.error("Limit exceeded for loanId: {}", loanId);
-            throw new InvalidAmountException("Limit exceeded");
+            throw new InvalidAmountException(MessageConstants.LIMIT_EXCEEDED);
         }
 
         od.setUsedAmount(od.getUsedAmount().add(amount));
@@ -94,16 +95,15 @@ public class OverdraftServiceImpl implements OverdraftService {
         log.info("Repay request: loanId={}, amount={}", loanId, amount);
 
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException("Repay amount must be greater than zero");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         Overdraft od = getActiveOD(loanId);
 
         if (amount.compareTo(od.getUsedAmount()) > 0) {
             log.error("Repay amount exceeds used for loanId: {}", loanId);
-            throw new InvalidAmountException("Repay amount exceeds used amount");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
-
         od.setUsedAmount(od.getUsedAmount().subtract(amount));
         repo.save(od);
 
@@ -119,7 +119,7 @@ public class OverdraftServiceImpl implements OverdraftService {
         Overdraft od = repo.findByLoanId(loanId)
                 .orElseThrow(() -> {
                     log.error("OD not found for loanId: {}", loanId);
-                    return new ResourceNotFoundException("OD not found");
+                    return new ResourceNotFoundException(MessageConstants.OD_NOT_FOUND);
                 });
 
         OverdraftResponseDto dto = new OverdraftResponseDto();
@@ -152,7 +152,7 @@ public class OverdraftServiceImpl implements OverdraftService {
     private void validateAmount(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             log.error("Invalid amount: {}", amount);
-            throw new InvalidAmountException("Amount must be greater than zero");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
     }
 
@@ -161,17 +161,17 @@ public class OverdraftServiceImpl implements OverdraftService {
         Overdraft od = repo.findByLoanId(loanId)
                 .orElseThrow(() -> {
                     log.error("OD not found for loanId: {}", loanId);
-                    return new ResourceNotFoundException("OD not found");
+                    return new ResourceNotFoundException(MessageConstants.OD_NOT_FOUND);
                 });
 
         if (!Status.ACTIVE.equals(od.getStatus())) {
             log.error("OD not active for loanId: {}", loanId);
-            throw new InvalidAmountException("OD not active");
+            throw new InvalidAmountException(MessageConstants.OD_NOT_ACTIVE);
         }
 
         if (LocalDate.now().isAfter(od.getEndDate())) {
             log.error("OD expired for loanId: {}", loanId);
-            throw new InvalidAmountException("OD expired");
+            throw new InvalidAmountException(MessageConstants.OD_EXPIRED);
         }
 
         return od;

@@ -1,5 +1,6 @@
 package com.loanmanagement.util;
 
+import com.loanmanagement.constants.MessageConstants;
 import com.loanmanagement.exception.InvalidAmountException;
 
 import java.math.BigDecimal;
@@ -11,7 +12,7 @@ public class EmiCalculator {
 
         if (p.compareTo(BigDecimal.ZERO) <= 0 ||
                 r.compareTo(BigDecimal.ZERO) <= 0 || n <= 0) {
-            throw new InvalidAmountException("Invalid loan data");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         BigDecimal rate = r.divide(BigDecimal.valueOf(1200), 10, RoundingMode.HALF_UP);

@@ -1,6 +1,7 @@
 package com.loanmanagement.service;
 
 import com.loanmanagement.client.LoanClient;
+import com.loanmanagement.constants.MessageConstants;
 import com.loanmanagement.dto.*;
 import com.loanmanagement.entity.RepaymentSchedule;
 import com.loanmanagement.exception.InvalidAmountException;
@@ -44,7 +45,7 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         if (repository.existsByLoanId(loanId)) {
             log.error("Schedule already exists for loanId: {}", loanId);
-            throw new InvalidAmountException("Schedule already exists");
+            throw new InvalidAmountException(MessageConstants.SCHEDULE_EXISTS);
         }
 
         LoanDto loan = loanClient.getLoan(loanId);
@@ -52,7 +53,6 @@ public class RepaymentServiceImpl implements RepaymentService {
         if (loan.getStartDate() == null) {
             loan.setStartDate(LocalDate.now());
         }
-
         overdraftService.createOD(loanId, loan.getPrincipal());
 
         int moratorium = loan.getMoratorium();
@@ -60,7 +60,7 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         if (effectiveTenure <= 0) {
             log.error("Invalid tenure for loanId: {}", loanId);
-            throw new InvalidAmountException("Invalid tenure");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         BigDecimal balance = loan.getPrincipal();
@@ -127,19 +127,19 @@ public class RepaymentServiceImpl implements RepaymentService {
         RepaymentSchedule current = repository.findByLoanIdAndMonth(loanId, month)
                 .orElseThrow(() -> {
                     log.error("EMI not found for loanId={}, month={}", loanId, month);
-                    return new ResourceNotFoundException("EMI not found");
+                    return new ResourceNotFoundException(MessageConstants.EMI_NOT_FOUND);
                 });
 
         if (current.isPaid()) {
             log.error("EMI already paid for loanId={}, month={}", loanId, month);
-            throw new InvalidAmountException("Already paid");
+            throw new InvalidAmountException(MessageConstants.ALREADY_PAID);
         }
 
         BigDecimal emi = current.getEmi();
 
         if (amount.compareTo(emi) < 0) {
             log.error("Insufficient amount for loanId={}, month={}", loanId, month);
-            throw new InvalidAmountException("Insufficient amount");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         current.setPaid(true);
@@ -217,7 +217,7 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         if (list.isEmpty()) {
             log.error("Schedule not found for loanId: {}", loanId);
-            throw new ResourceNotFoundException("Schedule not found");
+            throw new ResourceNotFoundException(MessageConstants.SCHEDULE_NOT_FOUND);
         }
 
         LoanDto loan = loanClient.getLoan(loanId);
@@ -229,13 +229,13 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         if (loan.getLockInMonths() != 0 && monthsPassed < loan.getLockInMonths()) {
             log.error("Lock-in period active for loanId: {}", loanId);
-            throw new InvalidAmountException("Lock-in period active");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         RepaymentSchedule current = list.stream()
                 .filter(r -> !r.isPaid())
                 .findFirst()
-                .orElseThrow(() -> new InvalidAmountException("Already closed"));
+                .orElseThrow(() -> new InvalidAmountException(MessageConstants.INVALID_AMOUNT));
 
         BigDecimal outstanding = current.getBalance();
 
@@ -264,7 +264,6 @@ public class RepaymentServiceImpl implements RepaymentService {
         }
 
         repository.saveAll(list);
-
         log.info("Prepayment completed for loanId: {}", loanId);
     }
     //PrepaymentPreview
@@ -276,7 +275,7 @@ public class RepaymentServiceImpl implements RepaymentService {
         RepaymentSchedule current = list.stream()
                 .filter(r -> !r.isPaid())
                 .findFirst()
-                .orElseThrow(() -> new InvalidAmountException("Already closed"));
+                .orElseThrow(() -> new InvalidAmountException(MessageConstants.INVALID_AMOUNT));
 
         BigDecimal outstanding = current.getBalance();
 
@@ -298,7 +297,7 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         if (list.isEmpty()) {
             log.error("Schedule not found for loanId: {}", loanId);
-            throw new ResourceNotFoundException("Schedule not found");
+            throw new ResourceNotFoundException(MessageConstants.SCHEDULE_NOT_FOUND);
         }
 
         List<RepaymentScheduleDto> dtoList =
@@ -319,13 +318,13 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         if (month <= 0) {
             log.error("Invalid month: {}", month);
-            throw new InvalidAmountException("Invalid month");
+            throw new InvalidAmountException(MessageConstants.INVALID_MONTH);
         }
 
         RepaymentSchedule r = repository.findByLoanIdAndMonth(loanId, month)
                 .orElseThrow(() -> {
                     log.error("EMI not found for loanId={}, month={}", loanId, month);
-                    return new ResourceNotFoundException("EMI not found");
+                    return new ResourceNotFoundException(MessageConstants.EMI_NOT_FOUND);
                 });
 
         return convertToDto(r);

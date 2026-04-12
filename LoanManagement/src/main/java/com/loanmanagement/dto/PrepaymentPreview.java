@@ -2,11 +2,12 @@ package com.loanmanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PrepaymentPreview {
 
     private BigDecimal outstanding;

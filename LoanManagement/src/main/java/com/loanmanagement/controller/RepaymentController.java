@@ -25,7 +25,7 @@ public class RepaymentController {
     //Generate Schedule
     @PostMapping("/generate/{loanId}")
     public ResponseEntity<ApiResponseDto> generate(
-            @PathVariable @NotNull(message = "LoanId is required") @Positive Long loanId) {
+            @PathVariable @NotNull @Positive Long loanId) {
 
         service.generateSchedule(loanId);
 
@@ -35,7 +35,7 @@ public class RepaymentController {
     //Get Full Schedule
     @GetMapping("/{loanId}")
     public ResponseEntity<ScheduleResponseDto> getSchedule(
-            @PathVariable @NotNull(message = "LoanId is required") @Positive Long loanId) {
+            @PathVariable @NotNull @Positive Long loanId) {
 
         ScheduleResponseDto schedule = service.getSchedule(loanId);
         return ResponseEntity.ok(schedule);
@@ -45,7 +45,7 @@ public class RepaymentController {
     //Get EMI by Month
     @GetMapping("/{loanId}/{month}")
     public ResponseEntity<RepaymentScheduleDto> getEmi(
-            @PathVariable @NotNull(message = "LoanId is required") @Positive Long loanId,
+            @PathVariable @NotNull @Positive Long loanId,
             @PathVariable @Positive int month) {
 
         RepaymentScheduleDto emi = service.getEmi(loanId, month);
@@ -55,9 +55,9 @@ public class RepaymentController {
     //Pay EMI
     @PostMapping("/pay")
     public ResponseEntity<ApiResponseDto> pay(
-            @RequestParam @NotNull(message = "LoanId is required") @Positive Long loanId,
+            @RequestParam @NotNull @Positive Long loanId,
             @RequestParam @Positive int month,
-            @RequestParam @NotNull(message = "Amount is required") @Positive BigDecimal amount) {
+            @RequestParam @NotNull @Positive BigDecimal amount) {
 
         service.payEmi(loanId, month, amount);
 
@@ -77,7 +77,7 @@ public class RepaymentController {
     //Holiday
     @PostMapping("/holiday")
     public ResponseEntity<ApiResponseDto> holiday(
-            @RequestParam @NotNull(message = "LoanId is required") @Positive Long loanId,
+            @RequestParam @NotNull @Positive Long loanId,
             @RequestParam @Positive int month) {
 
         service.markHoliday(loanId, month);
@@ -89,18 +89,17 @@ public class RepaymentController {
     //Prepayment Preview
     @GetMapping("/prepay-preview/{loanId}")
     public ResponseEntity<PrepaymentPreview> preview(
-            @PathVariable @NotNull(message = "LoanId is required") @Positive Long loanId) {
+            @PathVariable @NotNull @Positive Long loanId) {
 
         PrepaymentPreview response = service.prepaymentPreview(loanId);
 
         return ResponseEntity.ok(response);
     }
 
-
     //Prepayment
     @PostMapping("/prepay/{loanId}")
     public ResponseEntity<ApiResponseDto> prepay(
-            @PathVariable @NotNull(message = "LoanId is required") @Positive Long loanId) {
+            @PathVariable @NotNull @Positive Long loanId) {
 
         service.prepayment(loanId);
 

@@ -1,6 +1,7 @@
 package com.loanmanagement.strategy;
 
 import com.loanmanagement.client.LoanClient;
+import com.loanmanagement.constants.MessageConstants;
 import com.loanmanagement.dto.LoanDto;
 import com.loanmanagement.entity.RepaymentSchedule;
 import com.loanmanagement.exception.InvalidAmountException;
@@ -30,32 +31,32 @@ public class PartPaymentStrategy implements RepaymentStrategy {
         RepaymentSchedule current = list.stream()
                 .filter(x -> x.getMonth() == month)
                 .findFirst()
-                .orElseThrow(() -> new InvalidAmountException("Invalid month"));
+                .orElseThrow(() -> new InvalidAmountException(MessageConstants.INVALID_MONTH));
 
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException("Invalid amount");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         if (amount.compareTo(minPartPayment) < 0) {
-            throw new InvalidAmountException("Minimum part payment is " + minPartPayment);
+            throw new InvalidAmountException(MessageConstants.MIN_PART_PAYMENT);
         }
 
         if (amount.compareTo(current.getBalance()) > 0) {
-            throw new InvalidAmountException("Amount exceeds outstanding balance");
+            throw new InvalidAmountException(MessageConstants.AMOUNT_EXCEEDS);
         }
 
         if (current.isPaid()) {
-            throw new InvalidAmountException("Cannot apply part payment on paid EMI");
+            throw new InvalidAmountException(MessageConstants.EMI_ALREADY_PAID);
         }
 
         BigDecimal newBalance = current.getBalance().subtract(amount);
 
         LoanDto loan = loanClient.getLoan(loanId);
 
-        int remainingMonths = list.size() - month;
+        int remainingMonths = list.size() - month+1;
 
         if (remainingMonths <= 0) {
-            throw new InvalidAmountException("No tenure left");
+            throw new InvalidAmountException(MessageConstants.NO_TENURE_LEFT);
         }
         BigDecimal newEmi = EmiCalculator.calculate(
                 newBalance,

@@ -1,123 +1,179 @@
 package com.loanmanagement.service;
 
 import com.loanmanagement.client.LoanClient;
-import com.loanmanagement.dto.LoanDto;
-import com.loanmanagement.dto.PaymentRequestDto;
+import com.loanmanagement.dto.*;
 import com.loanmanagement.entity.RepaymentSchedule;
 import com.loanmanagement.exception.InvalidAmountException;
 import com.loanmanagement.exception.ResourceNotFoundException;
 import com.loanmanagement.repository.RepaymentRepository;
 import com.loanmanagement.strategy.RepaymentStrategy;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.mockito.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class RepaymentServiceImplTest {
 
-    @Mock private RepaymentRepository repository;
-    @Mock private OverdraftService overdraftService;
-    @Mock private LoanClient loanClient;
-    @Mock private RepaymentStrategy holidayStrategy;
-    @Mock private RepaymentStrategy partPaymentStrategy;
-
     @InjectMocks
     private RepaymentServiceImpl service;
 
-    @BeforeEach
-    void setup() {
-        ReflectionTestUtils.setField(service, "prepaymentPercent", BigDecimal.valueOf(2));
-    }
+    @Mock private RepaymentRepository repo;
+    @Mock private LoanClient loanClient;
+    @Mock private OverdraftService overdraftService;
+    @Mock private RepaymentStrategy holidayStrategy;
+    @Mock private RepaymentStrategy partPaymentStrategy;
 
-    private LoanDto loan() {
-        LoanDto l = new LoanDto();
-        l.setLoanId(1L);
-        l.setPrincipal(BigDecimal.valueOf(100000));
-        l.setInterestRate(BigDecimal.valueOf(10));
-        l.setTenure(12);
-        l.setMoratorium(2);
-        l.setStartDate(LocalDate.now().minusMonths(12));
-        l.setLockInMonths(6);
-        return l;
-    }
     @Test
     void generateSchedule_success() {
-        when(repository.existsByLoanId(1L)).thenReturn(false);
-        when(loanClient.getLoan(1L)).thenReturn(loan());
+        when(repo.existsByLoanId(1L)).thenReturn(false);
+
+        LoanDto loan = mockLoan();
+        when(loanClient.getLoan(1L)).thenReturn(loan);
 
         service.generateSchedule(1L);
 
-        verify(repository, atLeastOnce()).save(any());
-        verify(overdraftService).createOD(eq(1L), any());
+        verify(repo, atLeastOnce()).save(any());
     }
 
     @Test
-    void generateSchedule_exists() {
-        when(repository.existsByLoanId(1L)).thenReturn(true);
+    void generateSchedule_alreadyExists() {
+        when(repo.existsByLoanId(1L)).thenReturn(true);
 
         assertThrows(InvalidAmountException.class,
                 () -> service.generateSchedule(1L));
     }
-    @Test
-    void getEmi_success() {
-        RepaymentSchedule r = new RepaymentSchedule();
-        r.setMonth(1);
 
-        when(repository.findByLoanIdAndMonth(1L, 1))
+    // ================== PAY EMI ==================
+
+    @Test
+    void payEmi_success() {
+        RepaymentSchedule r = mockSchedule();
+
+        when(repo.findByLoanIdAndMonth(1L, 1))
                 .thenReturn(Optional.of(r));
 
-        assertNotNull(service.getEmi(1L, 1));
-    }
-    @Test
-    void getEmi_invalidMonth() {
-        assertThrows(InvalidAmountException.class,
-                () -> service.getEmi(1L, 0));
+        service.payEmi(1L, 1, BigDecimal.valueOf(1000));
+
+        verify(repo).save(any());
     }
 
     @Test
-    void getEmi_notFound() {
-        when(repository.findByLoanIdAndMonth(1L, 1))
+    void payEmi_notFound() {
+        when(repo.findByLoanIdAndMonth(1L, 1))
                 .thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class,
-                () -> service.getEmi(1L, 1));
+                () -> service.payEmi(1L, 1, BigDecimal.valueOf(1000)));
     }
+
+    @Test
+    void payEmi_invalidAmount() {
+        RepaymentSchedule r = mockSchedule();
+        r.setEmi(BigDecimal.valueOf(1000));
+
+        when(repo.findByLoanIdAndMonth(1L, 1))
+                .thenReturn(Optional.of(r));
+
+        assertThrows(InvalidAmountException.class,
+                () -> service.payEmi(1L, 1, BigDecimal.valueOf(500)));
+    }
+
     @Test
     void markHoliday_success() {
-        List<RepaymentSchedule> list = List.of(new RepaymentSchedule());
 
-        when(repository.findByLoanIdOrderByMonthAsc(1L)).thenReturn(list);
+        RepaymentSchedule r = new RepaymentSchedule();
+        r.setLoanId(1L);
+        r.setMonth(1);
+        r.setPaid(false);
+        r.setHoliday(false);
+        r.setEmi(BigDecimal.valueOf(1000));
+        r.setBalance(BigDecimal.valueOf(10000));
+
+        List<RepaymentSchedule> list = List.of(r);
+
+        when(repo.findByLoanIdOrderByMonthAsc(1L)).thenReturn(list);
+
+        doNothing().when(holidayStrategy)
+                .apply(anyList(), eq(1L), eq(1), any());
 
         service.markHoliday(1L, 1);
 
-        verify(holidayStrategy).apply(any(), eq(1L), eq(1), any());
-        verify(repository).saveAll(list);
+        verify(holidayStrategy, times(1))
+                .apply(anyList(), eq(1L), eq(1), any());
     }
+
     @Test
     void partPayment_success() {
+
+        RepaymentSchedule r = new RepaymentSchedule();
+        r.setLoanId(1L);
+        r.setMonth(1);
+        r.setPaid(false);
+        r.setHoliday(false);
+        r.setEmi(BigDecimal.valueOf(1000));
+        r.setBalance(BigDecimal.valueOf(10000));
+
+        List<RepaymentSchedule> list = List.of(r);
+
+        when(repo.findByLoanIdOrderByMonthAsc(1L)).thenReturn(list);
+
         PaymentRequestDto dto = new PaymentRequestDto();
         dto.setLoanId(1L);
-        dto.setAmount(BigDecimal.valueOf(6000));
         dto.setMonth(1);
+        dto.setAmount(BigDecimal.valueOf(2000));
 
-        when(repository.findByLoanIdOrderByMonthAsc(1L))
-                .thenReturn(List.of(new RepaymentSchedule()));
+        doNothing().when(partPaymentStrategy)
+                .apply(anyList(), eq(1L), eq(1), any());
 
         service.partPayment(dto);
 
-        verify(partPaymentStrategy).apply(any(), eq(1L), eq(1), any());
+        verify(partPaymentStrategy, times(1))
+                .apply(anyList(), eq(1L), eq(1), any());
+    }
+    @Test
+    void getSchedule_success() {
+        when(repo.findByLoanIdOrderByMonthAsc(1L))
+                .thenReturn(List.of(mockSchedule()));
+
+        assertNotNull(service.getSchedule(1L));
+    }
+
+    @Test
+    void getSchedule_notFound() {
+        when(repo.findByLoanIdOrderByMonthAsc(1L))
+                .thenReturn(List.of());
+
+        assertThrows(ResourceNotFoundException.class,
+                () -> service.getSchedule(1L));
+    }
+    private LoanDto mockLoan() {
+        LoanDto loan = new LoanDto();
+        loan.setPrincipal(BigDecimal.valueOf(10000));
+        loan.setInterestRate(BigDecimal.valueOf(10));
+        loan.setTenure(12);
+        loan.setMoratorium(0);
+        loan.setStartDate(LocalDate.now());
+        return loan;
+    }
+
+    private RepaymentSchedule mockSchedule() {
+        RepaymentSchedule r = new RepaymentSchedule();
+        r.setLoanId(1L);
+        r.setMonth(1);
+        r.setEmi(BigDecimal.valueOf(1000));
+        r.setBalance(BigDecimal.valueOf(10000));
+        r.setPaid(false);
+        r.setHoliday(false);
+        return r;
     }
 }

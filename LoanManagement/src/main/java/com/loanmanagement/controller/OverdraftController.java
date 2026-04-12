@@ -26,7 +26,7 @@ public class OverdraftController {
     //Get Overdraft Details
     @GetMapping("/{loanId}")
     public ResponseEntity<OverdraftResponseDto> getOD(
-            @PathVariable @NotNull(message = "LoanId is required") @Positive Long loanId) {
+            @PathVariable @NotNull @Positive Long loanId) {
 
         OverdraftResponseDto overdraft = service.getOD(loanId);
         return ResponseEntity.ok(overdraft);
@@ -35,8 +35,8 @@ public class OverdraftController {
     //Withdraw Amount
     @PostMapping("/withdraw")
     public ResponseEntity<ApiResponseDto> withdraw(
-            @RequestParam @NotNull(message = "LoanId is required") @Positive Long loanId,
-            @RequestParam @NotNull(message = "Amount is required") @Positive BigDecimal amount) {
+            @RequestParam @NotNull @Positive Long loanId,
+            @RequestParam @NotNull @Positive BigDecimal amount) {
 
         service.withdraw(loanId, amount);
         return ResponseEntity.ok(new ApiResponseDto(MessageConstants.WITHDRAW_SUCCESS, Status.SUCCESS, LocalDate.now()));
@@ -45,8 +45,8 @@ public class OverdraftController {
     //Repay Amount
     @PostMapping("/repay")
     public ResponseEntity<ApiResponseDto> repay(
-            @RequestParam @NotNull(message = "LoanId is required") @Positive Long loanId,
-            @RequestParam @NotNull(message = "Amount is required") @Positive BigDecimal amount) {
+            @RequestParam @NotNull @Positive Long loanId,
+            @RequestParam @NotNull @Positive BigDecimal amount) {
 
         service.repay(loanId, amount);
         return ResponseEntity.ok(new ApiResponseDto(MessageConstants.REPAY_SUCCESS, Status.SUCCESS, LocalDate.now()));
@@ -55,7 +55,7 @@ public class OverdraftController {
     //Calculate Interest
     @GetMapping("/interest/{loanId}")
     public ResponseEntity<BigDecimal> interest(
-            @PathVariable @NotNull(message = "LoanId is required") @Positive Long loanId) {
+            @PathVariable @NotNull @Positive Long loanId) {
 
         BigDecimal interest = service.calculateInterest(loanId);
         return ResponseEntity.ok(interest);

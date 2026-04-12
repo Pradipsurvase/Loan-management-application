@@ -1,6 +1,7 @@
 package com.loanmanagement.strategy;
 
 import com.loanmanagement.client.LoanClient;
+import com.loanmanagement.constants.MessageConstants;
 import com.loanmanagement.dto.LoanDto;
 import com.loanmanagement.entity.RepaymentSchedule;
 import com.loanmanagement.exception.InvalidAmountException;
@@ -26,14 +27,14 @@ public class HolidayStrategy implements RepaymentStrategy {
         RepaymentSchedule r = list.stream()
                 .filter(x -> x.getMonth() == month)
                 .findFirst()
-                .orElseThrow(() -> new InvalidAmountException("Invalid month"));
+                .orElseThrow(() -> new InvalidAmountException(MessageConstants.INVALID_MONTH));
 
         if (r.isPaid()) {
-            throw new InvalidAmountException("Cannot apply holiday on paid EMI");
+            throw new InvalidAmountException(MessageConstants.ALREADY_PAID);
         }
 
         if (r.isHoliday()) {
-            throw new InvalidAmountException("Holiday already applied for this month");
+            throw new InvalidAmountException(MessageConstants.INVALID_MONTH);
         }
 
         LoanDto loan = loanClient.getLoan(loanId);
@@ -51,10 +52,10 @@ public class HolidayStrategy implements RepaymentStrategy {
         r.setPrincipal(BigDecimal.ZERO);
         r.setBalance(newBalance);
 
-        int remainingMonths = list.size() - month;
+        int remainingMonths = list.size() - month+1;
 
         if (remainingMonths <= 0) {
-            throw new InvalidAmountException("No remaining tenure");
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
         }
 
         BigDecimal newEmi = EmiCalculator.calculate(

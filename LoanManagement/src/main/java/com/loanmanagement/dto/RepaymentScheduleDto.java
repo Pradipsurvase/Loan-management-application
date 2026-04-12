@@ -13,7 +13,6 @@ public class RepaymentScheduleDto {
     private BigDecimal principal;
     private BigDecimal interest;
     private BigDecimal balance;
-
     private boolean paid;
     private boolean holiday;
     private LocalDate dueDate;
