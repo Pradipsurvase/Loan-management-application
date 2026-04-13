@@ -2,6 +2,7 @@ package com.loanmanagement.service.repayment;
 
 import com.loanmanagement.dto.LoanApplicationRequestDTO;
 import com.loanmanagement.dto.LoanApplicationResponseDTO;
+import com.loanmanagement.dto.LoanCalculationResponseDTO;
 import com.loanmanagement.entity.Bank;
 import com.loanmanagement.entity.BankInterestRate;
 import com.loanmanagement.entity.InterestCalculationResult;
@@ -23,5 +24,7 @@ public interface LoanService {
 
     LoanApplicationResponseDTO submitApplication(LoanApplicationRequestDTO requestDTO);
 
-    LoanApplicationResponseDTO calculateLoan(LoanApplicationRequestDTO requestDTO);
+    LoanCalculationResponseDTO calculateLoan(LoanApplicationRequestDTO requestDTO);
+
+    LoanApplicationResponseDTO getLoanByApplicationNumber(String applicationNumber);
 }

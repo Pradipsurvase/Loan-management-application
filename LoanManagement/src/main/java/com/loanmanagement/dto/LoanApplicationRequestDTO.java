@@ -27,15 +27,14 @@ public class LoanApplicationRequestDTO {
     String applicantName;
 
     @NotNull(message = "gender is required")
-    Gender gender;
+    private Gender gender;
 
     @NotNull(message = "loanType is required")
-    LoanType loanType;
+    private LoanType loanType;
 
     @NotNull(message = "interestType is required")
-    InterestType interestType;
+    private InterestType interestType;
 
-    // courseFee: validated by @ValidLoanAmount (must be > 0)
     @DecimalMin(value = "0.0", inclusive = false, message = "courseFee must be greater than 0")
     BigDecimal courseFee;
 

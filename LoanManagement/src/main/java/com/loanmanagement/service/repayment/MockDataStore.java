@@ -1,7 +1,7 @@
 package com.loanmanagement.service.repayment;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loanmanagement.dto.MockDataWrapper;
-import com.loanmanagement.dto.RateJsonDTO;
 import com.loanmanagement.entity.Bank;
 import com.loanmanagement.entity.BankInterestRate;
 import com.loanmanagement.entity.MarketRate;
@@ -10,10 +10,8 @@ import com.loanmanagement.enums.LoanType;
 import jakarta.annotation.PostConstruct;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import tools.jackson.databind.ObjectMapper;
 
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -23,14 +21,20 @@ public class MockDataStore {
     private final Map<String, Bank> banks = new LinkedHashMap<>();
     private final Map<String, BankInterestRate> rates = new LinkedHashMap<>();
     private final Map<String, MarketRate> marketRates = new LinkedHashMap<>();
+    private ObjectMapper objectMapper;
+
 
     @PostConstruct
     public void loadData() {
         try {
-            ObjectMapper mapper = new ObjectMapper();
+            this.objectMapper = new ObjectMapper();
+
+            // 2. Register modules and configurations
+            this.objectMapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+            this.objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             InputStream input = new ClassPathResource("mock-data.json").getInputStream();
 
-            MockDataWrapper data = mapper.readValue(input, MockDataWrapper.class);
+            MockDataWrapper data = this.objectMapper.readValue(input, MockDataWrapper.class);
 
 
                 for (Bank bank : data.getBanks()) {
@@ -51,7 +55,7 @@ public class MockDataStore {
 
                 BankInterestRate rate = BankInterestRate.builder()
                         .id(dto.getId())
-                        .bankId(dto.getBankId())   // Only ID, DB save not needed
+                        .bankId(dto.getBankId())
                         .loanType(dto.getLoanType())
                         .interestType(dto.getInterestType())
                         .baseRate(dto.getBaseRate())
@@ -70,12 +74,10 @@ public class MockDataStore {
                         .effectiveFrom(LocalDate.now())
                         .effectiveTo(null)
                         .isActive(dto.getIsActive())
-                        .bank(bank) // @Transient only for filtering
+                        .bank(bank)
                         .build();
 
                 rates.put(rate.getId(), rate);
-
-                // Reverse mapping for mock filtering
                 bank.getInterestRates().add(rate);
             }
 
@@ -83,20 +85,16 @@ public class MockDataStore {
             throw new RuntimeException("Failed to load JSON mock data", e);
         }
     }
-
-    // Fetch all active banks
     public List<Bank> getAllActiveBanks() {
         return banks.values().stream()
                 .filter(Bank::getIsActive)
                 .toList();
     }
 
-    // Find bank by ID
     public Optional<Bank> findBankById(String id) {
         return Optional.ofNullable(banks.get(id));
     }
 
-    // Get active rates for a bank (filter by loan & interest type)
     public List<BankInterestRate> getActiveRatesForBank(String bankId,
                                                         LoanType loanType,
                                                         InterestType interestType) {
@@ -109,7 +107,6 @@ public class MockDataStore {
                 .toList();
     }
 
-    // Find rate by ID
     public Optional<BankInterestRate> findRateById(String rateId) {
         return Optional.ofNullable(rates.get(rateId));
     }

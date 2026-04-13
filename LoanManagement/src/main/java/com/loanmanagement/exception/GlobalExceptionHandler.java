@@ -2,21 +2,24 @@ package com.loanmanagement.exception;
 
 import com.loanmanagement.controller.ApiError;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    // Bean Validation errors (@NotBlank, @Min, @Max, @DecimalMin, etc.)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidation(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
@@ -29,31 +32,29 @@ public class GlobalExceptionHandler {
                         .rejectedValue(fe.getRejectedValue())
                         .build())
                 .collect(Collectors.toList());
+        log.error("Validation failed | path={} errors={}",
+                request.getRequestURI(), fieldErrors);
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                ApiError.builder()
-                        .timestamp(LocalDateTime.now())
-                        .status(400)
-                        .error("Validation Failed")
-                        .message("One or more fields failed validation")
-                        .path(request.getRequestURI())
-                        .fieldErrors(fieldErrors)
-                        .build()
+        return buildError(
+                HttpStatus.BAD_REQUEST,
+                "Validation Failed",
+                "One or more fields failed validation",
+                request,
+                fieldErrors
         );
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(
             ResourceNotFoundException ex, HttpServletRequest request) {
+        log.error("Resource not found | path={} message={}", request.getRequestURI(), ex.getMessage());
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                ApiError.builder()
-                        .timestamp(LocalDateTime.now())
-                        .status(404)
-                        .error("Not Found")
-                        .message(ex.getMessage())
-                        .path(request.getRequestURI())
-                        .build()
+        return buildError(
+                HttpStatus.NOT_FOUND,
+                "Not Found",
+                ex.getMessage(),
+                request,
+                null
         );
     }
 
@@ -61,15 +62,78 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(LoanBusinessException.class)
     public ResponseEntity<ApiError> handleBusinessRule(
             LoanBusinessException ex, HttpServletRequest request) {
+        log.error("Business rule violation | path={} message={}", request.getRequestURI(), ex.getMessage());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                ApiError.builder()
-                        .timestamp(LocalDateTime.now())
-                        .status(400)
-                        .error("Business Rule Violation")
-                        .message(ex.getMessage())
-                        .path(request.getRequestURI())
-                        .build()
+        return buildError(
+                HttpStatus.BAD_REQUEST,
+                "Business Rule Violation",
+                ex.getMessage(),
+                request,
+                null
         );
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleInvalidInput(HttpMessageNotReadableException ex, HttpServletRequest request) {
+
+        String message = "Invalid request";
+        Throwable cause = ex.getCause();
+
+        while (cause != null) {
+            String className = cause.getClass().getName();
+            if (className.contains("InvalidFormatException")
+                    && cause.getMessage().contains("Enum")) {
+                message = "Enum type is incorrect";
+                break;
+            }
+            else if (className.contains("InvalidFormatException")
+                    || className.contains("MismatchedInputException")) {
+                message = "Invalid data type";
+                break;
+            }
+
+            cause = cause.getCause();
+        }
+        log.error("Invalid input error | path={} message={}",
+                request.getRequestURI(), message, ex);
+        return buildError(
+                HttpStatus.BAD_REQUEST,
+                "Invalid Request",
+                message,
+                request,
+                null
+        );
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiError> handleGeneric(
+            Exception ex, HttpServletRequest request) {
+        log.error("Unexpected error occurred | path={}", request.getRequestURI(), ex);
+
+        return buildError(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "Internal Server Error",
+                "Something went wrong",
+                request,
+                null
+        );
+    }
+
+    private ResponseEntity<ApiError> buildError(
+            HttpStatus status,
+            String error,
+            String message,
+            HttpServletRequest request,
+            List<ApiError.FieldError> fieldErrors) {
+
+        ApiError apiError = ApiError.builder()
+                .timestamp(LocalDateTime.now())
+                .status(status.value())
+                .error(error)
+                .message(message)
+                .path(request.getRequestURI())
+                .fieldErrors(fieldErrors)
+                .build();
+
+        return ResponseEntity.status(status).body(apiError);
     }
 }

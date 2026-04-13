@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @Setter
 public class MarketRate {
 
-    private String benchmarkName;   // RBI_REPO
-    private BigDecimal currentRate; // 6.5
+    private String benchmarkName;
+    private BigDecimal currentRate;
     private LocalDate effectiveFrom;
     private Boolean isActive;
 }

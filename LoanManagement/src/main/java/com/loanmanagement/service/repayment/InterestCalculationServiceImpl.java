@@ -29,8 +29,7 @@ public class InterestCalculationServiceImpl implements InterestCalculationServic
 
     @Override
     public InterestCalculationResult calculate(BigDecimal principal, BankInterestRate rate, Gender gender, int studyPeriodMonths, int gracePeriodMonths, int requestedTenureMonths) {
-        log.info(" Starting interest calculation...");
-
+        log.debug("Interest calculation started");
 
         BigDecimal appliedRate = calculateAppliedRate(rate, gender);
         log.info("Applied interest rate: {}", appliedRate);
@@ -45,6 +44,7 @@ public class InterestCalculationServiceImpl implements InterestCalculationServic
         BigDecimal totalRepayableAmount = calculateTotalRepayable(principalAfterMoratorium, appliedRate, requestedTenureMonths);
         log.info("Total repayable amount: {}", totalRepayableAmount);
 
+        log.debug("Interest calculation completed");
         return new InterestCalculationResult(
                 appliedRate,
                 moratoriumInterest,
@@ -53,7 +53,6 @@ public class InterestCalculationServiceImpl implements InterestCalculationServic
                 moratoriumPeriod
         );
     }
-
 
     @Override
     public BigDecimal calculateAppliedRate(BankInterestRate rate, Gender gender) {

@@ -22,26 +22,16 @@ public class LoanApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private String loanId;
 
     @Column(nullable = false, unique = true)
     private String applicationNumber;
-
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "bank_id", nullable = false)
-//    private Bank bank;
 
     @Column(name = "bank_id")
     private String bankId;
 
     @Column(name = "bank_name")
     private String bankName;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "bank_interest_rate_id", nullable = false)
-//    private BankInterestRate bankInterestRate;
-
 
     @Column(name = "bank_interest_rate_id")
     private String bankInterestRateId;
@@ -103,12 +93,9 @@ public class LoanApplication {
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal moratoriumInterest;
-    //      formula: loanAmount × (appliedInterestRate/100) × (moratoriumPeriod/12)
-    //      Example: ₹10L × 10% × 2 years = ₹2L moratorium interest
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal principalAfterMoratorium;
-    // WHY: = loanAmount + moratoriumInterest
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal totalRepayableAmount;

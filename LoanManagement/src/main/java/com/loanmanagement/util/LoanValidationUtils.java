@@ -3,80 +3,97 @@ package com.loanmanagement.util;
 import com.loanmanagement.dto.LoanApplicationRequestDTO;
 import com.loanmanagement.entity.BankInterestRate;
 import com.loanmanagement.exception.LoanBusinessException;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Objects;
-import java.util.stream.Stream;
 
+@Component
 public class LoanValidationUtils {
 
-    public static void validateRateLoanTypeMatch(BankInterestRate rate, LoanApplicationRequestDTO req) {
+    public BigDecimal validateAndCalculateLoanAmount(
+            LoanApplicationRequestDTO req,
+            BankInterestRate rate) {
+
+        validateRateLoanTypeMatch(rate, req);
+
+        BigDecimal loanAmount = sumCoverageBuckets(req);
+
+        validateLoanAmountRange(loanAmount, rate);
+        validateTenure(req.getRequestedTenureMonths(), rate);
+        validateGracePeriod(req.getGracePeriodMonths(), rate);
+        validateMoratorium(req.getStudyPeriodMonths(),
+                req.getGracePeriodMonths(), rate);
+
+        return loanAmount;
+    }
+
+    public  void validateRateLoanTypeMatch(BankInterestRate rate, LoanApplicationRequestDTO req) {
         if (rate.getLoanType() != req.getLoanType()) {
-            throw new LoanBusinessException("Selected rate is for " + rate.getLoanType() +
-                                            " loans but request specifies " + req.getLoanType() + " loan.");
+            throw new LoanBusinessException( "Loan type mismatch: expected " + rate.getLoanType() +
+                    ", but got " + req.getLoanType() + ".");
         }
         if (rate.getInterestType() != req.getInterestType()) {
-            throw new LoanBusinessException("Selected rate is " + rate.getInterestType() +
-                                             " but request specifies " + req.getInterestType() + ".");
+            throw new LoanBusinessException( "Interest type mismatch: expected " + rate.getInterestType() +
+                    ", but got " + req.getInterestType() + ".");
         }
     }
 
-    public static BigDecimal sumCoverageBuckets(LoanApplicationRequestDTO req) {
-        return Stream.of(
-                        req.getCourseFee(),
-                        req.getLivingExpenses(),
-                        req.getTravelExpenses(),
-                        req.getBookEquipmentCost(),
-                        req.getInsuranceCoverage(),
-                        req.getLaptopAllowance()
-                )
-                .filter(Objects::nonNull)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    public BigDecimal sumCoverageBuckets(LoanApplicationRequestDTO req) {
+        BigDecimal total = BigDecimal.ZERO;
+
+        if (req.getCourseFee() != null)
+            total = total.add(req.getCourseFee());
+        if (req.getLivingExpenses() != null)
+            total = total.add(req.getLivingExpenses());
+        if(req.getTravelExpenses() != null)
+            total = total.add(req.getTravelExpenses());
+        if (req.getBookEquipmentCost() != null){
+            total = total.add(req.getBookEquipmentCost());
+        }
+        if (req.getInsuranceCoverage() != null){
+            total = total.add(req.getInsuranceCoverage());
+        }
+        if (req.getLaptopAllowance() != null){
+            total = total.add(req.getLaptopAllowance());
+        }
+        return total;
     }
 
-    public static void validateLoanAmountRange(BigDecimal amount, BankInterestRate rate){
+    public  void validateLoanAmountRange(BigDecimal amount, BankInterestRate rate){
         if (amount.compareTo(rate.getMinLoanAmount()) < 0){
-            throw new LoanBusinessException("Total loan amount " + amount + " is below the minimum of "
-                    + rate.getMinLoanAmount() + " for this bank and loan type.");
+            throw new LoanBusinessException("Loan amount " + amount + " is below minimum allowed "
+                    + rate.getMinLoanAmount() );
         }
         if (amount.compareTo(rate.getMaxLoanAmount()) > 0){
-            throw new LoanBusinessException("Total loan amount " + amount + " exceeds the maximum of " +
-                    rate.getMaxLoanAmount() + "for this bank and loan type.");
+            throw new LoanBusinessException( "Loan amount " + amount + " exceeds maximum allowed "
+                    + rate.getMaxLoanAmount());
         }
     }
 
-    public static void  validateTenure(int requestedMonths, BankInterestRate rate){
+    public  void  validateTenure(int requestedMonths, BankInterestRate rate){
         if (requestedMonths < rate.getMinTenureMonths()) {
-            throw new LoanBusinessException(
-                    "Requested tenure " + requestedMonths + " months is below the minimum of " +
-                            rate.getMinTenureMonths() + " months for this bank.");
+            throw new LoanBusinessException("Tenure must be at least " + rate.getMinTenureMonths() + " months.");
         }
         if (requestedMonths > rate.getMaxTenureMonths()) {
-            throw new LoanBusinessException(
-                    "Requested tenure " + requestedMonths + " months exceeds the maximum of " +
-                            rate.getMaxTenureMonths() + " months for this bank.");
+            throw new LoanBusinessException("Tenure cannot exceed " + rate.getMaxTenureMonths() + " months.");
         }
     }
 
-    public static void validateGracePeriod(int gracePeriodMonths, BankInterestRate rate) {
+    public  void validateGracePeriod(int gracePeriodMonths, BankInterestRate rate) {
         if (gracePeriodMonths < rate.getMinGracePeriodMonths()) {
-            throw new LoanBusinessException(
-                    "Grace period " + gracePeriodMonths + " months is below bank minimum of " +
-                            rate.getMinGracePeriodMonths() + " months.");
+            throw new LoanBusinessException("Grace period must be at least "
+                       + rate.getMinGracePeriodMonths() + " months.");
         }
         if (gracePeriodMonths > rate.getMaxGracePeriodMonths()) {
-            throw new LoanBusinessException(
-                    "Grace period " + gracePeriodMonths + " months exceeds bank maximum of " +
-                            rate.getMaxGracePeriodMonths() + " months.");
+            throw new LoanBusinessException("Grace period cannot exceed "
+                            + rate.getMaxGracePeriodMonths() + " months.");
         }
     }
-    public static void validateMoratorium(int studyPeriodMonths, int gracePeriodMonths, BankInterestRate rate) {
+    public  void validateMoratorium(int studyPeriodMonths, int gracePeriodMonths, BankInterestRate rate) {
         int total = gracePeriodMonths + studyPeriodMonths;
         if (total > rate.getMaxMoratoriumMonths()) {
-            throw new LoanBusinessException(
-                    "Combined moratorium period (study " + studyPeriodMonths + " + grace " + gracePeriodMonths +
-                            " = " + total + " months) exceeds bank maximum of " +
-                            rate.getMaxMoratoriumMonths() + " months.");
+            throw new LoanBusinessException("Total moratorium (" + total + " months) exceeds allowed limit of "
+                            + rate.getMaxMoratoriumMonths() + " months.");
         }
     }
 }

@@ -2,24 +2,20 @@ package com.loanmanagement.controller;
 
 import com.loanmanagement.dto.LoanApplicationRequestDTO;
 import com.loanmanagement.dto.LoanApplicationResponseDTO;
+import com.loanmanagement.dto.LoanCalculationResponseDTO;
+import com.loanmanagement.exception.ResourceNotFoundException;
 import com.loanmanagement.service.repayment.LoanService;
-import com.loanmanagement.util.LoanValidationUtils;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/loan")
-
 public class LoanController {
+
+    private static final Logger log = LoggerFactory.getLogger(LoanController.class);
 
     private final LoanService loanService;
 
@@ -28,21 +24,30 @@ public class LoanController {
     }
 
     @PostMapping("/submit")
-    public ResponseEntity<LoanApplicationResponseDTO> submitApplication(
-            @Valid @RequestBody LoanApplicationRequestDTO request) {
-        System.out.println("loan API HIT______");
-
+    public ResponseEntity<LoanApplicationResponseDTO> submitApplication(@Valid @RequestBody LoanApplicationRequestDTO request) {
+        log.info("API /submit called for applicant: {}", request.getApplicantName());
         LoanApplicationResponseDTO response = loanService.submitApplication(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        log.info("API /submit success. ApplicationNumber: {}", response.getApplicationNumber());
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/calculate")
-    public ResponseEntity<LoanApplicationResponseDTO> calculateLoan(
-            @Valid @RequestBody LoanApplicationRequestDTO requestDTO) {
+    public ResponseEntity<LoanCalculationResponseDTO> calculateLoan(@Valid @RequestBody LoanApplicationRequestDTO requestDTO) {
+        log.info("API /calculate called for applicant: {}", requestDTO.getApplicantName());
+        LoanCalculationResponseDTO response = loanService.calculateLoan(requestDTO);
+        log.info("API /calculate completed successfully");
+        return ResponseEntity.ok(response);
+    }
 
-        LoanApplicationResponseDTO response = loanService.calculateLoan(requestDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    @GetMapping("/{applicationNumber}")
+    public ResponseEntity<LoanApplicationResponseDTO> getLoanByApplicationNumber(@PathVariable String applicationNumber) {
+        log.info("API GET loan called for applicationNumber: {}", applicationNumber);
+        LoanApplicationResponseDTO response = loanService.getLoanByApplicationNumber(applicationNumber);
+        if (response == null) {
+            throw new ResourceNotFoundException("Loan not found for application number: " + applicationNumber);
+        }
+        log.info("Loan fetch successful for applicationNumber: {}", applicationNumber);
+        return ResponseEntity.ok(response);
     }
 
 }
