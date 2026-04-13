@@ -2,11 +2,13 @@ package com.loanmanagement.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loanmanagement.dto.*;
+import com.loanmanagement.exception.InvalidAmountException;
 import com.loanmanagement.service.RepaymentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import static org.mockito.Mockito.*;
@@ -105,5 +107,30 @@ class RepaymentControllerTest {
                 .andExpect(status().isOk());
 
         verify(service).prepayment(1L);
+    }
+    @Test
+    void partPayment_invalidRequest() throws Exception {
+
+        String json = """
+        {
+            "loanId": null,
+            "amount": -100,
+            "month": 0
+        }
+    """;
+
+        mockMvc.perform(post("/api/repayment/part")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    void handleInvalidAmountException() throws Exception {
+
+        when(service.getSchedule(1L))
+                .thenThrow(new InvalidAmountException("error"));
+
+        mockMvc.perform(get("/api/repayment/1"))
+                .andExpect(status().isBadRequest());
     }
 }

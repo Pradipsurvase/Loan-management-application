@@ -181,11 +181,24 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         log.info("Applying holiday for loanId={}, month={}", loanId, month);
 
-        List<RepaymentSchedule> list = repository.findByLoanIdOrderByMonthAsc(loanId);
+        List<RepaymentSchedule> list =
+                repository.findByLoanIdOrderByMonthAsc(loanId);
+
+        if (list == null || list.isEmpty()) {
+            log.error("Schedule not found for loanId: {}", loanId);
+            throw new ResourceNotFoundException(MessageConstants.SCHEDULE_NOT_FOUND);
+        }
+        boolean exists = list.stream()
+                .anyMatch(r -> r.getMonth() == month);
+
+        if (!exists) {
+            throw new InvalidAmountException(MessageConstants.INVALID_MONTH);
+        }
 
         holidayStrategy.apply(list, loanId, month, BigDecimal.ZERO);
-
         repository.saveAll(list);
+
+        log.info("Holiday applied successfully for loanId={}", loanId);
     }
 
     //PART PAYMENT
@@ -194,17 +207,25 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         log.info("Part payment: loanId={}, amount={}, month={}",
                 dto.getLoanId(), dto.getAmount(), dto.getMonth());
+        List<RepaymentSchedule> list =
+                repository.findByLoanIdOrderByMonthAsc(dto.getLoanId());
 
-        List<RepaymentSchedule> list = repository.findByLoanIdOrderByMonthAsc(dto.getLoanId());
-
+        if (list == null || list.isEmpty()) {
+            log.error("Schedule not found for loanId: {}", dto.getLoanId());
+            throw new ResourceNotFoundException(MessageConstants.SCHEDULE_NOT_FOUND);
+        }
+        if (dto.getAmount() == null || dto.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
+        }
         partPaymentStrategy.apply(
                 list,
                 dto.getLoanId(),
                 dto.getMonth(),
                 dto.getAmount()
         );
-
         repository.saveAll(list);
+
+        log.info("Part payment applied successfully for loanId={}", dto.getLoanId());
     }
 
     //PREPAYMENT
@@ -216,7 +237,6 @@ public class RepaymentServiceImpl implements RepaymentService {
         List<RepaymentSchedule> list = repository.findByLoanIdOrderByMonthAsc(loanId);
 
         if (list.isEmpty()) {
-            log.error("Schedule not found for loanId: {}", loanId);
             throw new ResourceNotFoundException(MessageConstants.SCHEDULE_NOT_FOUND);
         }
 
@@ -228,16 +248,12 @@ public class RepaymentServiceImpl implements RepaymentService {
         );
 
         if (loan.getLockInMonths() != 0 && monthsPassed < loan.getLockInMonths()) {
-            log.error("Lock-in period active for loanId: {}", loanId);
-            throw new InvalidAmountException(MessageConstants.INVALID_AMOUNT);
+            throw new InvalidAmountException(MessageConstants.LOCK_IN_ACTIVE);
         }
-
-        RepaymentSchedule current = list.stream()
+        BigDecimal outstanding = list.stream()
                 .filter(r -> !r.isPaid())
-                .findFirst()
-                .orElseThrow(() -> new InvalidAmountException(MessageConstants.INVALID_AMOUNT));
-
-        BigDecimal outstanding = current.getBalance();
+                .map(r -> r.getPrincipal().add(r.getInterest()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         BigDecimal charges = outstanding.multiply(prepaymentPercent)
                 .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
@@ -264,6 +280,7 @@ public class RepaymentServiceImpl implements RepaymentService {
         }
 
         repository.saveAll(list);
+
         log.info("Prepayment completed for loanId: {}", loanId);
     }
     //PrepaymentPreview

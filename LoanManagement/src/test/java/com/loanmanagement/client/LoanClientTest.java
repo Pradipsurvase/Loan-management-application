@@ -1,6 +1,7 @@
 package com.loanmanagement.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.loanmanagement.dto.LoanDto;
 import com.loanmanagement.exception.InvalidAmountException;
 import com.loanmanagement.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,5 +27,14 @@ class LoanClientTest {
     void getLoan_notFound() {
         assertThrows(ResourceNotFoundException.class,
                 () -> loanClient.getLoan(999L));
+
     }
+    @Test
+    void getLoan_success() {
+
+        LoanDto loan = loanClient.getLoan(1L);
+
+        assertNotNull(loan);
+    }
+
 }

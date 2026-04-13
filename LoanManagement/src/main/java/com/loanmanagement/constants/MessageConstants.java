@@ -14,6 +14,7 @@ public class MessageConstants {
     public static final String INVALID_AMOUNT = "Invalid amount";
     public static final String INVALID_MONTH = "Invalid month";
     public static final String EMI_NOT_FOUND = "EMI not found";
+    public static final String HOLIDAY_ALREADY_APPLIED = "Holiday already applied";
     public static final String SCHEDULE_NOT_FOUND = "Schedule not found";
     public static final String ALREADY_PAID = "Already paid";
     public static final String LIMIT_EXCEEDED = "Limit exceeded";
@@ -26,6 +27,9 @@ public class MessageConstants {
     public static final String AMOUNT_EXCEEDS = "Amount exceeds outstanding balance";
     public static final String EMI_ALREADY_PAID = "Cannot apply on paid EMI";
     public static final String NO_TENURE_LEFT = "No tenure left";
+    public static final String LOCK_IN_ACTIVE = "Lock-in period active";
     public static final String SCHEDULE_EXISTS = "Schedule already exists";
+    public static final String VALIDATION_FAILED = "Validation failed";
+    public static final String INTERNAL_SERVER_ERROR = "Internal Server Error";
 
 }

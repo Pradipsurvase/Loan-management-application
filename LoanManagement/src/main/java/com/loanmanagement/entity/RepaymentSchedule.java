@@ -17,7 +17,10 @@ public class RepaymentSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "loan_id")
     private Long loanId;
+
+    @Column(name = "month")
     private int month;
 
     @Column(precision = 15, scale = 2)

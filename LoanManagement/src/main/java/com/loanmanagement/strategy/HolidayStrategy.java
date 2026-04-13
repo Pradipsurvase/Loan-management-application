@@ -34,7 +34,7 @@ public class HolidayStrategy implements RepaymentStrategy {
         }
 
         if (r.isHoliday()) {
-            throw new InvalidAmountException(MessageConstants.INVALID_MONTH);
+            throw new InvalidAmountException(MessageConstants.HOLIDAY_ALREADY_APPLIED);
         }
 
         LoanDto loan = loanClient.getLoan(loanId);
