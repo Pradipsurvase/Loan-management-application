@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface SchemeRuleRepository extends JpaRepository<SchemeRule, Long> {
+
     Optional<SchemeRule> findBySchemeName(String schemeName);
 }

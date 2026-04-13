@@ -10,28 +10,35 @@ import com.example.FinancialServiceApplication.exception.LoanNotFoundException;
 import com.example.FinancialServiceApplication.service.charges.*;
 import com.example.FinancialServiceApplication.service.scheme.*;
 import com.example.FinancialServiceApplication.validation.FinancialValidator;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+
 @ExtendWith(org.mockito.junit.jupiter.MockitoExtension.class)
 class FinancialServiceTest {
+
     @InjectMocks
     private FinancialService financialService;
+
     @Mock
     private SchemeService schemeService;
+
     @Mock
     private ChargesService chargesService;
+
     @Mock
     private LoanClient loanClient;
+
     @Mock
     private UserClient userClient;
+
     @Mock
     private FinancialValidator validator;
+
     @Test
     void testProcess_success() {
         ProcessRequest request = new ProcessRequest();
@@ -44,9 +51,12 @@ class FinancialServiceTest {
                 .interestRate(10)
                 .userId(10L)
                 .build();
+
         UserDetails user = new UserDetails(10L, 300000, "GENERAL", "MH");
+
         SchemeResult schemeResult =
                 new SchemeResult("CSIS", 20000, 80000, 100000);
+
         ChargeResult chargeResult =
                 new ChargeResult(5000, Map.of());
         when(loanClient.getLoan(1L)).thenReturn(loan);
@@ -62,6 +72,7 @@ class FinancialServiceTest {
         assertEquals(5000, response.getCharges());
         assertEquals(85000, response.getFinalPayable());
     }
+
     @Test
     void testProcess_invalidScheme() {
         ProcessRequest request = new ProcessRequest();
@@ -75,13 +86,16 @@ class FinancialServiceTest {
                 .userId(10L)
                 .build();
         UserDetails user = new UserDetails(10L, 300000, "GENERAL", "MH");
+
         when(loanClient.getLoan(1L)).thenReturn(loan);
         when(userClient.getUser(10L)).thenReturn(user);
+
         when(schemeService.applySelectedScheme(any(), any(), any()))
                 .thenThrow(new InvalidSchemeSelectionException("INVALID"));
         assertThrows(InvalidSchemeSelectionException.class,
                 () -> financialService.process(request));
     }
+
     @Test
     void testProcess_loanNotFound() {
         ProcessRequest request = new ProcessRequest();

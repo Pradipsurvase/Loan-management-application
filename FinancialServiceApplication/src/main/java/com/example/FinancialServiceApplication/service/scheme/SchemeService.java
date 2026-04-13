@@ -1,5 +1,4 @@
 package com.example.FinancialServiceApplication.service.scheme;
-
 import com.example.FinancialServiceApplication.entity.LoanDetails;
 import com.example.FinancialServiceApplication.entity.UserDetails;
 import com.example.FinancialServiceApplication.exception.InvalidSchemeSelectionException;
@@ -7,12 +6,15 @@ import com.example.FinancialServiceApplication.exception.SchemeNotFoundException
 import com.example.FinancialServiceApplication.service.scheme.factory.SchemeFactory;
 import org.springframework.stereotype.Service;
 import java.util.List;
+
 @Service
 public class SchemeService {
+
     private final SchemeFactory factory;
     public SchemeService(SchemeFactory factory) {
         this.factory = factory;
     }
+
     public List<SchemeResult> getEligibleSchemes(LoanDetails loan, UserDetails user) {
         List<SchemeResult> results = factory.getApplicable(loan, user)
                 .stream()

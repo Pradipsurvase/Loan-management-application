@@ -13,35 +13,45 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Slf4j
 @Service
 public class FinancialService {
+
     private final SchemeService schemeService;
     private final ChargesService chargesService;
     private final LoanClient loanClient;
     private final UserClient userClient;
     private final FinancialValidator validator;
+
     public FinancialService(SchemeService schemeService,
                             ChargesService chargesService,
                             LoanClient loanClient,
                             UserClient userClient,
-                            FinancialValidator validator) {
+                            FinancialValidator validator)
+    {
         this.schemeService = schemeService;
         this.chargesService = chargesService;
         this.loanClient = loanClient;
         this.userClient = userClient;
         this.validator = validator;
     }
-    public SchemeOptionsResponse getSchemeOptions(SchemeRequest request) {
+
+    public SchemeOptionsResponse getSchemeOptions(SchemeRequest request)
+    {
         log.info("Fetching schemes for loanId={}", request.getLoanId());
         LoanDetails loan = loanClient.getLoan(request.getLoanId());
+
         if (loan == null) {
             throw new LoanNotFoundException(request.getLoanId());
         }
+
         UserDetails user = userClient.getUser(loan.getUserId());
+
         if (user == null) {
             throw new UserNotFoundException(loan.getUserId());
         }
+
         validator.validate(loan);
         List<SchemeResult> eligibleSchemes =
                 schemeService.getEligibleSchemes(loan, user);
@@ -52,19 +62,24 @@ public class FinancialService {
                 .recommendedScheme(best.getSchemeName())
                 .build();
     }
-    public FinancialResponse process(ProcessRequest request) {
+
+    public FinancialResponse process(ProcessRequest request)
+    {
         log.info("Processing loanId={}, bank={}, scheme={}",
                 request.getLoanId(),
                 request.getBankName(),
                 request.getSelectedScheme());
+
         LoanDetails loan = loanClient.getLoan(request.getLoanId());
         if (loan == null) {
             throw new LoanNotFoundException(request.getLoanId());
         }
+
         UserDetails user = userClient.getUser(loan.getUserId());
         if (user == null) {
             throw new UserNotFoundException(loan.getUserId());
         }
+
         validator.validate(loan);
         SchemeResult schemeResult =
                 schemeService.applySelectedScheme(
@@ -72,12 +87,15 @@ public class FinancialService {
                         user,
                         request.getSelectedScheme()
                 );
+
         LoanDetails updatedLoan = loan.toBuilder()
                 .amount(schemeResult.getUpdatedLoanAmount())
                 .build();
+
         ChargeResult chargeResult =
                 chargesService.applyCharges(updatedLoan, request.getBankName());
         log.info("Final payable calculated for loanId={}", request.getLoanId());
+
         return FinancialResponse.builder()
                 .originalLoan(loan.getAmount())
                 .updatedLoan(updatedLoan.getAmount())
