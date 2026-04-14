@@ -1,4 +1,5 @@
 package com.example.FinancialServiceApplication.service;
+
 import com.example.FinancialServiceApplication.client.LoanClient;
 import com.example.FinancialServiceApplication.client.UserClient;
 import com.example.FinancialServiceApplication.dto.*;
@@ -40,23 +41,25 @@ public class FinancialService {
     public SchemeOptionsResponse getSchemeOptions(SchemeRequest request)
     {
         log.info("Fetching schemes for loanId={}", request.getLoanId());
-        LoanDetails loan = loanClient.getLoan(request.getLoanId());
 
+        LoanDetails loan = loanClient.getLoan(request.getLoanId());
         if (loan == null) {
             throw new LoanNotFoundException(request.getLoanId());
         }
 
         UserDetails user = userClient.getUser(loan.getUserId());
-
         if (user == null) {
             throw new UserNotFoundException(loan.getUserId());
         }
 
         validator.validate(loan);
+
         List<SchemeResult> eligibleSchemes =
                 schemeService.getEligibleSchemes(loan, user);
+
         SchemeResult best =
                 schemeService.getRecommendedScheme(loan, user);
+
         return SchemeOptionsResponse.builder()
                 .eligibleSchemes(eligibleSchemes)
                 .recommendedScheme(best.getSchemeName())
@@ -81,6 +84,7 @@ public class FinancialService {
         }
 
         validator.validate(loan);
+
         SchemeResult schemeResult =
                 schemeService.applySelectedScheme(
                         loan,
@@ -88,12 +92,31 @@ public class FinancialService {
                         request.getSelectedScheme()
                 );
 
+
+        try {
+            LoanSchemeUpdateRequest dto =
+                    LoanSchemeUpdateRequest.builder()
+                            .loanId(request.getLoanId())
+                            .schemeName(schemeResult.getSchemeName())
+                            .subsidyAmount(schemeResult.getBenefit())
+                            .build();
+
+            loanClient.sendSchemeData(dto);
+
+            log.info("Scheme data sent to loan-service for loanId={}", request.getLoanId());
+
+        } catch (Exception e) {
+            log.warn("Failed to send scheme data to loan-service: {}", e.getMessage());
+        }
+
+
         LoanDetails updatedLoan = loan.toBuilder()
                 .amount(schemeResult.getUpdatedLoanAmount())
                 .build();
 
         ChargeResult chargeResult =
                 chargesService.applyCharges(updatedLoan, request.getBankName());
+
         log.info("Final payable calculated for loanId={}", request.getLoanId());
 
         return FinancialResponse.builder()
