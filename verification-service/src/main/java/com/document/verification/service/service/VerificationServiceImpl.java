@@ -4,6 +4,7 @@ import com.document.verification.service.client.ApplicantClient;
 import com.document.verification.service.constant.VerificationStatus;
 import com.document.verification.service.dto.*;
 import com.document.verification.service.entity.DocumentVerificationEntity;
+import com.document.verification.service.globalExceptionHandling.customException.VerificationNotFoundException;
 import com.document.verification.service.parser.DocumentParser;
 import com.document.verification.service.parser.ParserFactory;
 import com.document.verification.service.repository.DocumentVerificationRepository;
@@ -21,7 +22,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class VerificationServiceImpl implements VerificationService {
-
     private final DocumentVerificationRepository repository;
     private final ParserFactory parserFactory;
     private final S3DownloadService s3DownloadService;
@@ -35,7 +35,6 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     public void verifyDocument(DocumentUploadedEventDTO event) {
-
         log.info("Starting verification for document {}", event.getDocumentId());
 
         try {
@@ -46,8 +45,7 @@ public class VerificationServiceImpl implements VerificationService {
 
             log.info("OCR extracted text {}", extractedText);
 
-            DocumentParser parser =
-                    parserFactory.getParser(event.getDocumentType().name());
+            DocumentParser parser = parserFactory.getParser(event.getDocumentType().name());
 
             ParsedDocumentDTO parsed = parser.parse(extractedText);
 
@@ -55,23 +53,17 @@ public class VerificationServiceImpl implements VerificationService {
 
             if ("AADHAAR".equalsIgnoreCase(event.getDocumentType().name())) {
 
-                String extractedAadhaar = parsed.getDocumentNumber();
+                String extractedAadhaar = parsed.getDocumentNumber(); //parsed number
 
                 if (extractedAadhaar != null) {
 
                     AadhaarVerifyRequest request = new AadhaarVerifyRequest();
                     request.setAadhaarNumber(extractedAadhaar);
 
-                    AadhaarVerifyResponse response =
-                            aadhaarClient.verifyAadhaar("Bearer " + apiToken, request);
-
+                    AadhaarVerifyResponse response = aadhaarClient.verifyAadhaar("Bearer " + apiToken, request);
                     if (response.isValid()) {
-
-                        ApplicantResponseDTO applicant =
-                                applicantClient.getApplicant(event.getApplicantId());
-
+                        ApplicantResponseDTO applicant = applicantClient.getApplicant(event.getApplicantId());
                         if (extractedAadhaar.equals(applicant.getAadhaarNumber())) {
-
                             log.info("Applicant Aadhaar matched");
                             status = VerificationStatus.VERIFIED;
 
@@ -97,9 +89,7 @@ public class VerificationServiceImpl implements VerificationService {
             repository.save(entity);
 
         } catch (Exception e) {
-
             log.error("Verification failed", e);
-
             repository.save(
                     DocumentVerificationEntity.builder()
                             .documentId(event.getDocumentId())
@@ -107,15 +97,14 @@ public class VerificationServiceImpl implements VerificationService {
                             .documentType(event.getDocumentType())
                             .verificationStatus(VerificationStatus.FAILED)
                             .verifiedAt(Instant.now())
-                            .build()
-            );
+                            .build());
         }
     }
     @Override
     public VerificationResponseDTO getVerificationStatus(UUID documentId) {
 
         DocumentVerificationEntity entity = repository.findByDocumentId(documentId)
-                        .orElseThrow(() -> new RuntimeException("Verification not found"));
+                        .orElseThrow(() -> new VerificationNotFoundException("Verification status not found"));
 
         return modelMapper.map(entity, VerificationResponseDTO.class);
     }
