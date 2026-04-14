@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class InternationalRuleStrategy implements DocumentRuleStrategy {
 
     private final List<LoanApplicantRule> rules = List.of(
-
             new LoanApplicantRule(
                     new BigDecimal("100000"),
                     new BigDecimal("1000000"),
@@ -37,7 +36,6 @@ public class InternationalRuleStrategy implements DocumentRuleStrategy {
 
     @Override
     public Set<ApplicantType> getAllowedApplicants(BigDecimal loanAmount) {
-
         return rules.stream()
                 .filter(rule -> rule.matches(loanAmount))
                 .flatMap(rule -> rule.getApplicants().stream())

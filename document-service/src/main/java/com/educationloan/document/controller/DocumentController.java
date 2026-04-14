@@ -40,7 +40,7 @@ public class DocumentController {
 
     @GetMapping("/required")
     public ResponseEntity<List<ApplicantType>> getRequiredApplicantTypes(
-            @RequestParam Long loanId,StudyLocationType studyLocationType) {
+            @RequestParam Long loanId,@RequestParam StudyLocationType studyLocationType) {
 
         Set<ApplicantType> types =
                 documentService.getRequiredApplicantTypes(loanId,studyLocationType);

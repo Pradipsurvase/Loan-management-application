@@ -32,7 +32,6 @@ public class AwsConfig {
             @Value("${AWS_SECRET_ACCESS_KEY}") String secretKey,
             @Value("${AWS_REGION}") String region
     ) {
-
         AwsBasicCredentials creds =
                 AwsBasicCredentials.create(accessKey, secretKey);
 

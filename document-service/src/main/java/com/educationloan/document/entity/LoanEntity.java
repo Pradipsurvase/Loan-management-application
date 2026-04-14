@@ -1,5 +1,4 @@
 package com.educationloan.document.entity;
-
 import com.educationloan.document.enumConst.StudyLocationType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import java.math.BigDecimal;
     @Getter
     @Setter
     public class LoanEntity {
-
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;

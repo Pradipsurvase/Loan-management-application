@@ -10,6 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ApplicantRepository
         extends JpaRepository<ApplicantEntity, Long> {
-
     List<ApplicantEntity> findByLoanId(Long loanId);
 }

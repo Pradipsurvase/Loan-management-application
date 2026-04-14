@@ -44,12 +44,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApplicantNotAllowedException.class)
     public ResponseEntity<ApiErrorResponse> handleApplicantNotAllowed(ApplicantNotAllowedException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return buildResponse(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(S3PresignedUrlException.class)
     public ResponseEntity<ApiErrorResponse> handleS3PresignedUrlException(S3PresignedUrlException ex) {
         return buildResponse(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(S3KeyNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleS3KeyNotFound(S3KeyNotFoundException ex) {
+        return buildResponse(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(LoanNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleLoanNotFound(LoanNotFoundException ex) {
+        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
 

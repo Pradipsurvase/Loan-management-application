@@ -1,7 +1,7 @@
 package com.educationloan.document.controller;
-
 import com.educationloan.document.dto.ApplicantResponseDTO;
 import com.educationloan.document.entity.ApplicantEntity;
+import com.educationloan.document.globalExceptionHandling.CustomException.ApplicantNotFoundException;
 import com.educationloan.document.repository.ApplicantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +15,9 @@ public class ApplicantController {
 
     @GetMapping("/{id}")
     public ApplicantResponseDTO getApplicant(@PathVariable Long id) {
-
         ApplicantEntity applicant =
                 applicantRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Applicant not found"));
+                        .orElseThrow(() -> new ApplicantNotFoundException("Applicant not found"));
 
         return ApplicantResponseDTO.builder()
                 .id(applicant.getId())
