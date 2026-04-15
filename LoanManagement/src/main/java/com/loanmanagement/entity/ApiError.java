@@ -1,4 +1,4 @@
-package com.loanmanagement.controller;
+package com.loanmanagement.entity;
 
 import lombok.Builder;
 import lombok.Data;

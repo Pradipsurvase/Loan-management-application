@@ -92,7 +92,6 @@ class LoanServiceImplTest {
     @Test
     @DisplayName("Should successfully submit loan application")
     void submitApplication_Success() {
-        // Arrange
         when(mockDataStore.findBankById(anyString())).thenReturn(Optional.of(mockBank));
         when(mockDataStore.findRateById(anyString())).thenReturn(Optional.of(mockRate));
         when(loanValidationUtils.validateAndCalculateLoanAmount(any(), any())).thenReturn(new BigDecimal("5000"));
@@ -109,20 +108,15 @@ class LoanServiceImplTest {
     @Test
     @DisplayName("Should successfully calculate loan without saving")
     void calculateLoan_Success() {
-        // 1. Mock the Bank (This was missing!)
         when(mockDataStore.findBankById("B1")).thenReturn(Optional.of(mockBank));
 
-        // 2. Mock the Rate
         when(mockDataStore.findRateById("R1")).thenReturn(Optional.of(mockRate));
 
-        // 3. Mock the Utils and Service
         when(loanValidationUtils.validateAndCalculateLoanAmount(any(), any())).thenReturn(new BigDecimal("5000"));
         when(interestCalculationService.calculate(any(), any(), any(), anyInt(), anyInt(), anyInt())).thenReturn(mockCalc);
 
-        // Act
         LoanCalculationResponseDTO result = loanService.calculateLoan(requestDTO);
 
-        // Assert
         assertNotNull(result);
         assertEquals(new BigDecimal("9.5"), result.getAppliedInterestRate());
         verify(loanRepository, never()).save(any());
@@ -134,9 +128,7 @@ class LoanServiceImplTest {
         LoanApplication app = new LoanApplication();
         when(loanRepository.findByApplicationNumber("APP123")).thenReturn(Optional.of(app));
         when(mapper.toResponse(app)).thenReturn(new LoanApplicationResponseDTO());
-
         LoanApplicationResponseDTO result = loanService.getLoanByApplicationNumber("APP123");
-
 
         assertNotNull(result);
         verify(loanRepository).findByApplicationNumber("APP123");
@@ -146,12 +138,10 @@ class LoanServiceImplTest {
     @Test
     @DisplayName("Should throw ResourceNotFoundException when Bank ID is invalid")
     void fetchBank_NotFound() {
-        // Arrange: Ensure the data store returns empty for this specific ID
         String invalidBankId = "INVALID_BANK_ID";
         when(mockDataStore.findBankById(invalidBankId)).thenReturn(Optional.empty());
         requestDTO.setBankId(invalidBankId);
 
-        // Act & Assert
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> loanService.submitApplication(requestDTO));
 
@@ -162,17 +152,12 @@ class LoanServiceImplTest {
     @Test
     @DisplayName("Should throw ResourceNotFoundException when Rate ID is invalid")
     void fetchRate_NotFound() {
-        // Arrange:
-        // 1. Bank must be found AND must be active to pass the first check
         mockBank.setIsActive(true);
         when(mockDataStore.findBankById(anyString())).thenReturn(Optional.of(mockBank));
-
-        // 2. Rate is the one we want to fail
         String invalidRateId = "INVALID_RATE_ID";
         when(mockDataStore.findRateById(invalidRateId)).thenReturn(Optional.empty());
         requestDTO.setBankInterestRateId(invalidRateId);
 
-        // Act & Assert
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> loanService.submitApplication(requestDTO));
 
@@ -185,7 +170,6 @@ class LoanServiceImplTest {
         when(loanRepository.findByApplicationNumber("NON-EXISTENT")).thenReturn(Optional.empty());
         ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
                 () -> loanService.getLoanByApplicationNumber("NON-EXISTENT"));
-
         assertTrue(ex.getMessage().contains("Loan not found"));
     }
     @Test

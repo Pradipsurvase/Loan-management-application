@@ -11,7 +11,6 @@ class LoanManagementApplicationTests {
 	}
 	@Test
 	void mainMethodTest() {
-		// This explicitly calls the main method to satisfy JaCoCo
 		LoanManagementApplication.main(new String[] {});
 	}
 

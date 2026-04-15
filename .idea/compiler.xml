@@ -9,7 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="github-actions" />
       </profile>
-      <profile name="Annotation profile for Loan-management-application" enabled="true">
+      <profile name="Annotation profile for Loan-management" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

@@ -23,7 +23,7 @@ public class LoanController {
         this.loanService = loanService;
     }
 
-    @PostMapping("/submit")
+    @PostMapping(value = "/submit", consumes = "application/json")
     public ResponseEntity<LoanApplicationResponseDTO> submitApplication(@Valid @RequestBody LoanApplicationRequestDTO request) {
         log.info("API /submit called for applicant: {}", request.getApplicantName());
         LoanApplicationResponseDTO response = loanService.submitApplication(request);

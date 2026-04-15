@@ -42,7 +42,6 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public LoanApplicationResponseDTO submitApplication(LoanApplicationRequestDTO requestDTO) {
         log.info("Starting loan application for applicant: {}", requestDTO.getApplicantName());
-
         boolean exists = loanRepository.existsByApplicantNameAndBankId(requestDTO.getApplicantName(),
                 requestDTO.getBankId());
         if (exists) {
@@ -110,12 +109,9 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public LoanCalculationResponseDTO calculateLoan(LoanApplicationRequestDTO requestDTO) {
         log.info("Calculating loan for applicant: {}", requestDTO.getApplicantName());
-
         Bank bank = fetchBank(requestDTO.getBankId());
         BankInterestRate rate = fetchRate(requestDTO.getBankInterestRateId());
-
         BigDecimal loanAmount = loanValidationUtils.validateAndCalculateLoanAmount(requestDTO, rate);
-
         InterestCalculationResult calc = interestCalculationService.calculate(
                 loanAmount, rate, requestDTO.getGender(),
                 requestDTO.getStudyPeriodMonths(),
@@ -135,32 +131,25 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public LoanApplicationResponseDTO getLoanByApplicationNumber(String applicationNumber) {
-
         log.info("Fetching loan for applicationNumber: {}", applicationNumber);
-
         LoanApplication loanApplication = loanRepository
                 .findByApplicationNumber(applicationNumber)
                 .orElseThrow(() -> {log.error("Loan not found for applicationNumber: {}", applicationNumber);
                     return new ResourceNotFoundException("Loan not found with applicationNumber: " + applicationNumber);
                 });
-
         log.info("Loan fetched successfully for applicationNumber: {}", applicationNumber);
         return mapper.toResponse(loanApplication);
-
     }
 
     private Bank fetchBank(String bankId) {
         log.debug("Fetching bank with ID: {}", bankId);
         Bank bank =  mockDataStore.findBankById(bankId)
                 .orElseThrow(() -> {log.error("Bank not found: {}", bankId);
-           return new ResourceNotFoundException("Bank not found: " + bankId)
-                   ;});
-
+           return new ResourceNotFoundException("Bank not found: " + bankId);});
         if (!Boolean.TRUE.equals(bank.getIsActive())) {
             log.error("Bank is inactive: {}", bankId);
             throw new LoanBusinessException("Bank is not active: " + bankId);
         }
-
         return bank;
     }
 
@@ -169,13 +158,11 @@ public class LoanServiceImpl implements LoanService {
         BankInterestRate rate = mockDataStore.findRateById(rateId)
                 .orElseThrow(() -> {log.error("Interest rate not found: {}", rateId);
                     return new ResourceNotFoundException("Rate not found: " + rateId);});
-
         if (!Boolean.TRUE.equals(rate.getIsActive())) {
             log.error("Interest rate inactive: {}", rateId);
             throw new LoanBusinessException("Interest rate is not active: " + rateId);
         }
         return rate;
-
     }
 
     private String generateApplicationNumber(Bank bank, LoanType loanType) {

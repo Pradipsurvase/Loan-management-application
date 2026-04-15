@@ -68,7 +68,6 @@ class LoanControllerTest {
     @Test
     @DisplayName("Should return accurate interest calculations based on request")
     void calculateLoan_Success() throws Exception {
-        // Arrange: Create a response matching your specific DTO
         LoanCalculationResponseDTO calcResponse = new LoanCalculationResponseDTO();
         calcResponse.setLoanAmount(new BigDecimal("50000"));
         calcResponse.setAppliedInterestRate(new BigDecimal("9.5"));
@@ -84,7 +83,6 @@ class LoanControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(validRequest())))
                 .andExpect(status().isOk())
-                // Assert all fields from your LoanCalculationResponseDTO
                 .andExpect(jsonPath("$.loanAmount").value(50000))
                 .andExpect(jsonPath("$.appliedInterestRate").value(9.5))
                 .andExpect(jsonPath("$.moratoriumPeriod").value(18))

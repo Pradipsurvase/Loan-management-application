@@ -14,6 +14,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -72,6 +74,20 @@ class GlobalExceptionHandlerTest {
                 .andExpect(jsonPath("$.message").value("Invalid request"));
 
     }
+    @Test
+    void handleGeneric_Success() throws Exception {
+        mockMvc.perform(get("/test/generic-error"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.message").value("Something went wrong"));
+    }
+    @Test
+    @DisplayName("Handle HttpMediaTypeNotSupportedException -> 415")
+    void handleMediaType_Success() throws Exception {
+        mockMvc.perform(get("/test/media-type-error"))
+                .andExpect(status().isUnsupportedMediaType())
+                .andExpect(jsonPath("$.error").value("Unsupported Media Type"))
+                .andExpect(jsonPath("$.message", containsString("text/plain")));
+    }
 
     @RestController
     static class ExceptionTestController {
@@ -88,7 +104,6 @@ class GlobalExceptionHandlerTest {
 
         @GetMapping("/test/validation-error")
         public void throwValidation() throws MethodArgumentNotValidException {
-            // Manually creating a validation exception
             LoanApplicationRequestDTO request = new LoanApplicationRequestDTO();
             BeanPropertyBindingResult errors = new BeanPropertyBindingResult(request, "loanRequest");
             errors.rejectValue("courseFee", "invalid", "Must be positive");
@@ -116,6 +131,17 @@ class GlobalExceptionHandlerTest {
                     "Error",
                     cause,
                     new org.springframework.mock.http.MockHttpInputMessage("".getBytes())
+            );
+        }
+        @GetMapping("/test/generic-error")
+        public void throwGeneric() {
+            throw new RuntimeException("Unexpected crash");
+        }
+        @GetMapping("/test/media-type-error")
+        public void throwMediaType() throws org.springframework.web.HttpMediaTypeNotSupportedException {
+            throw new org.springframework.web.HttpMediaTypeNotSupportedException(
+                    org.springframework.http.MediaType.TEXT_PLAIN,
+                    List.of(org.springframework.http.MediaType.APPLICATION_JSON)
             );
         }
     }

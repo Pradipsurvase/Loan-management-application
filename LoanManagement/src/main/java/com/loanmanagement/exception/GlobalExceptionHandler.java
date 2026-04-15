@@ -1,6 +1,6 @@
 package com.loanmanagement.exception;
 
-import com.loanmanagement.controller.ApiError;
+import com.loanmanagement.entity.ApiError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,7 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> handleValidation(
-            MethodArgumentNotValidException ex, HttpServletRequest request) {
+    public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
 
         BindingResult result = ex.getBindingResult();
         List<ApiError.FieldError> fieldErrors = result.getFieldErrors().stream()
@@ -43,12 +42,9 @@ public class GlobalExceptionHandler {
                 fieldErrors
         );
     }
-
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiError> handleNotFound(
-            ResourceNotFoundException ex, HttpServletRequest request) {
+    public ResponseEntity<ApiError> handleNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
         log.error("Resource not found | path={} message={}", request.getRequestURI(), ex.getMessage());
-
         return buildError(
                 HttpStatus.NOT_FOUND,
                 "Not Found",
@@ -57,13 +53,9 @@ public class GlobalExceptionHandler {
                 null
         );
     }
-
-
     @ExceptionHandler(LoanBusinessException.class)
-    public ResponseEntity<ApiError> handleBusinessRule(
-            LoanBusinessException ex, HttpServletRequest request) {
+    public ResponseEntity<ApiError> handleBusinessRule(LoanBusinessException ex, HttpServletRequest request) {
         log.error("Business rule violation | path={} message={}", request.getRequestURI(), ex.getMessage());
-
         return buildError(
                 HttpStatus.BAD_REQUEST,
                 "Business Rule Violation",
@@ -72,13 +64,10 @@ public class GlobalExceptionHandler {
                 null
         );
     }
-
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleInvalidInput(HttpMessageNotReadableException ex, HttpServletRequest request) {
-
         String message = "Invalid request";
         Throwable cause = ex.getCause();
-
         while (cause != null) {
             String className = cause.getClass().getName();
             if (className.contains("InvalidFormatException")
@@ -91,7 +80,6 @@ public class GlobalExceptionHandler {
                 message = "Invalid data type";
                 break;
             }
-
             cause = cause.getCause();
         }
         log.error("Invalid input error | path={} message={}",
@@ -104,9 +92,24 @@ public class GlobalExceptionHandler {
                 null
         );
     }
+    @ExceptionHandler(org.springframework.web.HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<ApiError> handleHttpMediaTypeNotSupported(org.springframework.web.HttpMediaTypeNotSupportedException ex, HttpServletRequest request) {
+        String supportedTypes = ex.getSupportedMediaTypes()
+                .stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
+        log.error("Unsupported media type | path={} provided={} supported={}", request.getRequestURI(), ex.getContentType(), supportedTypes);
+
+        return buildError(
+                HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+                "Unsupported Media Type",
+                "Content-Type " + ex.getContentType() + " is not supported. Supported: " + supportedTypes,
+                request,
+                null
+        );
+    }
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleGeneric(
-            Exception ex, HttpServletRequest request) {
+    public ResponseEntity<ApiError> handleGeneric(Exception ex, HttpServletRequest request) {
         log.error("Unexpected error occurred | path={}", request.getRequestURI(), ex);
 
         return buildError(
@@ -117,7 +120,6 @@ public class GlobalExceptionHandler {
                 null
         );
     }
-
     private ResponseEntity<ApiError> buildError(
             HttpStatus status,
             String error,

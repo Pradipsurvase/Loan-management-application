@@ -63,17 +63,14 @@ public class InterestCalculationServiceImpl implements InterestCalculationServic
         } else {
             MarketRate market = mockDataStore.getActiveMarketRate(rate.getBenchmarkName());
 
-            appliedRate = market.getCurrentRate()
-                    .add(rate.getFloatingSpread());
+            appliedRate = market.getCurrentRate().add(rate.getFloatingSpread());
         }
-
         if (rate.getLoanType() == LoanType.DOMESTIC && rate.getDomesticDiscount() != null) {
             appliedRate = appliedRate.subtract(rate.getDomesticDiscount());
         }
         if (Gender.FEMALE.equals(gender) && rate.getFemaleDiscount() != null) {
             appliedRate = appliedRate.subtract(rate.getFemaleDiscount());
         }
-
         BigDecimal floor = new BigDecimal("1.00");
         if (appliedRate.compareTo(floor) < 0) {
             appliedRate = floor;

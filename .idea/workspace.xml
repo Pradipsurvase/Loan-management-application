@@ -5,41 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68b7e683-18da-4a9b-84a0-588847ce5d82" name="Changes" comment="[github] modified workspace.">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28-03-2026_01_33_pm_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28-03-2026_01_33_pm__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28-03-2026_01_35_pm_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28-03-2026_01_35_pm__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28-03-2026_01_37_pm_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28-03-2026_01_37_pm__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/LoanManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/LoanManagementApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/controller/ApiError.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/ApiError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/controller/LoanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/controller/LoanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/dto/LoanApplicationRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/dto/LoanApplicationRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/dto/LoanApplicationResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/dto/LoanApplicationResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/dto/RateJsonDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/Bank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/BankInterestRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/BankInterestRate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/LoanApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/LoanApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/MarketRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/MarketRate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/mapper/LoanApplicationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/mapper/LoanApplicationMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/repository/LoanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/repository/LoanRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/InterestCalculationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/InterestCalculationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/LoanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/LoanService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/LoanServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/LoanServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/MockDataStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/MockDataStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/util/EMIUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/util/LoanValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/util/LoanValidationUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/LoanManagementApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/LoanManagementApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/github-actions-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/github-actions-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/controller/LoanControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/controller/LoanControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/exception/GlobalExceptionHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/exception/GlobalExceptionHandlerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/InterestCalculationServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/InterestCalculationServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/LoanServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/LoanServiceImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +67,6 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
     <option name="showModules" value="false" />
   </component>
@@ -107,6 +85,7 @@
     "JUnit.LoanApplicationMapperTest.toResponse_NullStatus.executor": "Run",
     "JUnit.LoanControllerTest.calculateLoan_Success.executor": "Run",
     "JUnit.LoanControllerTest.calculateLoan_success.executor": "Run",
+    "JUnit.LoanControllerTest.executor": "Run",
     "JUnit.LoanControllerTest.getLoan_NotFound.executor": "Run",
     "JUnit.LoanControllerTest.getLoan_ServerError.executor": "Run",
     "JUnit.LoanControllerTest.getLoan_Success.executor": "Run",
@@ -128,7 +107,12 @@
     "JUnit.LoanServiceImplTest.getLoan_NotFound.executor": "Run",
     "JUnit.LoanServiceImplTest.submitApplication_AlreadyExists.executor": "Run",
     "JUnit.LoanServiceImplTest.submitApplication_Success.executor": "Run",
+    "JUnit.loanmanagement in LoanManagement.executor": "Run",
     "Maven. [clean,install].executor": "Run",
+    "Maven.Loan-management [clean].executor": "Run",
+    "Maven.Loan-management [install].executor": "Run",
+    "Maven.Loan-management [test].executor": "Run",
+    "Maven.Loan-management-application [test].executor": "Run",
     "Maven.LoanManagement [clean].executor": "Run",
     "Maven.LoanManagement [install].executor": "Run",
     "Maven.LoanManagement [package].executor": "Run",
@@ -180,23 +164,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoanApplicationMapperTest.toResponse_NullStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="LoanManagement" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.loanmanagement.mapper.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.loanmanagement.mapper" />
-      <option name="MAIN_CLASS_NAME" value="com.loanmanagement.mapper.LoanApplicationMapperTest" />
-      <option name="METHOD_NAME" value="toResponse_NullStatus" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoanControllerTest.calculateLoan_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoanControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="LoanManagement" />
       <extension name="coverage">
         <pattern>
@@ -206,8 +174,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.loanmanagement.controller" />
       <option name="MAIN_CLASS_NAME" value="com.loanmanagement.controller.LoanControllerTest" />
-      <option name="METHOD_NAME" value="calculateLoan_Success" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -243,6 +210,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="loanmanagement in LoanManagement" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="LoanManagement" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="eligibility-service" />
       <method v="2">
@@ -257,10 +232,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LoanManagementApplication" />
-        <item itemvalue="JUnit.LoanServiceImplTest.calculateLoan_Success" />
-        <item itemvalue="JUnit.LoanControllerTest.calculateLoan_Success" />
         <item itemvalue="JUnit.LoanManagementApplicationTests" />
-        <item itemvalue="JUnit.LoanApplicationMapperTest.toResponse_NullStatus" />
+        <item itemvalue="JUnit.LoanControllerTest" />
+        <item itemvalue="JUnit.loanmanagement in LoanManagement" />
+        <item itemvalue="JUnit.LoanServiceImplTest.calculateLoan_Success" />
       </list>
     </recent_temporary>
   </component>

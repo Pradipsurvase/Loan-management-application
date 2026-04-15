@@ -35,7 +35,6 @@ class InterestCalculationServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        // Setup Fixed Rate with Discounts
         fixedRate = new BankInterestRate();
         fixedRate.setInterestType(InterestType.FIXED);
         fixedRate.setBaseRate(new BigDecimal("10.00"));
@@ -60,7 +59,6 @@ class InterestCalculationServiceImplTest {
         assertNotNull(result);
         assertEquals(new BigDecimal("9.50"), result.appliedInterestRate());
         assertEquals(24, result.moratoriumPeriod());
-        // (10000 * 0.095 * 2 years) = 1900
         assertEquals(new BigDecimal("1900.00"), result.moratoriumInterest());
     }
 
@@ -71,7 +69,6 @@ class InterestCalculationServiceImplTest {
         market.setCurrentRate(new BigDecimal("5.00"));
         when(mockDataStore.getActiveMarketRate("LIBOR")).thenReturn(market);
 
-        // 5.0 (Market) + 2.0 (Spread) = 7.0
         BigDecimal rate = interestService.calculateAppliedRate(floatingRate, Gender.MALE);
 
         assertEquals(new BigDecimal("7.00"), rate);
@@ -81,7 +78,6 @@ class InterestCalculationServiceImplTest {
     @Test
     @DisplayName("Applied Rate - Apply Female and Domestic Discounts")
     void calculateAppliedRate_WithDiscounts() {
-        // 10.0 (Base) - 0.5 (Domestic) - 0.5 (Female) = 9.0
         BigDecimal rate = interestService.calculateAppliedRate(fixedRate, Gender.FEMALE);
         assertEquals(new BigDecimal("9.00"), rate);
     }
@@ -92,8 +88,6 @@ class InterestCalculationServiceImplTest {
     void calculateAppliedRate_FloorLimit() {
         fixedRate.setBaseRate(new BigDecimal("1.20"));
         fixedRate.setDomesticDiscount(new BigDecimal("0.50"));
-        // 1.2 - 0.5 = 0.7 (Should floor to 1.00)
-
         BigDecimal rate = interestService.calculateAppliedRate(fixedRate, Gender.MALE);
         assertEquals(new BigDecimal("1.00"), rate);
     }
