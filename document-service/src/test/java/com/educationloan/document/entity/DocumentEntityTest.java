@@ -92,4 +92,38 @@ class DocumentEntityTest {
         assertNull(entity.getFilename());
         assertNull(entity.getS3Key());
     }
+<<<<<<< HEAD
+=======
+
+    @Test
+    void testBuilderToString() {
+        DocumentEntity.DocumentEntityBuilder builder = DocumentEntity.builder()
+                .filename("file.pdf");
+
+        String result = builder.toString();
+
+        assertNotNull(result);
+    }
+
+    @Test
+    void testPartialBuilder() {
+        DocumentEntity entity = DocumentEntity.builder()
+                .filename("only-file.pdf")
+                .build();
+
+        assertEquals("only-file.pdf", entity.getFilename());
+        assertNull(entity.getS3Key());
+        assertNull(entity.getDocType());
+    }
+    @Test
+    void testBuilderWithAllNulls() {
+        DocumentEntity entity = DocumentEntity.builder().build();
+
+        assertNull(entity.getId());
+        assertNull(entity.getApplicant());
+        assertNull(entity.getDocType());
+        assertNull(entity.getStatus());
+        assertNull(entity.getFilename());
+    }
+>>>>>>> 7cde6a1 ("Added some test cases")
 }

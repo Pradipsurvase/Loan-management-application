@@ -84,4 +84,56 @@ public class DocumentVerificationEntityTest {
         assertEquals(docId, entity.getDocumentId());
     }
 
+<<<<<<< HEAD
+=======
+    @Test
+    void shouldCallBuilderToString() {
+        DocumentVerificationEntity.DocumentVerificationEntityBuilder builder =
+                DocumentVerificationEntity.builder()
+                        .extractedName("John");
+
+        String result = builder.toString();
+
+        assertNotNull(result);
+    }
+
+    @Test
+    void shouldHandleNullValues() {
+        DocumentVerificationEntity entity = DocumentVerificationEntity.builder().build();
+
+        assertNull(entity.getDocumentId());
+        assertNull(entity.getExtractedName());
+        assertNull(entity.getVerificationStatus());
+    }
+
+    @Test
+    void shouldVerifyAllFields() {
+        UUID docId = UUID.randomUUID();
+        Instant now = Instant.now();
+
+        DocumentVerificationEntity entity = DocumentVerificationEntity.builder()
+                .id(1L)
+                .documentId(docId)
+                .applicantId(10L)
+                .documentType(DocumentType.AADHAAR)
+                .verificationStatus(VerificationStatus.VERIFIED)
+                .extractedName("John Doe")
+                .extractedDob("01-01-2000")
+                .extractedNumber("1234567890")
+                .verifiedAt(now)
+                .build();
+
+        assertAll(
+                () -> assertEquals(1L, entity.getId()),
+                () -> assertEquals(docId, entity.getDocumentId()),
+                () -> assertEquals(10L, entity.getApplicantId()),
+                () -> assertEquals(DocumentType.AADHAAR, entity.getDocumentType()),
+                () -> assertEquals(VerificationStatus.VERIFIED, entity.getVerificationStatus()),
+                () -> assertEquals("John Doe", entity.getExtractedName()),
+                () -> assertEquals("01-01-2000", entity.getExtractedDob()),
+                () -> assertEquals("1234567890", entity.getExtractedNumber()),
+                () -> assertEquals(now, entity.getVerifiedAt())
+        );
+    }
+>>>>>>> 7cde6a1 ("Added some test cases")
 }
