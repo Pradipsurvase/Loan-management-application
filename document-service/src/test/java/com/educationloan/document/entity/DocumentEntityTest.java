@@ -92,8 +92,6 @@ class DocumentEntityTest {
         assertNull(entity.getFilename());
         assertNull(entity.getS3Key());
     }
-<<<<<<< HEAD
-=======
 
     @Test
     void testBuilderToString() {
@@ -125,5 +123,5 @@ class DocumentEntityTest {
         assertNull(entity.getStatus());
         assertNull(entity.getFilename());
     }
->>>>>>> 7cde6a1 ("Added some test cases")
+
 }
