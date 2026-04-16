@@ -123,5 +123,4 @@ class DocumentEntityTest {
         assertNull(entity.getStatus());
         assertNull(entity.getFilename());
     }
-
 }
