@@ -3,7 +3,6 @@ package com.loanmanagement.controller;
 import com.loanmanagement.dto.LoanApplicationRequestDTO;
 import com.loanmanagement.dto.LoanApplicationResponseDTO;
 import com.loanmanagement.dto.LoanCalculationResponseDTO;
-import com.loanmanagement.exception.ResourceNotFoundException;
 import com.loanmanagement.service.repayment.LoanService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -43,9 +42,6 @@ public class LoanController {
     public ResponseEntity<LoanApplicationResponseDTO> getLoanByApplicationNumber(@PathVariable String applicationNumber) {
         log.info("API GET loan called for applicationNumber: {}", applicationNumber);
         LoanApplicationResponseDTO response = loanService.getLoanByApplicationNumber(applicationNumber);
-        if (response == null) {
-            throw new ResourceNotFoundException("Loan not found for application number: " + applicationNumber);
-        }
         log.info("Loan fetch successful for applicationNumber: {}", applicationNumber);
         return ResponseEntity.ok(response);
     }

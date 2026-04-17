@@ -135,7 +135,6 @@ public class GlobalExceptionHandler {
                 .path(request.getRequestURI())
                 .fieldErrors(fieldErrors)
                 .build();
-
         return ResponseEntity.status(status).body(apiError);
     }
 }

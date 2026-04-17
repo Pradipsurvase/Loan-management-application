@@ -1,5 +1,6 @@
 package com.loanmanagement.service.repayment;
 
+import com.loanmanagement.constants.LoanConstants;
 import com.loanmanagement.entity.BankInterestRate;
 import com.loanmanagement.entity.InterestCalculationResult;
 import com.loanmanagement.entity.MarketRate;
@@ -71,9 +72,8 @@ public class InterestCalculationServiceImpl implements InterestCalculationServic
         if (Gender.FEMALE.equals(gender) && rate.getFemaleDiscount() != null) {
             appliedRate = appliedRate.subtract(rate.getFemaleDiscount());
         }
-        BigDecimal floor = new BigDecimal("1.00");
-        if (appliedRate.compareTo(floor) < 0) {
-            appliedRate = floor;
+        if (appliedRate.compareTo(LoanConstants.MIN_INTEREST_RATE) < 0) {
+            appliedRate = LoanConstants.MIN_INTEREST_RATE;
         }
         return appliedRate.setScale(SCALE, ROUNDING_MODE);
     }

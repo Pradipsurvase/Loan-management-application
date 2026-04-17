@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68b7e683-18da-4a9b-84a0-588847ce5d82" name="Changes" comment="[github] modified workspace.">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/LoanManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/LoanManagementApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/controller/ApiError.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/entity/ApiError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/controller/LoanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/controller/LoanController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/dto/LoanApplicationRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/dto/LoanApplicationRequestDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/InterestCalculationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/InterestCalculationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/LoanServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/main/java/com/loanmanagement/service/repayment/LoanServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/LoanManagementApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/LoanManagementApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/controller/LoanControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/controller/LoanControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/exception/GlobalExceptionHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/exception/GlobalExceptionHandlerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/InterestCalculationServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/InterestCalculationServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/LoanServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoanManagement/src/test/java/com/loanmanagement/service/LoanServiceImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,70 +61,70 @@
     <option name="showLibraryContents" value="true" />
     <option name="showModules" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LoanManagementApplication.executor": "Run",
-    "JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_Floating.executor": "Run",
-    "JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_FloorLimit.executor": "Run",
-    "JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_NoDiscounts.executor": "Run",
-    "JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_NullDiscounts.executor": "Run",
-    "JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_WithDiscounts.executor": "Run",
-    "JUnit.InterestCalculationServiceImplTest.calculate_Success.executor": "Run",
-    "JUnit.InterestCalculationServiceImplTest.calculate_ZeroPrincipal.executor": "Run",
-    "JUnit.LoanApplicationMapperTest.map_success.executor": "Run",
-    "JUnit.LoanApplicationMapperTest.toResponse_NPE_OnRequiredFields.executor": "Run",
-    "JUnit.LoanApplicationMapperTest.toResponse_NullStatus.executor": "Run",
-    "JUnit.LoanControllerTest.calculateLoan_Success.executor": "Run",
-    "JUnit.LoanControllerTest.calculateLoan_success.executor": "Run",
-    "JUnit.LoanControllerTest.executor": "Run",
-    "JUnit.LoanControllerTest.getLoan_NotFound.executor": "Run",
-    "JUnit.LoanControllerTest.getLoan_ServerError.executor": "Run",
-    "JUnit.LoanControllerTest.getLoan_Success.executor": "Run",
-    "JUnit.LoanControllerTest.submitApplication_Success.executor": "Run",
-    "JUnit.LoanControllerTest.submitApplication_WrongMediaType.executor": "Run",
-    "JUnit.LoanControllerTest.submitApplication_success.executor": "Run",
-    "JUnit.LoanControllerTest.submitApplication_validationFail.executor": "Run",
-    "JUnit.LoanControllerTest.testCalculateLoan_Negative_InvalidAmount.executor": "Run",
-    "JUnit.LoanControllerTest.testGetLoanByApplicationNumber_Negative_NotFound.executor": "Run",
-    "JUnit.LoanControllerTest.testSubmitApplication_Negative_MissingRequiredField.executor": "Run",
-    "JUnit.LoanControllerTest.testSubmitApplication_Positive.executor": "Run",
-    "JUnit.LoanControllerTest.testSubmitApplication_Success.executor": "Run",
-    "JUnit.LoanManagementApplicationTests.contextLoads.executor": "Run",
-    "JUnit.LoanManagementApplicationTests.executor": "Run",
-    "JUnit.LoanServiceImplTest.calculateLoan_Success.executor": "Run",
-    "JUnit.LoanServiceImplTest.fetchBank_NotFound.executor": "Run",
-    "JUnit.LoanServiceImplTest.fetchRate_NotFound.executor": "Run",
-    "JUnit.LoanServiceImplTest.getLoanByAppNumber_Success.executor": "Run",
-    "JUnit.LoanServiceImplTest.getLoan_NotFound.executor": "Run",
-    "JUnit.LoanServiceImplTest.submitApplication_AlreadyExists.executor": "Run",
-    "JUnit.LoanServiceImplTest.submitApplication_Success.executor": "Run",
-    "JUnit.loanmanagement in LoanManagement.executor": "Run",
-    "Maven. [clean,install].executor": "Run",
-    "Maven.Loan-management [clean].executor": "Run",
-    "Maven.Loan-management [install].executor": "Run",
-    "Maven.Loan-management [test].executor": "Run",
-    "Maven.Loan-management-application [test].executor": "Run",
-    "Maven.LoanManagement [clean].executor": "Run",
-    "Maven.LoanManagement [install].executor": "Run",
-    "Maven.LoanManagement [package].executor": "Run",
-    "Maven.LoanManagement [test].executor": "Run",
-    "Maven.github-actions [clean,install,-U].executor": "Run",
-    "Maven.github-actions [clean,install].executor": "Run",
-    "Maven.github-actions [clean].executor": "Run",
-    "Maven.github-actions [dependency:tree].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feature/loan-processing",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/prade/Desktop/GitDemo/Loan-management-application/LoanManagement",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LoanManagementApplication.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_Floating.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_FloorLimit.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_NoDiscounts.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_NullDiscounts.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InterestCalculationServiceImplTest.calculateAppliedRate_WithDiscounts.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InterestCalculationServiceImplTest.calculate_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InterestCalculationServiceImplTest.calculate_ZeroPrincipal.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanApplicationMapperTest.map_success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanApplicationMapperTest.toResponse_NPE_OnRequiredFields.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanApplicationMapperTest.toResponse_NullStatus.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.calculateLoan_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.calculateLoan_success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.getLoan_NotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.getLoan_ServerError.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.getLoan_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.submitApplication_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.submitApplication_WrongMediaType.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.submitApplication_success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.submitApplication_validationFail.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.testCalculateLoan_Negative_InvalidAmount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.testGetLoanByApplicationNumber_Negative_NotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.testSubmitApplication_Negative_MissingRequiredField.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.testSubmitApplication_Positive.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanControllerTest.testSubmitApplication_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanManagementApplicationTests.contextLoads.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanManagementApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanServiceImplTest.calculateLoan_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanServiceImplTest.fetchBank_NotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanServiceImplTest.fetchRate_NotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanServiceImplTest.getLoanByAppNumber_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanServiceImplTest.getLoan_NotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanServiceImplTest.submitApplication_AlreadyExists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoanServiceImplTest.submitApplication_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.loanmanagement in LoanManagement.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Loan-management [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Loan-management [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Loan-management [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Loan-management-application [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.LoanManagement [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.LoanManagement [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.LoanManagement [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.LoanManagement [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.github-actions [clean,install,-U].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.github-actions [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.github-actions [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.github-actions [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/loan-processing&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/prade/Desktop/GitDemo/Loan-management-application/LoanManagement&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\prade\Desktop\GitDemo\Loan-management-application" />
