@@ -9,5 +9,9 @@ class LoanManagementApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+	@Test
+	void mainMethodTest() {
+		LoanManagementApplication.main(new String[] {});
+	}
 
 }
