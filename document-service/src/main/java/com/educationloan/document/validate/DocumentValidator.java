@@ -1,5 +1,4 @@
 package com.educationloan.document.validate;
-
 import com.educationloan.document.globalExceptionHandling.CustomException.InvalidFileException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.Tika;
@@ -7,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.annotation.PostConstruct;
 import java.io.InputStream;
 import java.util.Set;

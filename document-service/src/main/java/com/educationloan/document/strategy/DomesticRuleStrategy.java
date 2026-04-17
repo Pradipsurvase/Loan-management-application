@@ -1,8 +1,6 @@
 package com.educationloan.document.strategy;
-
 import com.educationloan.document.enumConst.ApplicantType;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
