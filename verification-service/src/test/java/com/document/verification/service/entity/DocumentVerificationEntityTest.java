@@ -84,8 +84,6 @@ public class DocumentVerificationEntityTest {
         assertEquals(docId, entity.getDocumentId());
     }
 
-<<<<<<< HEAD
-=======
     @Test
     void shouldCallBuilderToString() {
         DocumentVerificationEntity.DocumentVerificationEntityBuilder builder =
@@ -135,5 +133,4 @@ public class DocumentVerificationEntityTest {
                 () -> assertEquals(now, entity.getVerifiedAt())
         );
     }
->>>>>>> 7cde6a1 ("Added some test cases")
 }

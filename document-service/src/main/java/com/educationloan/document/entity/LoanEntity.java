@@ -8,17 +8,17 @@ import java.math.BigDecimal;
 
 
 @Entity
-    @Table(name = "loan")
-    @Getter
-    @Setter
-    public class LoanEntity {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+@Table(name = "loan")
+@Getter
+@Setter
+public class LoanEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private BigDecimal loanAmount;
+    private BigDecimal loanAmount;
 
-        @Enumerated(EnumType.STRING)
-        private StudyLocationType studyLocationType;
-    }
+    @Enumerated(EnumType.STRING)
+    private StudyLocationType studyLocationType;
+}
 

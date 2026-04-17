@@ -8,11 +8,9 @@ import java.util.regex.Pattern;
 @Component
 public class AadhaarParser implements DocumentParser {
 
-    private static final Pattern AADHAAR =
-            Pattern.compile("\\b[2-9]\\d{3}[\\s-]?\\d{4}[\\s-]?\\d{4}\\b");
+    private static final Pattern AADHAAR = Pattern.compile("\\b[2-9]\\d{3}[\\s-]?\\d{4}[\\s-]?\\d{4}\\b");
 
-    private static final Pattern DOB =
-            Pattern.compile("(\\d{2}/\\d{2}/\\d{4})");
+    private static final Pattern DOB = Pattern.compile("(\\d{2}/\\d{2}/\\d{4})");
 
     @Override
     public boolean supports(String documentType) {

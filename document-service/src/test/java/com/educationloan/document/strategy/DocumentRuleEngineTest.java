@@ -21,9 +21,7 @@ class DocumentRuleEngineTest {
         Set<ApplicantType> result =
                 engine.getAllowedApplicants(
                         StudyLocationType.DOMESTIC,
-                        new BigDecimal("500000")
-                );
-
+                        new BigDecimal("500000"));
         assertTrue(result.contains(ApplicantType.STUDENT));
     }
 

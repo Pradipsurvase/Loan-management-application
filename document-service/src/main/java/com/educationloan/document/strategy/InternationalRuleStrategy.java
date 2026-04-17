@@ -18,9 +18,7 @@ public class InternationalRuleStrategy implements DocumentRuleStrategy {
                     Set.of(
                             ApplicantType.STUDENT,
                             ApplicantType.CO_APPLICANT,
-                            ApplicantType.GUARANTOR
-                    )
-            ),
+                            ApplicantType.GUARANTOR)),
 
             new LoanApplicantRule(
                     new BigDecimal("1000001"),
@@ -29,10 +27,7 @@ public class InternationalRuleStrategy implements DocumentRuleStrategy {
                             ApplicantType.STUDENT,
                             ApplicantType.CO_APPLICANT,
                             ApplicantType.GUARANTOR,
-                            ApplicantType.COLLATERAL_PROVIDER
-                    )
-            )
-    );
+                            ApplicantType.COLLATERAL_PROVIDER)));
 
     @Override
     public Set<ApplicantType> getAllowedApplicants(BigDecimal loanAmount) {

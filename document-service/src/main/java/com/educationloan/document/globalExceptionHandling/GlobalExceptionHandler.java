@@ -12,14 +12,12 @@ import java.time.Instant;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private ResponseEntity<ApiErrorResponse> buildResponse(String message, HttpStatus status) {
-        return ResponseEntity.status(status).body(
-                ApiErrorResponse.builder()
+        return ResponseEntity.status(status).body(ApiErrorResponse.builder()
                         .timestamp(Instant.now())
                         .status(status.value())
                         .error(status.getReasonPhrase())
                         .message(message)
-                        .build()
-        );
+                        .build());
     }
 
     @ExceptionHandler(InvalidFileException.class)

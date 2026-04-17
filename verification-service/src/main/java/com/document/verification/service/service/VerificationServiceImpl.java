@@ -1,6 +1,7 @@
 package com.document.verification.service.service;
 import com.document.verification.service.client.AadhaarVerificationClient;
 import com.document.verification.service.client.ApplicantClient;
+import com.document.verification.service.constant.DocumentType;
 import com.document.verification.service.constant.VerificationStatus;
 import com.document.verification.service.dto.*;
 import com.document.verification.service.entity.DocumentVerificationEntity;
@@ -8,12 +9,12 @@ import com.document.verification.service.globalExceptionHandling.customException
 import com.document.verification.service.parser.DocumentParser;
 import com.document.verification.service.parser.ParserFactory;
 import com.document.verification.service.repository.DocumentVerificationRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.time.Instant;
 import java.util.UUID;
@@ -36,11 +37,8 @@ public class VerificationServiceImpl implements VerificationService {
     @Override
     public void verifyDocument(DocumentUploadedEventDTO event) {
         log.info("Starting verification for document {}", event.getDocumentId());
-
         try {
-
             File file = s3DownloadService.download(event.getS3Key());
-
             String extractedText = ocrService.extractText(file);
 
             log.info("OCR extracted text {}", extractedText);
@@ -48,15 +46,18 @@ public class VerificationServiceImpl implements VerificationService {
             DocumentParser parser = parserFactory.getParser(event.getDocumentType().name());
 
             ParsedDocumentDTO parsed = parser.parse(extractedText);
+            if (parsed == null) {
+                log.error("Parsing failed for document {}", event.getDocumentId());
+                saveFailure(event);
+                return;
+            }
 
             VerificationStatus status = VerificationStatus.FAILED;
 
-            if ("AADHAAR".equalsIgnoreCase(event.getDocumentType().name())) {
-
-                String extractedAadhaar = parsed.getDocumentNumber(); //parsed number
+            if (event.getDocumentType() == DocumentType.AADHAAR) {
+                String extractedAadhaar = parsed.getDocumentNumber();
 
                 if (extractedAadhaar != null) {
-
                     AadhaarVerifyRequest request = new AadhaarVerifyRequest();
                     request.setAadhaarNumber(extractedAadhaar);
 
@@ -85,27 +86,34 @@ public class VerificationServiceImpl implements VerificationService {
                             .extractedNumber(parsed.getDocumentNumber())
                             .verifiedAt(Instant.now())
                             .build();
-
             repository.save(entity);
 
-        } catch (Exception e) {
-            log.error("Verification failed", e);
-            repository.save(
-                    DocumentVerificationEntity.builder()
-                            .documentId(event.getDocumentId())
-                            .applicantId(event.getApplicantId())
-                            .documentType(event.getDocumentType())
-                            .verificationStatus(VerificationStatus.FAILED)
-                            .verifiedAt(Instant.now())
-                            .build());
         }
+        catch (FeignException.NotFound ex) {
+        log.error("Applicant not found: {}", event.getApplicantId());
+        saveFailure(event);
+
+    } catch (FeignException ex) {
+        log.error("External service failed (Feign): {}", ex.getMessage());
+        saveFailure(event);
+
+    } catch (Exception e) {
+        log.error("Internal verification failure", e);
+        saveFailure(event);
+    }
+    }
+    private void saveFailure(DocumentUploadedEventDTO event) {
+        repository.save(DocumentVerificationEntity.builder()
+                        .documentId(event.getDocumentId())
+                        .applicantId(event.getApplicantId())
+                        .documentType(event.getDocumentType())
+                        .verificationStatus(VerificationStatus.FAILED)
+                        .verifiedAt(Instant.now())
+                        .build());
     }
     @Override
     public VerificationResponseDTO getVerificationStatus(UUID documentId) {
-
-        DocumentVerificationEntity entity = repository.findByDocumentId(documentId)
-                        .orElseThrow(() -> new VerificationNotFoundException("Verification status not found"));
-
+        DocumentVerificationEntity entity = repository.findByDocumentId(documentId).orElseThrow(() -> new VerificationNotFoundException("Verification status not found"));
         return modelMapper.map(entity, VerificationResponseDTO.class);
     }
 }

@@ -31,7 +31,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class DocumentUploadServiceImpl implements DocumentUploadService {
-
     private final ApplicantRepository applicantRepo;
     private final LoanRepository loanRepository;
     private final DocumentRepository documentRepo;
@@ -54,27 +53,21 @@ public class DocumentUploadServiceImpl implements DocumentUploadService {
 
         documentValidator.validateFileType(file);
 
-        ApplicantEntity applicant = applicantRepo.findById(applicantId)
-                .orElseThrow(() -> new ApplicantNotFoundException("Applicant not found"));
+        ApplicantEntity applicant = applicantRepo.findById(applicantId).orElseThrow(() -> new ApplicantNotFoundException("Applicant not found"));
 
         LoanEntity loan = applicant.getLoan();
         BigDecimal loanAmount = loan.getLoanAmount();
         Long loanId = loan.getId();
 
-        Set<ApplicantType> allowedApplicants =
-                documentRuleEngine.getAllowedApplicants(studyLocationType, loanAmount);
+        Set<ApplicantType> allowedApplicants = documentRuleEngine.getAllowedApplicants(studyLocationType, loanAmount);
 
         if (!allowedApplicants.contains(applicant.getApplicantType())) {
-            throw new ApplicantNotAllowedException(
-                    "Applicant type " + applicant.getApplicantType() +
-                            " not allowed for loan amount " + loanAmount +
+            throw new ApplicantNotAllowedException("Applicant type " + applicant.getApplicantType() + " not allowed for loan amount " + loanAmount +
                             " and study location " + studyLocationType);
         }
         String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
-        String s3Key = buildS3Key(
-                loanId,
-                applicant.getApplicantType().name(),
-                fileName);
+
+        String s3Key = buildS3Key(loanId, applicant.getApplicantType().name(), fileName);
 
         s3Util.uploadFile(s3Key, file);
 
@@ -108,9 +101,7 @@ public class DocumentUploadServiceImpl implements DocumentUploadService {
             log.error("S3 key is null for documentId: {}", savedEntity.getId());
             throw new RuntimeException("S3 key missing for document");
         }
-        dto.setDownloadUrl(
-                s3Util.generatePreSignedDownloadUrl(key, 5)
-        );
+        dto.setDownloadUrl(s3Util.generatePreSignedDownloadUrl(key, 5));
         return dto;
     }
     private void publishKafkaEvent(DocumentEntity savedEntity){
@@ -126,19 +117,14 @@ public class DocumentUploadServiceImpl implements DocumentUploadService {
                 .uploadedAt(savedEntity.getUploadedAt())
                 .build();
 
-        kafkaTemplate.send(
-                documentUploadedTopic,
-                savedEntity.getId().toString(),
-                event);
+        kafkaTemplate.send(documentUploadedTopic, savedEntity.getId().toString(), event);
         log.info("Kafka event published: {}", event);
     }
 
     @Override
     public String getDownloadUrl(UUID documentId, Long loanId) {
-        DocumentEntity document = documentRepo
-                .findByIdAndApplicant_Loan_Id(documentId, loanId)
-                .orElseThrow(() ->
-                        new DocumentNotFoundException("Document not found"));
+        DocumentEntity document = documentRepo.findByIdAndApplicant_Loan_Id(documentId, loanId)
+                .orElseThrow(() -> new DocumentNotFoundException("Document not found"));
 
         String key = document.getS3Key();
         if (key == null || key.isBlank()) {
@@ -149,17 +135,12 @@ public class DocumentUploadServiceImpl implements DocumentUploadService {
     }
 
     @Override
-    public Set<ApplicantType> getRequiredApplicantTypes(
-            Long loanId,
-            StudyLocationType studyLocationType) {
-        LoanEntity loan = loanRepository.findById(loanId)
-                .orElseThrow(() -> new LoanNotFoundException("Loan not found"));
-
+    public Set<ApplicantType> getRequiredApplicantTypes(Long loanId, StudyLocationType studyLocationType) {
+        LoanEntity loan = loanRepository.findById(loanId).orElseThrow(() -> new LoanNotFoundException("Loan not found"));
         return documentRuleEngine.getAllowedApplicants(
                 studyLocationType,
                 loan.getLoanAmount());
     }
-
     private String buildS3Key(
             Long loanId,
             String applicantType,

@@ -28,7 +28,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @Slf4j
 class DocumentUploadServiceImplTest {
-
     @InjectMocks
     private DocumentUploadServiceImpl service;
 
@@ -56,8 +55,7 @@ class DocumentUploadServiceImplTest {
         applicant.setLoan(loan);
 
         when(applicantRepo.findById(1L)).thenReturn(Optional.of(applicant));
-        when(ruleEngine.getAllowedApplicants(any(), any()))
-                .thenReturn(Set.of(ApplicantType.STUDENT));
+        when(ruleEngine.getAllowedApplicants(any(), any())).thenReturn(Set.of(ApplicantType.STUDENT));
 
         when(file.getOriginalFilename()).thenReturn("test.pdf");
         when(file.getContentType()).thenReturn("application/pdf");
@@ -66,8 +64,7 @@ class DocumentUploadServiceImplTest {
         doNothing().when(documentValidator).validateFileType(file);
         doNothing().when(s3Util).uploadFile(anyString(), any());
 
-        when(s3Util.generatePreSignedDownloadUrl(anyString(), eq(5)))
-                .thenReturn("download-url");
+        when(s3Util.generatePreSignedDownloadUrl(anyString(), eq(5))).thenReturn("download-url");
 
         DocumentEntity saved = new DocumentEntity();
         saved.setId(UUID.randomUUID());
@@ -75,13 +72,8 @@ class DocumentUploadServiceImplTest {
         saved.setS3Key("loan-documents/1/STUDENT/test.pdf");
 
         when(documentRepo.save(any())).thenReturn(saved);
-
-        when(mapper.map(any(), eq(DocumentResponseDTO.class)))
-                .thenReturn(new DocumentResponseDTO());
-
-        DocumentResponseDTO response = service.uploadDocument(
-                file, 1L, DocumentType.AADHAAR, StudyLocationType.DOMESTIC);
-
+        when(mapper.map(any(), eq(DocumentResponseDTO.class))).thenReturn(new DocumentResponseDTO());
+        DocumentResponseDTO response = service.uploadDocument(file, 1L, DocumentType.AADHAAR, StudyLocationType.DOMESTIC);
         assertNotNull(response);
         assertEquals("download-url", response.getDownloadUrl());
 
@@ -90,11 +82,8 @@ class DocumentUploadServiceImplTest {
 
     @Test
     void uploadDocument_applicantNotFound() {
-
         when(applicantRepo.findById(1L)).thenReturn(Optional.empty());
-
-        assertThrows(ApplicantNotFoundException.class, () ->
-                service.uploadDocument(file, 1L,
+        assertThrows(ApplicantNotFoundException.class, () -> service.uploadDocument(file, 1L,
                         DocumentType.AADHAAR,
                         StudyLocationType.DOMESTIC));
     }
@@ -102,11 +91,9 @@ class DocumentUploadServiceImplTest {
     @Test
     void uploadDocument_invalidFile() {
 
-        doThrow(new InvalidFileException("Invalid file"))
-                .when(documentValidator).validateFileType(file);
+        doThrow(new InvalidFileException("Invalid file")).when(documentValidator).validateFileType(file);
 
-        assertThrows(InvalidFileException.class, () ->
-                service.uploadDocument(file, 1L,
+        assertThrows(InvalidFileException.class, () -> service.uploadDocument(file, 1L,
                         DocumentType.AADHAAR,
                         StudyLocationType.DOMESTIC));
 
@@ -124,12 +111,8 @@ class DocumentUploadServiceImplTest {
         applicant.setLoan(loan);
 
         when(applicantRepo.findById(1L)).thenReturn(Optional.of(applicant));
-
-        when(ruleEngine.getAllowedApplicants(any(), any()))
-                .thenReturn(Set.of(ApplicantType.STUDENT));
-
-        assertThrows(ApplicantNotAllowedException.class, () ->
-                service.uploadDocument(file, 1L,
+        when(ruleEngine.getAllowedApplicants(any(), any())).thenReturn(Set.of(ApplicantType.STUDENT));
+        assertThrows(ApplicantNotAllowedException.class, () -> service.uploadDocument(file, 1L,
                         DocumentType.AADHAAR,
                         StudyLocationType.DOMESTIC));
 
@@ -138,7 +121,6 @@ class DocumentUploadServiceImplTest {
 
     @Test
     void uploadDocument_s3Failure() {
-
         LoanEntity loan = new LoanEntity();
         loan.setLoanAmount(BigDecimal.valueOf(400000));
 
@@ -148,14 +130,11 @@ class DocumentUploadServiceImplTest {
 
         when(applicantRepo.findById(1L)).thenReturn(Optional.of(applicant));
 
-        when(ruleEngine.getAllowedApplicants(any(), any()))
-                .thenReturn(Set.of(ApplicantType.STUDENT));
+        when(ruleEngine.getAllowedApplicants(any(), any())).thenReturn(Set.of(ApplicantType.STUDENT));
 
-        doThrow(new RuntimeException("S3 failed"))
-                .when(s3Util).uploadFile(anyString(), any());
+        doThrow(new RuntimeException("S3 failed")).when(s3Util).uploadFile(anyString(), any());
 
-        assertThrows(RuntimeException.class, () ->
-                service.uploadDocument(file, 1L,
+        assertThrows(RuntimeException.class, () -> service.uploadDocument(file, 1L,
                         DocumentType.AADHAAR,
                         StudyLocationType.DOMESTIC));
 
@@ -164,7 +143,6 @@ class DocumentUploadServiceImplTest {
 
     @Test
     void uploadDocument_s3KeyMissing() {
-
         ReflectionTestUtils.setField(service, "documentUploadedTopic", "topic");
 
         LoanEntity loan = new LoanEntity();
@@ -175,8 +153,7 @@ class DocumentUploadServiceImplTest {
         applicant.setLoan(loan);
 
         when(applicantRepo.findById(1L)).thenReturn(Optional.of(applicant));
-        when(ruleEngine.getAllowedApplicants(any(), any()))
-                .thenReturn(Set.of(ApplicantType.STUDENT));
+        when(ruleEngine.getAllowedApplicants(any(), any())).thenReturn(Set.of(ApplicantType.STUDENT));
 
         doNothing().when(documentValidator).validateFileType(file);
 
@@ -187,18 +164,15 @@ class DocumentUploadServiceImplTest {
 
         when(documentRepo.save(any())).thenReturn(saved);
 
-        when(mapper.map(any(), eq(DocumentResponseDTO.class)))
-                .thenReturn(new DocumentResponseDTO());
+        when(mapper.map(any(), eq(DocumentResponseDTO.class))).thenReturn(new DocumentResponseDTO());
 
-        assertThrows(RuntimeException.class, () ->
-                service.uploadDocument(file, 1L,
+        assertThrows(RuntimeException.class, () -> service.uploadDocument(file, 1L,
                         DocumentType.AADHAAR,
                         StudyLocationType.DOMESTIC));
     }
 
     @Test
     void uploadDocument_kafkaFailure_shouldNotFailAPI() {
-
         ReflectionTestUtils.setField(service, "documentUploadedTopic", "topic");
 
         LoanEntity loan = new LoanEntity();
@@ -209,8 +183,7 @@ class DocumentUploadServiceImplTest {
         applicant.setLoan(loan);
 
         when(applicantRepo.findById(1L)).thenReturn(Optional.of(applicant));
-        when(ruleEngine.getAllowedApplicants(any(), any()))
-                .thenReturn(Set.of(ApplicantType.STUDENT));
+        when(ruleEngine.getAllowedApplicants(any(), any())).thenReturn(Set.of(ApplicantType.STUDENT));
 
         when(file.getOriginalFilename()).thenReturn("test.pdf");
         when(file.getContentType()).thenReturn("application/pdf");
@@ -224,15 +197,9 @@ class DocumentUploadServiceImplTest {
         saved.setS3Key("key");
 
         when(documentRepo.save(any())).thenReturn(saved);
-
-        when(mapper.map(any(), eq(DocumentResponseDTO.class)))
-                .thenReturn(new DocumentResponseDTO());
-
-        when(s3Util.generatePreSignedDownloadUrl(any(), anyInt()))
-                .thenReturn("url");
-
-        doThrow(new RuntimeException("Kafka down"))
-                .when(kafkaTemplate).send(any(), any(), any());
+        when(mapper.map(any(), eq(DocumentResponseDTO.class))).thenReturn(new DocumentResponseDTO());
+        when(s3Util.generatePreSignedDownloadUrl(any(), anyInt())).thenReturn("url");
+        doThrow(new RuntimeException("Kafka down")).when(kafkaTemplate).send(any(), any(), any());
 
         DocumentResponseDTO response = service.uploadDocument(
                 file, 1L,
@@ -252,11 +219,8 @@ class DocumentUploadServiceImplTest {
         applicant.setLoan(loan);
 
         when(applicantRepo.findById(1L)).thenReturn(Optional.of(applicant));
-        when(ruleEngine.getAllowedApplicants(any(), any()))
-                .thenReturn(Set.of());
-
-        assertThrows(ApplicantNotAllowedException.class, () ->
-                service.uploadDocument(file, 1L,
+        when(ruleEngine.getAllowedApplicants(any(), any())).thenReturn(Set.of());
+        assertThrows(ApplicantNotAllowedException.class, () -> service.uploadDocument(file, 1L,
                         DocumentType.AADHAAR,
                         StudyLocationType.DOMESTIC));
     }
@@ -272,8 +236,7 @@ class DocumentUploadServiceImplTest {
         applicant.setLoan(loan);
 
         when(applicantRepo.findById(1L)).thenReturn(Optional.of(applicant));
-        when(ruleEngine.getAllowedApplicants(any(), any()))
-                .thenReturn(Set.of(ApplicantType.STUDENT));
+        when(ruleEngine.getAllowedApplicants(any(), any())).thenReturn(Set.of(ApplicantType.STUDENT));
 
         when(file.getOriginalFilename()).thenReturn("test.pdf");
         when(file.getContentType()).thenReturn("application/pdf");
@@ -288,31 +251,19 @@ class DocumentUploadServiceImplTest {
         saved.setApplicant(applicant);
 
         when(documentRepo.save(any())).thenReturn(saved);
-
-        when(mapper.map(any(), eq(DocumentResponseDTO.class)))
-                .thenReturn(new DocumentResponseDTO());
-
-        when(s3Util.generatePreSignedDownloadUrl(anyString(), eq(5)))
-                .thenReturn("url");
-
-        DocumentResponseDTO response = service.uploadDocument(
-                file, 1L, DocumentType.PASSPORT, StudyLocationType.INTERNATIONAL);
-
+        when(mapper.map(any(), eq(DocumentResponseDTO.class))).thenReturn(new DocumentResponseDTO());
+        when(s3Util.generatePreSignedDownloadUrl(anyString(), eq(5))).thenReturn("url");
+        DocumentResponseDTO response = service.uploadDocument(file, 1L, DocumentType.PASSPORT, StudyLocationType.INTERNATIONAL);
         assertNotNull(response);
     }
     @Test
     void getDownloadUrl_whitespaceKey_shouldFail() {
 
         UUID id = UUID.randomUUID();
-
         DocumentEntity doc = new DocumentEntity();
         doc.setS3Key("   ");
-
-        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L))
-                .thenReturn(Optional.of(doc));
-
-        assertThrows(S3KeyNotFoundException.class,
-                () -> service.getDownloadUrl(id, 1L));
+        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L)).thenReturn(Optional.of(doc));
+        assertThrows(S3KeyNotFoundException.class, () -> service.getDownloadUrl(id, 1L));
     }
 
     @Test
@@ -323,39 +274,25 @@ class DocumentUploadServiceImplTest {
         doc.setId(id);
         doc.setS3Key("key");
 
-        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L))
-                .thenReturn(Optional.of(doc));
-
-        when(s3Util.generatePreSignedDownloadUrl("key", 5))
-                .thenReturn("url");
-
+        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L)).thenReturn(Optional.of(doc));
+        when(s3Util.generatePreSignedDownloadUrl("key", 5)).thenReturn("url");
         String result = service.getDownloadUrl(id, 1L);
-
         assertEquals("url", result);
     }
 
     @Test
     void getDownloadUrl_notFound() {
         UUID id = UUID.randomUUID();
-
-        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L))
-                .thenReturn(Optional.empty());
-
-        assertThrows(DocumentNotFoundException.class,
-                () -> service.getDownloadUrl(id, 1L));
+        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L)).thenReturn(Optional.empty());
+        assertThrows(DocumentNotFoundException.class, () -> service.getDownloadUrl(id, 1L));
     }
 
     @Test
     void getDownloadUrl_s3KeyMissing() {
         UUID id = UUID.randomUUID();
-
         DocumentEntity doc = new DocumentEntity();
         doc.setS3Key("");
-
-        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L))
-                .thenReturn(Optional.of(doc));
-
-        assertThrows(S3KeyNotFoundException.class,
-                () -> service.getDownloadUrl(id, 1L));
+        when(documentRepo.findByIdAndApplicant_Loan_Id(id, 1L)).thenReturn(Optional.of(doc));
+        assertThrows(S3KeyNotFoundException.class, () -> service.getDownloadUrl(id, 1L));
     }
 }

@@ -32,10 +32,7 @@ public class S3Util {
                     .contentLength(file.getSize())
                     .build();
 
-            s3Client.putObject(
-                    request,
-                    RequestBody.fromInputStream(is, file.getSize())
-            );
+            s3Client.putObject(request, RequestBody.fromInputStream(is, file.getSize()));
 
         } catch (Exception e) {
             throw new S3UploadException(

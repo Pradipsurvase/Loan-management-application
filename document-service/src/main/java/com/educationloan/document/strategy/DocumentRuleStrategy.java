@@ -7,6 +7,5 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 public interface DocumentRuleStrategy {
-
         Set<ApplicantType> getAllowedApplicants(BigDecimal loanAmount);
     }

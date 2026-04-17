@@ -11,6 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface DocumentRepository extends JpaRepository<DocumentEntity, UUID> {
-
     Optional<DocumentEntity> findByIdAndApplicant_Loan_Id(UUID id, Long loanId);
 }

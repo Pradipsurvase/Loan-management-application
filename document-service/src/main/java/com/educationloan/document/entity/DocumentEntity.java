@@ -34,7 +34,9 @@ public class DocumentEntity {
 
     @Column(name = "s3_key")
     private String s3Key;
+
     private String contentType;
+
     private Long fileSize;
 
     private Instant uploadedAt;

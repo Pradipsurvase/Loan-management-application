@@ -13,12 +13,7 @@ import java.util.Set;
 public class DocumentRuleEngine {
     private final Map<String, DocumentRuleStrategy> strategies;
 
-    public Set<ApplicantType> getAllowedApplicants(
-            StudyLocationType studyLocation,
-            BigDecimal loanAmount) {
-
-        return strategies
-                .get(studyLocation.name())
-                .getAllowedApplicants(loanAmount);
+    public Set<ApplicantType> getAllowedApplicants(StudyLocationType studyLocation, BigDecimal loanAmount) {
+        return strategies.get(studyLocation.name()).getAllowedApplicants(loanAmount);
     }
 }

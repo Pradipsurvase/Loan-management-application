@@ -12,8 +12,7 @@ class DomesticRuleStrategyTest {
 
     @Test
     void loanBelow5L_shouldAllowOnlyStudent() {
-        Set<ApplicantType> result =
-                strategy.getAllowedApplicants(new BigDecimal("400000"));
+        Set<ApplicantType> result = strategy.getAllowedApplicants(new BigDecimal("400000"));
 
         assertTrue(result.contains(ApplicantType.STUDENT));
         assertFalse(result.contains(ApplicantType.CO_APPLICANT));
@@ -31,8 +30,7 @@ class DomesticRuleStrategyTest {
 
     @Test
     void loanAbove10L_shouldAllowAllApplicants() {
-        Set<ApplicantType> result =
-                strategy.getAllowedApplicants(new BigDecimal("1200000"));
+        Set<ApplicantType> result = strategy.getAllowedApplicants(new BigDecimal("1200000"));
 
         assertTrue(result.contains(ApplicantType.STUDENT));
         assertTrue(result.contains(ApplicantType.CO_APPLICANT));
@@ -41,9 +39,7 @@ class DomesticRuleStrategyTest {
 
     @Test
     void loanOutOfRange_shouldReturnEmptySet() {
-        Set<ApplicantType> result =
-                strategy.getAllowedApplicants(new BigDecimal("2000000"));
-
+        Set<ApplicantType> result = strategy.getAllowedApplicants(new BigDecimal("2000000"));
         assertTrue(result.isEmpty());
     }
 }

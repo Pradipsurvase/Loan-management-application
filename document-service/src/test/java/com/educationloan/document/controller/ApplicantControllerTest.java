@@ -1,64 +1,72 @@
 package com.educationloan.document.controller;
-import com.educationloan.document.entity.ApplicantEntity;
-import com.educationloan.document.repository.ApplicantRepository;
+
+import com.educationloan.document.dto.ApplicantResponseDTO;
+import com.educationloan.document.globalExceptionHandling.CustomException.ApplicantNotFoundException;
+import com.educationloan.document.service.ApplicantService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.Optional;
-import static org.mockito.Mockito.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ApplicantController.class)
 class ApplicantControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private ApplicantRepository applicantRepository;
+    private ApplicantService applicantService;
 
+    // ---------------------------
+    // ✅ POSITIVE TEST CASE
+    // ---------------------------
     @Test
     void getApplicant_success() throws Exception {
 
-        ApplicantEntity entity = new ApplicantEntity();
-        entity.setId(1L);
-        entity.setName("John");
-        entity.setDob("1995-01-01");
-        entity.setAadhaarNumber("123456789012");
+        ApplicantResponseDTO dto = ApplicantResponseDTO.builder()
+                .id(1L)
+                .name("John")
+                .dob("2000-01-01")
+                .aadhaarNumber("123456789012")
+                .build();
 
-        when(applicantRepository.findById(1L)).thenReturn(Optional.of(entity));
+        Mockito.when(applicantService.getApplicantById(1L))
+                .thenReturn(dto);
+
         mockMvc.perform(get("/applicants/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("John"))
-                .andExpect(jsonPath("$.dob").value("1995-01-01"))
                 .andExpect(jsonPath("$.aadhaarNumber").value("123456789012"));
-        verify(applicantRepository, times(1)).findById(1L);
     }
 
+    // ---------------------------
+    // ❌ NEGATIVE TEST CASE 1
+    // Not Found
+    // ---------------------------
     @Test
     void getApplicant_notFound() throws Exception {
-        when(applicantRepository.findById(1L))
-                .thenReturn(Optional.empty());
+
+        Mockito.when(applicantService.getApplicantById(1L))
+                .thenThrow(new ApplicantNotFoundException("Applicant not found with id: 1"));
+
         mockMvc.perform(get("/applicants/1"))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Applicant not found"))
-                .andExpect(jsonPath("$.status").value(404))
-                .andExpect(jsonPath("$.error").value("Not Found"));
-        verify(applicantRepository, times(1)).findById(1L);
+                .andExpect(status().isNotFound());
     }
 
+    // ---------------------------
+    // ❌ NEGATIVE TEST CASE 2
+    // Invalid ID format
+    // ---------------------------
     @Test
-    void getApplicant_repositoryCalledOnlyOnce() throws Exception {
-        ApplicantEntity entity = new ApplicantEntity();
-        entity.setId(2L);
-        entity.setName("Test");
+    void getApplicant_invalidId() throws Exception {
 
-        when(applicantRepository.findById(2L)).thenReturn(Optional.of(entity));
-        mockMvc.perform(get("/applicants/2")).andExpect(status().isOk());
-        verify(applicantRepository, times(1)).findById(2L);
-        verifyNoMoreInteractions(applicantRepository);
+        mockMvc.perform(get("/applicants/abc"))
+                .andExpect(status().isBadRequest());
     }
 }

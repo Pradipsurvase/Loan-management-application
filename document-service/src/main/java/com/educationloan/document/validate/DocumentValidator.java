@@ -15,7 +15,6 @@ import java.util.Set;
 @Slf4j
 @Component
 public class DocumentValidator {
-
     private static final Tika tika = new Tika();
 
     @Value("${spring.servlet.multipart.max-file-size}")
