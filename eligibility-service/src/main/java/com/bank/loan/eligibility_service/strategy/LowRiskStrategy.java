@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class LowRiskStrategy implements RiskAssessmentStrategy{
     @Override
     public boolean matches(FinancialDetails financial, double foir, CollegeCategory collegeCategory) {
-        return financial.getCreditScore() >= 750 &&
+        return financial.getCreditScore() >= 700 &&
                 foir < 40 &&
                 (collegeCategory == CollegeCategory.TIER_1 ||
                         collegeCategory == CollegeCategory.GOVERNMENT);

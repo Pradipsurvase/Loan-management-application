@@ -2,35 +2,44 @@ package com.bank.loan.eligibility_service.service;
 
 import com.bank.loan.eligibility_service.Calculator.FOIRCalculator;
 import com.bank.loan.eligibility_service.Calculator.LTVCalculator;
-import com.bank.loan.eligibility_service.Validator.CoApplicantValidator;
-import com.bank.loan.eligibility_service.Validator.EducationValidator;
-import com.bank.loan.eligibility_service.Validator.FinancialValidator;
-import com.bank.loan.eligibility_service.Validator.StudentValidator;
+import com.bank.loan.eligibility_service.Validator.*;
 import com.bank.loan.eligibility_service.dto.EligibilityRequestDTO;
 import com.bank.loan.eligibility_service.dto.EligibilityResponseDTO;
 import com.bank.loan.eligibility_service.entity.*;
-import com.bank.loan.eligibility_service.enums.CollegeCategory;
+import com.bank.loan.eligibility_service.enums.LoanType;
 import com.bank.loan.eligibility_service.enums.RiskCategory;
-
-import com.bank.loan.eligibility_service.nationalityStrategy.NationalityEligibilityStrategy;
-import com.bank.loan.eligibility_service.nationalityStrategy.NationalityStrategyFactory;
+import com.bank.loan.eligibility_service.exception.BusinessException;
+import com.bank.loan.eligibility_service.loanEligibilityStrategy.LoanStrategyFactory;
 import com.bank.loan.eligibility_service.repository.LoanEligibilityRepository;
 import com.bank.loan.eligibility_service.strategy.RiskStrategyFactory;
-import lombok.RequiredArgsConstructor;
+import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class EligiblityServiceImpl implements EligibilityService {
 
+    private static final Logger log = LoggerFactory.getLogger(EligiblityServiceImpl.class);
     private static final double MAX_LOAN_PERCENTAGE = 0.9;
 
-    private static final String APPROVED_MESSAGE = "Loan Approved";
-    private static final String REJECTED_MESSAGE = "Loan Rejected";
+    private static final double MAX_FOIR_DOMESTIC = 50.0;
+    private static final double MAX_FOIR_INTERNATIONAL = 45.0;
+
+    private static final double MAX_LTV_DOMESTIC = 90.0;
+    private static final double MAX_LTV_INTERNATIONAL = 85.0;
+
+    private static final int MIN_CREDIT_SCORE_INTERNATIONAL = 700;
+
+    private static final String APPROVED_MSG = "Loan Approved";
+    private static final String REJECTED_MSG = "Loan Rejected due to eligibility criteria";
+
+    private static final int MIN_CREDIT_SCORE = 650;
 
     private final LoanEligibilityRepository repository;
 
@@ -38,100 +47,155 @@ public class EligiblityServiceImpl implements EligibilityService {
     private final EducationValidator educationValidator;
     private final FinancialValidator financialValidator;
     private final CoApplicantValidator coApplicantValidator;
+    private final DocumentValidator documentValidator;
 
     private final FOIRCalculator foirCalculator;
     private final LTVCalculator ltvCalculator;
 
     private final RiskStrategyFactory riskFactory;
+    private final LoanStrategyFactory loanStrategyFactory;
+    //private final LoanType loanType;
 
-    private final NationalityStrategyFactory nationalityFactory;
+   public EligiblityServiceImpl(LoanEligibilityRepository repository,
+                                StudentValidator studentValidator,
+                                EducationValidator educationValidator,
+                                FinancialValidator financialValidator,
+                                CoApplicantValidator coApplicantValidator,
+                                DocumentValidator documentValidator,
+                                FOIRCalculator foirCalculator,
+                                LTVCalculator ltvCalculator,
+                                RiskStrategyFactory riskFactory,
+                                LoanStrategyFactory loanStrategyFactory) {
+
+       this.repository = repository;
+       this.studentValidator = studentValidator;
+       this.educationValidator = educationValidator;
+       this.financialValidator = financialValidator;
+       this.coApplicantValidator = coApplicantValidator;
+       this.documentValidator = documentValidator;
+       this.foirCalculator = foirCalculator;
+       this.ltvCalculator = ltvCalculator;
+       this.riskFactory = riskFactory;
+       this.loanStrategyFactory = loanStrategyFactory;
+   }
+
     @Override
+    @Transactional
     public EligibilityResponseDTO checkEligibility(EligibilityRequestDTO request) {
+
+       log.info("starting eligibility check");
 
         StudentDetails student = request.getStudentDetails();
         EducationDetails education = request.getEducationDetails();
         FinancialDetails financial = request.getFinancialDetails();
         CoApplicantDetails coApplicant = request.getCoApplicantDetails();
+        DocumentDetails document = request.getDocumentDetails();
+        LoanType loanType = request.getLoanType();
+        log.info("Loan Type: {}",loanType);
+        log.info("Requested Loan Amount : {}",financial.getRequestedLoanAmount());
 
         studentValidator.validate(student);
         educationValidator.validate(education);
         financialValidator.validate(financial);
-        coApplicantValidator.validate(coApplicant);
+        coApplicantValidator.validateBasic(coApplicant);
+        documentValidator.validate(document,loanType);
 
-        double totalIncome = financial.getAnnualIncome();
+        Double loanAmount = Optional.ofNullable(financial.getRequestedLoanAmount())
+                        .orElseThrow(()->new BusinessException("loan amount required"));
 
-        if (coApplicant != null && Boolean.TRUE.equals(coApplicant.getCoApplicationPresent())){
-            totalIncome +=coApplicant.getCoApplicantIncome();
+
+        double foir = foirCalculator.calculate(coApplicant, financial);
+        double ltv = ltvCalculator.calculate(financial);
+
+        log.info("FOIR: {}", foir);
+        log.info("LTV: {}", ltv);
+
+        double maxEligibleAmount = Optional.ofNullable(financial.getCourseFees())
+                .map(fees -> fees * MAX_LOAN_PERCENTAGE)
+                .orElse(0.0);
+
+        financial.setFoir(foir);
+        financial.setLtvRatio(ltv);
+        financial.setMaxEligibleAmount(maxEligibleAmount);
+
+        RiskCategory risk = riskFactory.evaluate(
+                financial,
+                foir,
+                education.getCollegeCategory()
+        );
+        log.info("Risk Category: {}", risk);
+
+
+        boolean strategyPassed = true;
+        String rejectionReson = null;
+
+        try {
+            loanStrategyFactory.getStrategy(loanType)
+                    .validate(student, education, financial, coApplicant);
+            log.info("Strategy validation PASSED");
+        } catch (BusinessException ex) {
+            strategyPassed = false;
+            rejectionReson = ex.getMessage();
+
+            log.error("Strategy validation FAILED: {}", rejectionReson);
         }
-             //because main eligibility is depend on repayment capacity
-        FinancialDetails updatedFinancial = FinancialDetails.builder()
-                .annualIncome(totalIncome)
-                .existingEMI(financial.getExistingEMI())
-                .courseFees(financial.getCourseFees())
-                .requestedLoanAmount(financial.getRequestedLoanAmount())
-                .creditScore(financial.getCreditScore())
-                .build();
 
-        double foir = foirCalculator.calculate(updatedFinancial);
-        double ltv = ltvCalculator.calculate(updatedFinancial);
-        double maxEligibleAmount = financial.getCourseFees() * MAX_LOAN_PERCENTAGE;
+        boolean eligible;
 
-        updatedFinancial.setFoir(foir);
-        updatedFinancial.setLtvRatio(ltv);
-        updatedFinancial.setMaxEligibleAmount(maxEligibleAmount);
+        if (loanType == LoanType.DOMESTIC) {
 
-        CollegeCategory category =education.getCollegeCategory();
-        RiskCategory risk = riskFactory.evaluate(updatedFinancial, foir,category);
-        boolean eligible = false;
-        switch (risk) {
+            eligible =  strategyPassed &&
+                    foir <= MAX_FOIR_DOMESTIC &&
+                            ltv <= MAX_LTV_DOMESTIC &&
+                            Optional.ofNullable(financial.getCreditScore()).orElse(0) >= MIN_CREDIT_SCORE &&
+                            risk != RiskCategory.HIGH;
+        } else if (loanType == LoanType.INTERNATIONAL){
 
-            case LOW:
-                eligible = foir <= 40 && ltv <= 80;
-                break;
+            eligible = strategyPassed &&
+                    foir <= MAX_FOIR_INTERNATIONAL &&
+                            ltv <= MAX_LTV_INTERNATIONAL &&
+                            Optional.ofNullable(financial.getCreditScore()).orElse(0) >= MIN_CREDIT_SCORE_INTERNATIONAL &&
+                            risk == RiskCategory.LOW;
 
-            case MEDIUM:
-                eligible = foir <= 50 && ltv <= 90;
-                break;
+            log.info("Eligibility Conditions -> strategy: {}, foir: {}, ltv: {}, creditScore: {}, risk: {}",
+                    strategyPassed,
+                    foir <= MAX_FOIR_INTERNATIONAL,
+                    ltv <= MAX_LTV_INTERNATIONAL,
+                    financial.getCreditScore(),
+                    risk);// stricter rule
 
-            case HIGH:
-                eligible = foir <= 60 && ltv <= 95;
-                break;
+        } else {
+            throw new BusinessException("Invalid Loan Type");
         }
-
-        NationalityEligibilityStrategy nationalityStrategy =
-                nationalityFactory.getStrategy(student.getNationality());
-        nationalityStrategy.validate(student, updatedFinancial, coApplicant);
-
-        LocalDateTime createdAt = LocalDateTime.now();
-        LocalDateTime updateAt = createdAt.plusMinutes(6);
-        LocalDate decisionDate = createdAt.toLocalDate();
 
         LoanEligibility entity = LoanEligibility.builder()
                 .studentDetails(student)
                 .educationDetails(education)
-                .financialDetails(updatedFinancial)
+                .financialDetails(financial)
                 .coApplicantDetails(coApplicant)
+                .documentDetails(document)
                 .decisionDetails(
                         DecisionDetails.builder()
                                 .eligible(eligible)
                                 .riskCategory(risk)
-                                .rejectionReason(eligible ? null : "FOIR/LTV exceeded")
-                                .decisionDate(decisionDate)
+                                .decisionDate(LocalDate.now())
+                                .rejectionReason(eligible ? null : REJECTED_MSG)
                                 .build()
                 )
-                .updatedAt(updateAt)
-                .createdAt(createdAt)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
 
-        LoanEligibility saved = repository.save(entity);
+        repository.save(entity);
 
+        log.info("Final Eligibility Result: {}", eligible);
         return EligibilityResponseDTO.builder()
                 .eligible(eligible)
                 .riskCategory(risk.name())
                 .foir(foir)
                 .ltvRatio(ltv)
                 .maxEligibleAmount(maxEligibleAmount)
-                .message(eligible ? APPROVED_MESSAGE : REJECTED_MESSAGE)
+                .message(eligible ? APPROVED_MSG : REJECTED_MSG)
                 .build();
     }
 
@@ -140,12 +204,14 @@ public class EligiblityServiceImpl implements EligibilityService {
         return repository.findAll();
     }
 
-    public LoanEligibility getEligibilityById(Long id){
-        return repository.findById(id).orElseThrow(()->new RuntimeException("record not found"));
+    @Override
+    public LoanEligibility getEligibilityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException("Record not found"));
     }
 
-    public void deleteEligibility(Long id){
+    @Override
+    public void deleteEligibility(Long id) {
         repository.deleteById(id);
     }
-
 }

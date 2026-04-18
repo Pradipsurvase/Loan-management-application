@@ -2,7 +2,6 @@ package com.bank.loan.eligibility_service.Validator;
 
 import com.bank.loan.eligibility_service.entity.FinancialDetails;
 import com.bank.loan.eligibility_service.exception.BusinessException;
-import com.bank.loan.eligibility_service.exception.ValidationException;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -14,12 +13,11 @@ public class FinancialValidator {
 
         Optional.ofNullable(financial)
                 .orElseThrow(() ->
-                      new BusinessException("Financial details cannot be null"));
+                        new BusinessException("Financial details cannot be null"));
 
         validateCreditScore(financial);
         validateCourseFees(financial);
         validateExistingEMI(financial);
-        validateAnnualvsLoan(financial);
         validateLoanToValue(financial);
     }
 
@@ -39,21 +37,6 @@ public class FinancialValidator {
                         new BusinessException("Course fees must be greater than zero"));
     }
 
-    private  void validateAnnualvsLoan(FinancialDetails financial){
-        Optional.ofNullable(financial.getAnnualIncome())
-                .filter(income ->income >0)
-                .orElseThrow(()-> new ValidationException("invalid annual income"));
-
-        Optional.ofNullable(financial.getRequestedLoanAmount())
-                .filter(loan ->loan >0)
-                .orElseThrow(()->new ValidationException("invalid loan"));
-
-        if (financial.getAnnualIncome()<financial.getRequestedLoanAmount()){
-            throw new BusinessException("annual income must be grater than loan");
-        }
-    }
-
-
     private void validateExistingEMI(FinancialDetails financial) {
 
         Optional.ofNullable(financial.getExistingEMI())
@@ -62,16 +45,14 @@ public class FinancialValidator {
                         new BusinessException("Existing EMI cannot be negative"));
     }
 
-    private void validateLoanToValue(FinancialDetails financial){
-       double fees= financial.getCourseFees();
-       double loan= financial.getRequestedLoanAmount();
+    private void validateLoanToValue(FinancialDetails financial) {
 
-            double maxAllowdAmount= fees * 0.9;
-            if (loan > maxAllowdAmount){
-                throw new BusinessException("Requested loan exceeds 90% of course fees ");
-            }
-
-
-
+        Optional.ofNullable(financial.getCourseFees())
+                .flatMap(fees ->
+                        Optional.ofNullable(financial.getRequestedLoanAmount())
+                                .filter(loan -> loan <= fees * 0.9)
+                )
+                .orElseThrow(() ->
+                        new BusinessException("Requested loan exceeds 90% of course fees or values are null"));
     }
 }

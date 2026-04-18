@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class StudentValidator {
+public class
+StudentValidator {
+
     private static final String PAN_REGEX = "^[A-Z]{5}[0-9]{4}[A-Z]{1}$";
-    private static final String EMALI_REGEX ="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
     public void validate(StudentDetails student) {
 
@@ -22,31 +24,39 @@ public class StudentValidator {
 
         validateNationality(student);
         validateAge(student);
-        validatePan(student);
-        validateAadhaar(student);
-        validateMobile(student.getStudentMobile(),student.getNationality());
         validateName(student);
         validateEmail(student);
+        validatePan(student);
+        validateAadhaar(student);
+        validateMobile(student.getStudentMobile(), student.getNationality());
     }
 
-    private void validateName(StudentDetails student){
 
+    private void validateName(StudentDetails student) {
         Optional.ofNullable(student.getStudentName())
-                .filter(name ->!name.isBlank())
-                .filter(name ->name.length() >= 3)
-                .orElseThrow(()->new ValidationException("valid student name is required"));
-
+                .filter(name -> !name.isBlank())
+                .filter(name -> name.length() >= 3)
+                .orElseThrow(() ->
+                        new ValidationException("Valid student name is required"));
     }
-    private void validateAge(StudentDetails student) {
 
+
+    private void validateAge(StudentDetails student) {
         Optional.ofNullable(student.getAge())
                 .filter(age -> age >= 18 && age <= 35)
                 .orElseThrow(() ->
-                        new InvalidAgeException("Student age must be between 18 and 35"));
+                        new InvalidAgeException("Student age must be between 16 and 35"));
     }
 
-    private void validatePan(StudentDetails student) {
 
+    private void validateNationality(StudentDetails student) {
+        Optional.ofNullable(student.getNationality())
+                .orElseThrow(() ->
+                        new ValidationException("nationality field should be required"));
+    }
+
+
+    private void validatePan(StudentDetails student) {
         Optional.ofNullable(student.getPanNumber())
                 .filter(pan -> !pan.isBlank())
                 .filter(pan -> pan.matches(PAN_REGEX))
@@ -54,49 +64,44 @@ public class StudentValidator {
                         new ValidationException("Invalid PAN number format"));
     }
 
+
     private void validateAadhaar(StudentDetails student) {
-
-        if(student.getNationality() == Nationality.INDIAN){
-            Optional.ofNullable(student.getAadhaarNumber())
-                    .filter(aadhar ->!aadhar.isBlank())
-                    .filter(aadhar ->aadhar.matches("^\\d{12}$"))
-                    .orElseThrow(() ->new ValidationException("valid aadhar is required for indian students"));
-        }
-    }
-
-    private void validateEmail(StudentDetails student){
-
-        Optional.ofNullable(student.getStudentEmail())
-                .filter(email ->!email.isBlank())
-                .filter(email->email.matches(EMALI_REGEX))
-                .orElseThrow(()->new ValidationException("invalid email format"));
-    }
-
-    private void validateNationality(StudentDetails student) {
-
-        Optional.ofNullable(student.getNationality())
+        Optional.ofNullable(student.getAadhaarNumber())
+                .filter(aadhar -> !aadhar.isBlank())
+                .filter(aadhar -> aadhar.matches("^\\d{12}$"))
                 .orElseThrow(() ->
-                        new ValidationException("Nationality is required"));
+                        new ValidationException("Valid Aadhaar is required"));
     }
 
-    private void validateMobile(String mobile,Nationality nationality) {
+
+    private void validateEmail(StudentDetails student) {
+        Optional.ofNullable(student.getStudentEmail())
+                .filter(email -> !email.isBlank())
+                .filter(email -> email.matches(EMAIL_REGEX))
+                .orElseThrow(() ->
+                        new ValidationException("Invalid email format"));
+    }
 
 
-        if (mobile == null || mobile.isBlank()) {
-            throw new InvalidPhoneNumber("Mobile number is required");
-        }
+    private void validateMobile(String mobile, Nationality nationality) {
 
-        if (nationality == Nationality.INDIAN) {
+        Optional.ofNullable(mobile)
+                .filter(m -> !m.isBlank())
+                .orElseThrow(() ->
+                        new InvalidPhoneNumber("Mobile number is required"));
 
-            if (!mobile.matches("^[6-9][0-9]{9}$")) {
-                throw new InvalidPhoneNumber("Invalid Indian mobile number");
-            }
+        Optional.ofNullable(nationality)
+                .ifPresent(n -> {
 
-        } else if(nationality == Nationality.NRI){
+                    if (n == Nationality.INDIAN &&
+                            !mobile.matches("^[6-9][0-9]{9}$")) {
+                        throw new InvalidPhoneNumber("Invalid Indian mobile number");
+                    }
 
-            if (!mobile.matches("^\\+[1-9][0-9]{7,14}$")) {
-                throw new InvalidPhoneNumber("Invalid international mobile number");
-            }
-        }
+                    if (n == Nationality.FOREIGN &&
+                            !mobile.matches("^\\+[1-9][0-9]{7,14}$")) {
+                        throw new InvalidPhoneNumber("Invalid international mobile number");
+                    }
+                });
     }
 }
