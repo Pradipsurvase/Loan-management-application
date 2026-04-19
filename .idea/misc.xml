@@ -4,10 +4,10 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/eligibility-service/pom.xml" />
         <option value="$USER_HOME$/Downloads/LoanManagement/LoanManagement/pom.xml" />
-        <option value="$PROJECT_DIR$/LoanManagement/pom.xml" />
+        <option value="$PROJECT_DIR$/document-service/pom.xml" />
+        <option value="$PROJECT_DIR$/verification-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
